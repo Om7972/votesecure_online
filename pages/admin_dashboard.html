@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - VoteSecure Online</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fvotesecure6766back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.6"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Admin Header -->
+    <header class="bg-surface shadow-gentle-sm border-b border-gray-200 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo & Admin Badge -->
+                <div class="flex items-center">
+                    <a href="../index.html" class="flex items-center mr-6">
+                        <svg class="h-8 w-8 text-primary mr-3" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
+                            <path d="M10 17l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" fill="white"/>
+                        </svg>
+                        <h1 class="text-xl font-bold text-primary">VoteSecure Admin</h1>
+                    </a>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-error-100 text-error-800">
+                        <svg class="h-3 w-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                        </svg>
+                        Administrator
+                    </span>
+                </div>
+                
+                <!-- System Status & Controls -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <div class="flex items-center space-x-2 text-sm">
+                        <div class="flex items-center">
+                            <div class="w-2 h-2 bg-success rounded-full mr-2"></div>
+                            <span class="text-success font-medium">System Healthy</span>
+                        </div>
+                        <span class="text-text-secondary">|</span>
+                        <span class="text-text-secondary">Load: <span class="font-medium">23%</span></span>
+                    </div>
+                    
+                    <!-- Notifications -->
+                    <button class="relative p-2 text-secondary-600 hover:text-primary transition-gentle" id="adminNotificationBtn">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zM10.07 2.82l3.93 3.93-3.93 3.93-3.93-3.93 3.93-3.93z"/>
+                        </svg>
+                        <span class="absolute -top-1 -right-1 h-4 w-4 bg-warning text-white text-xs rounded-full flex items-center justify-center">7</span>
+                    </button>
+
+                    <!-- Admin Menu -->
+                    <div class="relative" id="adminMenuContainer">
+                        <button class="flex items-center space-x-3 p-2 rounded-lg hover:bg-secondary-50 transition-gentle" id="adminMenuBtn">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Admin Avatar" class="h-8 w-8 rounded-full object-cover" />
+                            <span class="hidden sm:block text-sm font-medium text-text-primary">Admin User</span>
+                            <svg class="h-4 w-4 text-secondary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+
+                        <!-- Admin Dropdown Menu -->
+                        <div class="absolute right-0 mt-2 w-48 bg-surface rounded-lg shadow-gentle-lg border border-gray-200 hidden" id="adminDropdown">
+                            <div class="py-2">
+                                <div class="px-4 py-2 border-b border-gray-100">
+                                    <p class="text-sm font-medium text-text-primary">Admin User</p>
+                                    <p class="text-xs text-text-secondary">Super Administrator</p>
+                                </div>
+                                <a href="javascript:void(0)" class="block px-4 py-2 text-sm text-text-secondary hover:bg-secondary-50 transition-gentle">
+                                    <svg class="h-4 w-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    </svg>
+                                    System Configuration
+                                </a>
+                                <a href="javascript:void(0)" class="block px-4 py-2 text-sm text-text-secondary hover:bg-secondary-50 transition-gentle">
+                                    <svg class="h-4 w-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                    </svg>
+                                    Audit Logs
+                                </a>
+                                <div class="border-t border-gray-100 mt-2 pt-2">
+                                    <a href="secure_login.html" class="block px-4 py-2 text-sm text-error hover:bg-error-50 transition-gentle">
+                                        <svg class="h-4 w-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                                        </svg>
+                                        Sign Out
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button class="p-2 text-secondary-600 hover:text-primary transition-gentle" id="mobileAdminMenuBtn">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <!-- Dashboard Header -->
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold text-text-primary mb-2">Admin Dashboard</h1>
+                <p class="text-text-secondary">Comprehensive election system oversight and management</p>
+            </div>
+
+            <!-- Key Metrics Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <!-- Active Elections -->
+                <div class="card">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-text-secondary">Active Elections</p>
+                            <p class="text-2xl font-bold text-primary">3</p>
+                            <p class="text-xs text-success">+1 since last week</p>
+                        </div>
+                        <div class="h-12 w-12 bg-primary-100 rounded-full flex items-center justify-center">
+                            <svg class="h-6 w-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Registered Users -->
+                <div class="card">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-text-secondary">Registered Users</p>
+                            <p class="text-2xl font-bold text-success">23,167</p>
+                            <p class="text-xs text-success">+347 this month</p>
+                        </div>
+                        <div class="h-12 w-12 bg-success-100 rounded-full flex items-center justify-center">
+                            <svg class="h-6 w-6 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- System Health -->
+                <div class="card">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-text-secondary">System Health</p>
+                            <p class="text-2xl font-bold text-success">98.7%</p>
+                            <p class="text-xs text-success">Uptime 30 days</p>
+                        </div>
+                        <div class="h-12 w-12 bg-success-100 rounded-full flex items-center justify-center">
+                            <svg class="h-6 w-6 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Alerts -->
+                <div class="card">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-text-secondary">Security Alerts</p>
+                            <p class="text-2xl font-bold text-warning">2</p>
+                            <p class="text-xs text-warning">Requires attention</p>
+                        </div>
+                        <div class="h-12 w-12 bg-warning-100 rounded-full flex items-center justify-center">
+                            <svg class="h-6 w-6 text-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.464 0L4.35 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Dashboard Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Left Column - Election Management -->
+                <div class="lg:col-span-2 space-y-6">
+                    <!-- Election Management Section -->
+                    <div class="card">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-xl font-semibold text-text-primary">Election Management</h2>
+                            <button class="btn-primary" id="createElectionBtn">
+                                <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                </svg>
+                                Create Election
+                            </button>
+                        </div>
+
+                        <div class="space-y-4" id="electionsList">
+                            <!-- Active Election 1 -->
+                            <div class="border rounded-lg p-4 bg-success-50 border-success-200">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success-100 text-success-800 mr-3">
+                                            Active
+                                        </span>
+                                        <div>
+                                            <h3 class="text-lg font-semibold text-text-primary">2024 City Council Election</h3>
+                                            <p class="text-sm text-text-secondary">4 positions • 8 candidates • Ends in 2 days</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <button class="btn-secondary text-sm px-3 py-1" onclick="viewElectionDetails('city-council-2024')">
+                                            View Details
+                                        </button>
+                                        <div class="relative" id="electionMenu1">
+                                            <button class="p-2 text-secondary-600 hover:text-text-primary" onclick="toggleElectionMenu('electionMenu1')">
+                                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-3 gap-4 text-sm">
+                                    <div>
+                                        <span class="text-text-secondary">Total Votes:</span>
+                                        <span class="font-medium text-text-primary ml-2">15,847</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-text-secondary">Turnout:</span>
+                                        <span class="font-medium text-text-primary ml-2">68.4%</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-text-secondary">Status:</span>
+                                        <span class="font-medium text-success ml-2">Live Voting</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Active Election 2 -->
+                            <div class="border rounded-lg p-4 bg-warning-50 border-warning-200">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-warning-100 text-amber-800 mr-3">
+                                            Active
+                                        </span>
+                                        <div>
+                                            <h3 class="text-lg font-semibold text-text-primary">School Board Election 2024</h3>
+                                            <p class="text-sm text-text-secondary">3 positions • 6 candidates • Ends in 5 days</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <button class="btn-secondary text-sm px-3 py-1" onclick="viewElectionDetails('school-board-2024')">
+                                            View Details
+                                        </button>
+                                        <div class="relative" id="electionMenu2">
+                                            <button class="p-2 text-secondary-600 hover:text-text-primary" onclick="toggleElectionMenu('electionMenu2')">
+                                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-3 gap-4 text-sm">
+                                    <div>
+                                        <span class="text-text-secondary">Total Votes:</span>
+                                        <span class="font-medium text-text-primary ml-2">8,923</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-text-secondary">Turnout:</span>
+                                        <span class="font-medium text-text-primary ml-2">45.2%</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-text-secondary">Status:</span>
+                                        <span class="font-medium text-warning ml-2">Ongoing</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Upcoming Election -->
+                            <div class="border rounded-lg p-4 bg-blue-50 border-blue-200">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 mr-3">
+                                            Scheduled
+                                        </span>
+                                        <div>
+                                            <h3 class="text-lg font-semibold text-text-primary">Community Budget Referendum</h3>
+                                            <p class="text-sm text-text-secondary">Yes/No vote • Opens in 12 days</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <button class="btn-secondary text-sm px-3 py-1" onclick="viewElectionDetails('budget-referendum-2024')">
+                                            Configure
+                                        </button>
+                                        <div class="relative" id="electionMenu3">
+                                            <button class="p-2 text-secondary-600 hover:text-text-primary" onclick="toggleElectionMenu('electionMenu3')">
+                                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-3 gap-4 text-sm">
+                                    <div>
+                                        <span class="text-text-secondary">Budget Amount:</span>
+                                        <span class="font-medium text-text-primary ml-2">$2.5M</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-text-secondary">Voter Registry:</span>
+                                        <span class="font-medium text-text-primary ml-2">23,167</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-text-secondary">Status:</span>
+                                        <span class="font-medium text-blue-600 ml-2">Pre-Election</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- System Analytics -->
+                    <div class="card">
+                        <h2 class="text-xl font-semibold text-text-primary mb-6">System Analytics</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Usage Chart -->
+                            <div>
+                                <h3 class="text-lg font-medium text-text-primary mb-4">Platform Usage (30 days)</h3>
+                                <canvas id="usageChart" width="300" height="200"></canvas>
+                            </div>
+
+                            <!-- Vote Distribution -->
+                            <div>
+                                <h3 class="text-lg font-medium text-text-primary mb-4">Vote Distribution by Time</h3>
+                                <canvas id="distributionChart" width="300" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - User Management & Security -->
+                <div class="space-y-6">
+                    <!-- User Administration -->
+                    <div class="card">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-semibold text-text-primary">User Administration</h3>
+                            <button class="btn-secondary text-sm" id="manageUsersBtn">
+                                Manage All
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <!-- Pending Registrations -->
+                            <div class="p-3 bg-warning-50 rounded-lg border-l-4 border-l-warning">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-warning-800">Pending Registrations</p>
+                                        <p class="text-xs text-warning-700">12 users awaiting approval</p>
+                                    </div>
+                                    <button class="text-sm text-warning-700 underline hover:text-warning-800" id="reviewPendingBtn">
+                                        Review
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Role Assignment -->
+                            <div class="space-y-3">
+                                <h4 class="text-sm font-semibold text-text-primary">Role Distribution</h4>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-text-secondary">Voters</span>
+                                        <span class="font-medium">22,987</span>
+                                    </div>
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-text-secondary">Poll Workers</span>
+                                        <span class="font-medium">45</span>
+                                    </div>
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-text-secondary">Administrators</span>
+                                        <span class="font-medium">8</span>
+                                    </div>
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-text-secondary">Super Admins</span>
+                                        <span class="font-medium">3</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Quick Actions -->
+                            <div class="border-t pt-4">
+                                <div class="space-y-2">
+                                    <button class="w-full text-left text-sm text-primary hover:bg-primary-50 p-2 rounded">
+                                        Bulk User Import
+                                    </button>
+                                    <button class="w-full text-left text-sm text-primary hover:bg-primary-50 p-2 rounded">
+                                        Export User Data
+                                    </button>
+                                    <button class="w-full text-left text-sm text-primary hover:bg-primary-50 p-2 rounded">
+                                        Role Management
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Security Center -->
+                    <div class="card">
+                        <h3 class="text-lg font-semibold text-text-primary mb-6">Security Center</h3>
+                        
+                        <div class="space-y-4">
+                            <!-- Security Alerts -->
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between p-3 bg-warning-50 rounded-lg">
+                                    <div class="flex items-center">
+                                        <svg class="h-4 w-4 text-warning mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-sm font-medium text-warning-800">Multiple login attempts</span>
+                                    </div>
+                                    <button class="text-sm text-warning-700 underline" id="securityAlert1">
+                                        Investigate
+                                    </button>
+                                </div>
+
+                                <div class="flex items-center justify-between p-3 bg-error-50 rounded-lg">
+                                    <div class="flex items-center">
+                                        <svg class="h-4 w-4 text-error mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-sm font-medium text-error-800">Suspicious IP activity</span>
+                                    </div>
+                                    <button class="text-sm text-error-700 underline" id="securityAlert2">
+                                        Block IP
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- System Access Logs -->
+                            <div class="border-t pt-4">
+                                <h4 class="text-sm font-semibold text-text-primary mb-3">Recent Access Logs</h4>
+                                <div class="space-y-2 text-xs">
+                                    <div class="flex justify-between py-2 border-b border-gray-100">
+                                        <span class="text-text-secondary">Admin login - 192.168.1.45</span>
+                                        <span class="text-success font-medium">2 min ago</span>
+                                    </div>
+                                    <div class="flex justify-between py-2 border-b border-gray-100">
+                                        <span class="text-text-secondary">Bulk user export</span>
+                                        <span class="text-text-secondary">15 min ago</span>
+                                    </div>
+                                    <div class="flex justify-between py-2 border-b border-gray-100">
+                                        <span class="text-text-secondary">Election config changed</span>
+                                        <span class="text-text-secondary">1 hour ago</span>
+                                    </div>
+                                    <div class="flex justify-between py-2">
+                                        <span class="text-text-secondary">Failed login attempt</span>
+                                        <span class="text-warning font-medium">2 hours ago</span>
+                                    </div>
+                                </div>
+                                <button class="text-sm text-primary underline mt-3" id="viewAllLogsBtn">
+                                    View All Logs
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Real-time Monitoring -->
+                    <div class="card">
+                        <h3 class="text-lg font-semibold text-text-primary mb-6">Real-time Monitoring</h3>
+                        
+                        <div class="space-y-4">
+                            <!-- Current Stats -->
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="text-center p-3 bg-primary-50 rounded-lg">
+                                    <div class="text-lg font-bold text-primary" id="activeUsers">1,247</div>
+                                    <div class="text-xs text-text-secondary">Active Users</div>
+                                </div>
+                                <div class="text-center p-3 bg-success-50 rounded-lg">
+                                    <div class="text-lg font-bold text-success" id="votesPerMinute">23</div>
+                                    <div class="text-xs text-text-secondary">Votes/min</div>
+                                </div>
+                            </div>
+
+                            <!-- System Performance -->
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-text-secondary">CPU Usage</span>
+                                    <span class="text-sm font-medium">23%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-success h-2 rounded-full" style="width: 23%"></div>
+                                </div>
+
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-text-secondary">Memory Usage</span>
+                                    <span class="text-sm font-medium">67%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-warning h-2 rounded-full" style="width: 67%"></div>
+                                </div>
+
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-text-secondary">Database Load</span>
+                                    <span class="text-sm font-medium">34%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-success h-2 rounded-full" style="width: 34%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Configuration -->
+                    <div class="card">
+                        <h3 class="text-lg font-semibold text-text-primary mb-6">System Configuration</h3>
+                        
+                        <div class="space-y-4">
+                            <div class="space-y-2">
+                                <label class="flex items-center space-x-3">
+                                    <input type="checkbox" class="form-checkbox rounded" checked />
+                                    <span class="text-sm text-text-secondary">Enable email notifications</span>
+                                </label>
+                                <label class="flex items-center space-x-3">
+                                    <input type="checkbox" class="form-checkbox rounded" checked />
+                                    <span class="text-sm text-text-secondary">Auto-backup database</span>
+                                </label>
+                                <label class="flex items-center space-x-3">
+                                    <input type="checkbox" class="form-checkbox rounded" />
+                                    <span class="text-sm text-text-secondary">Maintenance mode</span>
+                                </label>
+                                <label class="flex items-center space-x-3">
+                                    <input type="checkbox" class="form-checkbox rounded" checked />
+                                    <span class="text-sm text-text-secondary">Enhanced security logging</span>
+                                </label>
+                            </div>
+
+                            <div class="border-t pt-4">
+                                <button class="w-full btn-secondary text-sm" id="advancedConfigBtn">
+                                    Advanced Configuration
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Create Election Modal -->
+    <div id="createElectionModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
+        <div class="bg-surface rounded-xl p-6 max-w-2xl w-full max-h-96 overflow-y-auto">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-semibold text-text-primary">Create New Election</h3>
+                <button id="closeCreateElectionModal" class="text-text-secondary hover:text-text-primary">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <form class="space-y-6" id="createElectionForm">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-text-secondary mb-2">Election Title</label>
+                        <input type="text" class="form-input" placeholder="Enter election title" required />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-text-secondary mb-2">Election Type</label>
+                        <select class="form-input" required>
+                            <option value>Select type</option>
+                            <option value="general">General Election</option>
+                            <option value="primary">Primary Election</option>
+                            <option value="referendum">Referendum</option>
+                            <option value="special">Special Election</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-text-secondary mb-2">Start Date</label>
+                        <input type="datetime-local" class="form-input" required />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-text-secondary mb-2">End Date</label>
+                        <input type="datetime-local" class="form-input" required />
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-text-secondary mb-2">Description</label>
+                    <textarea class="form-input" rows="3" placeholder="Enter election description"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-text-secondary mb-2">Eligible Voters</label>
+                    <select class="form-input" required>
+                        <option value>Select voter group</option>
+                        <option value="all">All Registered Voters</option>
+                        <option value="district1">District 1 Only</option>
+                        <option value="district2">District 2 Only</option>
+                        <option value="custom">Custom Group</option>
+                    </select>
+                </div>
+
+                <div class="flex justify-end space-x-4">
+                    <button type="button" class="btn-secondary" id="cancelCreateElection">Cancel</button>
+                    <button type="submit" class="btn-primary">Create Election</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- User Management Modal -->
+    <div id="userManagementModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
+        <div class="bg-surface rounded-xl p-6 max-w-4xl w-full max-h-96 overflow-y-auto">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-semibold text-text-primary">User Management</h3>
+                <button id="closeUserManagementModal" class="text-text-secondary hover:text-text-primary">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="mb-4">
+                <input type="text" class="form-input" placeholder="Search users..." id="userSearchInput" />
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Login</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-8 w-8">
+                                        <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1494790108755-2616b5b5e5b2?q=80&w=200&auto=format&fit=crop" alt />
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-gray-900">Jane Cooper</div>
+                                        <div class="text-sm text-gray-500">jane@example.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Voter</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2 hours ago</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <button class="text-primary hover:text-primary-700 mr-3">Edit</button>
+                                <button class="text-error hover:text-error-700">Suspend</button>
+                            </td>
+                        </tr>
+                        <!-- More users would be dynamically loaded -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Admin Dashboard functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize charts
+            initializeAdminCharts();
+
+            // Admin menu toggle
+            const adminMenuBtn = document.getElementById('adminMenuBtn');
+            const adminDropdown = document.getElementById('adminDropdown');
+            
+            if (adminMenuBtn && adminDropdown) {
+                adminMenuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    adminDropdown.classList.toggle('hidden');
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function() {
+                    adminDropdown.classList.add('hidden');
+                });
+            }
+
+            // Create Election Modal
+            const createElectionBtn = document.getElementById('createElectionBtn');
+            const createElectionModal = document.getElementById('createElectionModal');
+            const closeCreateElectionModal = document.getElementById('closeCreateElectionModal');
+            const cancelCreateElection = document.getElementById('cancelCreateElection');
+
+            if (createElectionBtn && createElectionModal) {
+                createElectionBtn.addEventListener('click', function() {
+                    createElectionModal.classList.remove('hidden');
+                    createElectionModal.classList.add('flex');
+                });
+            }
+
+            [closeCreateElectionModal, cancelCreateElection].forEach(btn => {
+                if (btn) {
+                    btn.addEventListener('click', function() {
+                        createElectionModal.classList.add('hidden');
+                        createElectionModal.classList.remove('flex');
+                    });
+                }
+            });
+
+            // User Management Modal
+            const manageUsersBtn = document.getElementById('manageUsersBtn');
+            const userManagementModal = document.getElementById('userManagementModal');
+            const closeUserManagementModal = document.getElementById('closeUserManagementModal');
+
+            if (manageUsersBtn && userManagementModal) {
+                manageUsersBtn.addEventListener('click', function() {
+                    userManagementModal.classList.remove('hidden');
+                    userManagementModal.classList.add('flex');
+                });
+            }
+
+            if (closeUserManagementModal) {
+                closeUserManagementModal.addEventListener('click', function() {
+                    userManagementModal.classList.add('hidden');
+                    userManagementModal.classList.remove('flex');
+                });
+            }
+
+            // Form submission
+            const createElectionForm = document.getElementById('createElectionForm');
+            if (createElectionForm) {
+                createElectionForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Election creation functionality would be implemented in production');
+                    createElectionModal.classList.add('hidden');
+                    createElectionModal.classList.remove('flex');
+                });
+            }
+
+            // Security alert handlers
+            const securityBtns = ['securityAlert1', 'securityAlert2', 'reviewPendingBtn', 'viewAllLogsBtn', 'advancedConfigBtn'];
+            securityBtns.forEach(btnId => {
+                const btn = document.getElementById(btnId);
+                if (btn) {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        alert('This feature would open detailed information in a production system.');
+                    });
+                }
+            });
+
+            // Real-time data updates
+            setInterval(updateRealtimeData, 5000); // Update every 5 seconds
+            
+            // Close modals when clicking outside
+            [createElectionModal, userManagementModal].forEach(modal => {
+                if (modal) {
+                    modal.addEventListener('click', function(e) {
+                        if (e.target === modal) {
+                            modal.classList.add('hidden');
+                            modal.classList.remove('flex');
+                        }
+                    });
+                }
+            });
+        });
+
+        // Initialize admin dashboard charts
+        function initializeAdminCharts() {
+            // Usage Chart
+            const usageCtx = document.getElementById('usageChart');
+            if (usageCtx) {
+                new Chart(usageCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                        datasets: [{
+                            label: 'Active Users',
+                            data: [1200, 1450, 1380, 1650],
+                            borderColor: '#3b82f6',
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            tension: 0.4
+                        }, {
+                            label: 'Votes Cast',
+                            data: [800, 1200, 950, 1400],
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Distribution Chart
+            const distributionCtx = document.getElementById('distributionChart');
+            if (distributionCtx) {
+                new Chart(distributionCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['8AM', '10AM', '12PM', '2PM', '4PM', '6PM', '8PM'],
+                        datasets: [{
+                            label: 'Votes per Hour',
+                            data: [120, 180, 350, 280, 420, 380, 290],
+                            backgroundColor: 'rgba(16, 185, 129, 0.8)',
+                            borderColor: '#10b981',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Update real-time data
+        function updateRealtimeData() {
+            // Simulate real-time updates
+            const activeUsers = document.getElementById('activeUsers');
+            const votesPerMinute = document.getElementById('votesPerMinute');
+            
+            if (activeUsers) {
+                const variation = Math.floor(Math.random() * 100) - 50;
+                const newValue = Math.max(1000, 1247 + variation);
+                activeUsers.textContent = newValue.toLocaleString();
+            }
+            
+            if (votesPerMinute) {
+                const variation = Math.floor(Math.random() * 10) - 5;
+                const newValue = Math.max(0, 23 + variation);
+                votesPerMinute.textContent = newValue.toString();
+            }
+        }
+
+        // Election management functions
+        function viewElectionDetails(electionId) {
+            alert(`Viewing details for election: ${electionId}`);
+            // In production, this would navigate to detailed election management
+        }
+
+        function toggleElectionMenu(menuId) {
+            // This would show/hide election-specific action menus
+            console.log(`Toggle menu for: ${menuId}`);
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                // Close all modals
+                const modals = [
+                    document.getElementById('createElectionModal'),
+                    document.getElementById('userManagementModal')
+                ];
+                
+                modals.forEach(modal => {
+                    if (modal) {
+                        modal.classList.add('hidden');
+                        modal.classList.remove('flex');
+                    }
+                });
+            }
+            
+            // Ctrl/Cmd + N for new election
+            if (e.key === 'n' && (e.ctrlKey || e.metaKey)) {
+                e.preventDefault();
+                const createElectionModal = document.getElementById('createElectionModal');
+                if (createElectionModal) {
+                    createElectionModal.classList.remove('hidden');
+                    createElectionModal.classList.add('flex');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

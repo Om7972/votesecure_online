@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Voting Interface - VoteSecure Online</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fvotesecure6766back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.6"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Header Section -->
+    <header class="bg-surface shadow-gentle-sm border-b border-gray-200 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo and Election Title -->
+                <div class="flex items-center">
+                    <svg class="h-8 w-8 text-primary mr-3" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
+                        <path d="M10 17l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" fill="white"/>
+                    </svg>
+                    <div>
+                        <h1 class="text-lg font-bold text-primary">2025 City Council Election</h1>
+                        <p class="text-xs text-text-secondary">District 3 Representative</p>
+                    </div>
+                </div>
+                
+                <!-- Security Status and Progress -->
+                <div class="flex items-center space-x-4">
+                    <!-- Security Indicator -->
+                    <div class="flex items-center text-success">
+                        <svg class="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+                        </svg>
+                        <span class="text-xs font-medium">Secure</span>
+                    </div>
+                    
+                    <!-- Session Timer -->
+                    <div class="flex items-center text-warning">
+                        <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span class="text-xs font-medium" id="sessionTimer">14:32</span>
+                    </div>
+                    
+                    <!-- Exit Button -->
+                    <button onclick="showExitModal()" class="text-secondary-600 hover:text-error transition-gentle">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div class="bg-surface border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-sm font-medium text-text-primary">Voting Progress</span>
+                <span class="text-sm text-text-secondary" id="progressText">1 of 3 selections complete</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="bg-primary h-2 rounded-full transition-all duration-300" id="progressBar" style="width: 33%"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-1 py-6 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <!-- Election Information -->
+            <div class="card mb-6">
+                <div class="flex items-start justify-between mb-4">
+                    <div>
+                        <h2 class="text-2xl font-bold text-text-primary mb-2">City Council District 3 Representative</h2>
+                        <p class="text-text-secondary">Select one candidate to represent District 3 on the City Council for a 4-year term.</p>
+                    </div>
+                    <div class="flex items-center text-sm text-text-secondary">
+                        <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        Required Selection
+                    </div>
+                </div>
+                
+                <!-- Voting Instructions -->
+                <div class="bg-primary-50 border border-primary-100 rounded-lg p-4">
+                    <div class="flex items-start">
+                        <svg class="h-5 w-5 text-primary mr-3 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                        </svg>
+                        <div>
+                            <h3 class="font-semibold text-primary mb-1">Voting Instructions</h3>
+                            <p class="text-sm text-primary-700">Select one candidate by clicking on their name or photo. You can change your selection at any time before submitting your vote.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Candidate Selection -->
+            <div class="space-y-4 mb-8">
+                <h3 class="text-lg font-semibold text-text-primary">Candidates</h3>
+                
+                <!-- Candidate 1 -->
+                <div class="card-interactive candidate-card" data-candidate="sarah-johnson">
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0">
+                            <input type="radio" name="candidate" value="sarah-johnson" id="candidate-1" class="h-5 w-5 text-primary focus:ring-primary border-gray-300 mt-1" />
+                        </div>
+                        <div class="flex-shrink-0">
+                            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sarah Johnson" class="w-16 h-16 rounded-full object-cover border-2 border-gray-200" onerror="this.src='https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'; this.onerror=null;" />
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <label for="candidate-1" class="cursor-pointer">
+                                <h4 class="text-lg font-semibold text-text-primary">Sarah Johnson</h4>
+                                <p class="text-sm text-text-secondary mb-2">Small Business Owner, Community Advocate</p>
+                                <p class="text-sm text-text-secondary line-clamp-2">Focused on sustainable development, affordable housing, and supporting local businesses. 15 years of community service experience.</p>
+                            </label>
+                            
+                            <!-- Expandable Details -->
+                            <button class="text-primary text-sm font-medium mt-2 hover:text-primary-700 transition-gentle" onclick="toggleCandidateDetails('candidate-1-details')">
+                                View Full Profile
+                                <svg class="inline h-4 w-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+                            
+                            <div id="candidate-1-details" class="hidden mt-4 pt-4 border-t border-gray-200">
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div>
+                                        <h5 class="font-semibold text-text-primary mb-2">Experience</h5>
+                                        <ul class="text-sm text-text-secondary space-y-1">
+                                            <li>• Owner, Johnson's Hardware (2010-present)</li>
+                                            <li>• District 3 Neighborhood Association President (2018-2022)</li>
+                                            <li>• City Planning Commission Member (2020-2024)</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-semibold text-text-primary mb-2">Key Positions</h5>
+                                        <ul class="text-sm text-text-secondary space-y-1">
+                                            <li>• Increase affordable housing by 25%</li>
+                                            <li>• Support small business tax incentives</li>
+                                            <li>• Expand public transportation</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <h5 class="font-semibold text-text-primary mb-2">Endorsements</h5>
+                                    <p class="text-sm text-text-secondary">District 3 Business Association, Environmental Action Group, Teachers Union Local 247</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Candidate 2 -->
+                <div class="card-interactive candidate-card" data-candidate="michael-chen">
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0">
+                            <input type="radio" name="candidate" value="michael-chen" id="candidate-2" class="h-5 w-5 text-primary focus:ring-primary border-gray-300 mt-1" />
+                        </div>
+                        <div class="flex-shrink-0">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Michael Chen" class="w-16 h-16 rounded-full object-cover border-2 border-gray-200" onerror="this.src='https://images.pixabay.com/photos/2507/man-person-suit-united-states.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'; this.onerror=null;" />
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <label for="candidate-2" class="cursor-pointer">
+                                <h4 class="text-lg font-semibold text-text-primary">Michael Chen</h4>
+                                <p class="text-sm text-text-secondary mb-2">Former City Attorney, Public Policy Expert</p>
+                                <p class="text-sm text-text-secondary line-clamp-2">Dedicated to transparent governance, infrastructure improvements, and fiscal responsibility. 20 years in public service.</p>
+                            </label>
+                            
+                            <button class="text-primary text-sm font-medium mt-2 hover:text-primary-700 transition-gentle" onclick="toggleCandidateDetails('candidate-2-details')">
+                                View Full Profile
+                                <svg class="inline h-4 w-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+                            
+                            <div id="candidate-2-details" class="hidden mt-4 pt-4 border-t border-gray-200">
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div>
+                                        <h5 class="font-semibold text-text-primary mb-2">Experience</h5>
+                                        <ul class="text-sm text-text-secondary space-y-1">
+                                            <li>• City Attorney (2015-2023)</li>
+                                            <li>• Deputy District Attorney (2008-2015)</li>
+                                            <li>• Legal Aid Society Volunteer (2005-present)</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-semibold text-text-primary mb-2">Key Positions</h5>
+                                        <ul class="text-sm text-text-secondary space-y-1">
+                                            <li>• Modernize city infrastructure</li>
+                                            <li>• Increase government transparency</li>
+                                            <li>• Strengthen public safety programs</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <h5 class="font-semibold text-text-primary mb-2">Endorsements</h5>
+                                    <p class="text-sm text-text-secondary">Police Officers Association, Senior Citizens Coalition, Good Government League</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Candidate 3 -->
+                <div class="card-interactive candidate-card" data-candidate="maria-rodriguez">
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0">
+                            <input type="radio" name="candidate" value="maria-rodriguez" id="candidate-3" class="h-5 w-5 text-primary focus:ring-primary border-gray-300 mt-1" />
+                        </div>
+                        <div class="flex-shrink-0">
+                            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=2861&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Maria Rodriguez" class="w-16 h-16 rounded-full object-cover border-2 border-gray-200" onerror="this.src='https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'; this.onerror=null;" />
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <label for="candidate-3" class="cursor-pointer">
+                                <h4 class="text-lg font-semibold text-text-primary">Maria Rodriguez</h4>
+                                <p class="text-sm text-text-secondary mb-2">Education Administrator, Community Organizer</p>
+                                <p class="text-sm text-text-secondary line-clamp-2">Committed to education funding, youth programs, and community development. Strong advocate for underrepresented communities.</p>
+                            </label>
+                            
+                            <button class="text-primary text-sm font-medium mt-2 hover:text-primary-700 transition-gentle" onclick="toggleCandidateDetails('candidate-3-details')">
+                                View Full Profile
+                                <svg class="inline h-4 w-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+                            
+                            <div id="candidate-3-details" class="hidden mt-4 pt-4 border-t border-gray-200">
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div>
+                                        <h5 class="font-semibold text-text-primary mb-2">Experience</h5>
+                                        <ul class="text-sm text-text-secondary space-y-1">
+                                            <li>• District 3 School Board Member (2018-present)</li>
+                                            <li>• Community Center Director (2012-2018)</li>
+                                            <li>• Youth Mentorship Program Founder (2010)</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-semibold text-text-primary mb-2">Key Positions</h5>
+                                        <ul class="text-sm text-text-secondary space-y-1">
+                                            <li>• Increase education funding by 30%</li>
+                                            <li>• Expand youth recreation programs</li>
+                                            <li>• Improve community health services</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <h5 class="font-semibold text-text-primary mb-2">Endorsements</h5>
+                                    <p class="text-sm text-text-secondary">Education Association, Youth Development Coalition, Hispanic Chamber of Commerce</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Selection Summary -->
+            <div class="card mb-6" id="selectionSummary" style="display: none;">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <h3 class="text-lg font-semibold text-text-primary mb-2">Your Selection</h3>
+                        <div id="selectedCandidate" class="flex items-center space-x-3">
+                            <!-- Selected candidate info will be populated here -->
+                        </div>
+                    </div>
+                    <button onclick="clearSelection()" class="text-secondary-600 hover:text-error transition-gentle">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-between">
+                <button onclick="window.location.href='active_elections.html'" class="btn-secondary">
+                    <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                    </svg>
+                    Back to Elections
+                </button>
+                
+                <button id="reviewVoteBtn" onclick="reviewVote()" class="btn-primary disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    Review My Vote
+                    <svg class="h-4 w-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Exit Confirmation Modal -->
+    <div id="exitModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-surface rounded-xl p-8 max-w-md mx-4 text-center">
+            <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-warning-100 mb-4">
+                <svg class="h-6 w-6 text-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-text-primary mb-2">Exit Voting Session?</h3>
+            <p class="text-text-secondary mb-6">Your current selections will be lost if you exit now. Are you sure you want to leave?</p>
+            <div class="flex space-x-3">
+                <button onclick="hideExitModal()" class="flex-1 btn-secondary">Stay</button>
+                <button onclick="window.location.href='voter_dashboard.html'" class="flex-1 bg-error text-white px-6 py-3 rounded-lg font-medium hover:bg-red-700 transition-gentle">Exit</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Session Warning Modal -->
+    <div id="sessionWarningModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-surface rounded-xl p-8 max-w-md mx-4 text-center">
+            <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-warning-100 mb-4">
+                <svg class="h-6 w-6 text-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-text-primary mb-2">Session Expiring Soon</h3>
+            <p class="text-text-secondary mb-6">Your voting session will expire in <span id="warningTimer" class="font-semibold">2 minutes</span>. Please complete your vote or extend your session.</p>
+            <div class="flex space-x-3">
+                <button onclick="extendSession()" class="flex-1 btn-primary">Extend Session</button>
+                <button onclick="hideSessionWarning()" class="flex-1 btn-secondary">Continue Voting</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Voting interface functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const candidateCards = document.querySelectorAll('.candidate-card');
+            const radioButtons = document.querySelectorAll('input[name="candidate"]');
+            const selectionSummary = document.getElementById('selectionSummary');
+            const reviewVoteBtn = document.getElementById('reviewVoteBtn');
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+
+            // Session timer
+            let sessionTime = 15 * 60; // 15 minutes in seconds
+            const sessionTimer = document.getElementById('sessionTimer');
+            
+            function updateSessionTimer() {
+                const minutes = Math.floor(sessionTime / 60);
+                const seconds = sessionTime % 60;
+                sessionTimer.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (sessionTime <= 120 && sessionTime > 0) { // 2 minutes warning
+                    if (sessionTime === 120) {
+                        showSessionWarning();
+                    }
+                    sessionTimer.parentElement.classList.remove('text-warning');
+                    sessionTimer.parentElement.classList.add('text-error');
+                }
+                
+                if (sessionTime <= 0) {
+                    window.location.href = 'secure_login.html';
+                    return;
+                }
+                
+                sessionTime--;
+            }
+            
+            setInterval(updateSessionTimer, 1000);
+
+            // Candidate selection handling
+            radioButtons.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    updateSelection();
+                    updateProgress();
+                });
+            });
+
+            candidateCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (e.target.type !== 'radio' && !e.target.closest('button')) {
+                        const radio = card.querySelector('input[type="radio"]');
+                        radio.checked = true;
+                        updateSelection();
+                        updateProgress();
+                    }
+                });
+            });
+
+            function updateSelection() {
+                const selectedRadio = document.querySelector('input[name="candidate"]:checked');
+                
+                if (selectedRadio) {
+                    const candidateCard = selectedRadio.closest('.candidate-card');
+                    const candidateName = candidateCard.querySelector('h4').textContent;
+                    const candidateTitle = candidateCard.querySelector('p').textContent;
+                    const candidateImg = candidateCard.querySelector('img').src;
+                    
+                    // Update selection summary
+                    document.getElementById('selectedCandidate').innerHTML = `
+                        <img src="${candidateImg}" alt="${candidateName}" class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <p class="font-semibold text-text-primary">${candidateName}</p>
+                            <p class="text-sm text-text-secondary">${candidateTitle}</p>
+                        </div>
+                    `;
+                    
+                    selectionSummary.style.display = 'block';
+                    reviewVoteBtn.disabled = false;
+                    
+                    // Add visual feedback
+                    candidateCards.forEach(c => c.classList.remove('ring-2', 'ring-primary', 'bg-primary-50'));
+                    candidateCard.classList.add('ring-2', 'ring-primary', 'bg-primary-50');
+                } else {
+                    selectionSummary.style.display = 'none';
+                    reviewVoteBtn.disabled = true;
+                    candidateCards.forEach(c => c.classList.remove('ring-2', 'ring-primary', 'bg-primary-50'));
+                }
+            }
+
+            function updateProgress() {
+                const selectedCount = document.querySelectorAll('input[name="candidate"]:checked').length;
+                const totalRequired = 1;
+                const percentage = (selectedCount / totalRequired) * 100;
+                
+                progressBar.style.width = `${percentage}%`;
+                progressText.textContent = `${selectedCount} of ${totalRequired} selections complete`;
+                
+                if (percentage === 100) {
+                    progressBar.classList.remove('bg-primary');
+                    progressBar.classList.add('bg-success');
+                }
+            }
+        });
+
+        // Candidate details toggle
+        function toggleCandidateDetails(detailsId) {
+            const details = document.getElementById(detailsId);
+            const button = details.previousElementSibling;
+            const icon = button.querySelector('svg');
+            
+            if (details.classList.contains('hidden')) {
+                details.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+                button.innerHTML = button.innerHTML.replace('View Full Profile', 'Hide Profile');
+            } else {
+                details.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+                button.innerHTML = button.innerHTML.replace('Hide Profile', 'View Full Profile');
+            }
+        }
+
+        // Clear selection
+        function clearSelection() {
+            const radioButtons = document.querySelectorAll('input[name="candidate"]');
+            radioButtons.forEach(radio => radio.checked = false);
+            
+            document.getElementById('selectionSummary').style.display = 'none';
+            document.getElementById('reviewVoteBtn').disabled = true;
+            
+            const candidateCards = document.querySelectorAll('.candidate-card');
+            candidateCards.forEach(card => card.classList.remove('ring-2', 'ring-primary', 'bg-primary-50'));
+            
+            // Update progress
+            document.getElementById('progressBar').style.width = '0%';
+            document.getElementById('progressText').textContent = '0 of 1 selections complete';
+            document.getElementById('progressBar').classList.remove('bg-success');
+            document.getElementById('progressBar').classList.add('bg-primary');
+        }
+
+        // Review vote
+        function reviewVote() {
+            const selectedRadio = document.querySelector('input[name="candidate"]:checked');
+            if (selectedRadio) {
+                // Store selection in sessionStorage for the confirmation page
+                const candidateCard = selectedRadio.closest('.candidate-card');
+                const candidateData = {
+                    id: selectedRadio.value,
+                    name: candidateCard.querySelector('h4').textContent,
+                    title: candidateCard.querySelector('p').textContent,
+                    image: candidateCard.querySelector('img').src,
+                    election: '2025 City Council Election',
+                    position: 'District 3 Representative'
+                };
+                
+                sessionStorage.setItem('selectedCandidate', JSON.stringify(candidateData));
+                window.location.href = 'vote_confirmation.html';
+            }
+        }
+
+        // Modal functions
+        function showExitModal() {
+            document.getElementById('exitModal').classList.remove('hidden');
+            document.getElementById('exitModal').classList.add('flex');
+        }
+
+        function hideExitModal() {
+            document.getElementById('exitModal').classList.add('hidden');
+            document.getElementById('exitModal').classList.remove('flex');
+        }
+
+        function showSessionWarning() {
+            document.getElementById('sessionWarningModal').classList.remove('hidden');
+            document.getElementById('sessionWarningModal').classList.add('flex');
+        }
+
+        function hideSessionWarning() {
+            document.getElementById('sessionWarningModal').classList.add('hidden');
+            document.getElementById('sessionWarningModal').classList.remove('flex');
+        }
+
+        function extendSession() {
+            // Simulate session extension
+            sessionTime += 10 * 60; // Add 10 minutes
+            hideSessionWarning();
+            
+            // Reset timer color
+            document.getElementById('sessionTimer').parentElement.classList.remove('text-error');
+            document.getElementById('sessionTimer').parentElement.classList.add('text-warning');
+        }
+
+        // Keyboard navigation support
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modals = document.querySelectorAll('[id$="Modal"]');
+                modals.forEach(modal => {
+                    if (!modal.classList.contains('hidden')) {
+                        modal.classList.add('hidden');
+                        modal.classList.remove('flex');
+                    }
+                });
+            }
+        });
+
+        // Auto-save functionality (simulate)
+        setInterval(function() {
+            const selectedRadio = document.querySelector('input[name="candidate"]:checked');
+            if (selectedRadio) {
+                localStorage.setItem('votingProgress', JSON.stringify({
+                    election: '2025-city-council-district-3',
+                    selection: selectedRadio.value,
+                    timestamp: new Date().toISOString()
+                }));
+            }
+        }, 30000); // Save every 30 seconds
+    </script>
+</body>
+</html>

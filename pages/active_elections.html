@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Active Elections - VoteSecure Online</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fvotesecure6766back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.6"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Header Section -->
+    <header class="bg-surface shadow-gentle-sm border-b border-gray-200 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <svg class="h-8 w-8 text-primary mr-3" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
+                        <path d="M10 17l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" fill="white"/>
+                    </svg>
+                    <h1 class="text-xl font-bold text-primary">VoteSecure Online</h1>
+                </div>
+                
+                <!-- Navigation -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="voter_dashboard.html" class="text-secondary-600 hover:text-primary transition-gentle">Dashboard</a>
+                    <a href="active_elections.html" class="text-primary font-medium">Elections</a>
+                    <a href="vote_confirmation.html" class="text-secondary-600 hover:text-primary transition-gentle">History</a>
+                </nav>
+
+                <!-- User Menu -->
+                <div class="flex items-center space-x-4">
+                    <!-- Notifications -->
+                    <button class="relative p-2 text-secondary-400 hover:text-primary transition-gentle">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-5 0-8-3-8-6s4-6 9-6 9 3 9 6c0 1-1 3-2 3h-1"/>
+                        </svg>
+                        <span class="absolute top-0 right-0 h-2 w-2 bg-error rounded-full"></span>
+                    </button>
+                    
+                    <!-- User Avatar -->
+                    <div class="relative">
+                        <button class="flex items-center space-x-2 text-secondary-600 hover:text-primary transition-gentle">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="User Avatar" class="h-8 w-8 rounded-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                            <span class="hidden md:block text-sm font-medium">John Doe</span>
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <button class="md:hidden p-2 text-secondary-400 hover:text-primary transition-gentle" id="mobileMenuBtn">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden" id="mobileMenu">
+            <div class="px-4 pt-2 pb-3 space-y-1 bg-surface border-t border-gray-200">
+                <a href="voter_dashboard.html" class="block px-3 py-2 text-secondary-600 hover:text-primary transition-gentle">Dashboard</a>
+                <a href="active_elections.html" class="block px-3 py-2 text-primary font-medium">Elections</a>
+                <a href="vote_confirmation.html" class="block px-3 py-2 text-secondary-600 hover:text-primary transition-gentle">History</a>
+                <div class="border-t border-gray-200 pt-2">
+                    <a href="secure_login.html" class="block px-3 py-2 text-error hover:text-red-700 transition-gentle">Sign Out</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1">
+        <!-- Search and Filter Section -->
+        <section class="bg-surface border-b border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                <!-- Page Title -->
+                <div class="mb-4">
+                    <h2 class="text-2xl font-bold text-text-primary">Active Elections</h2>
+                    <p class="text-text-secondary mt-1">Participate in current voting opportunities</p>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="relative mb-4">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-secondary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </div>
+                    <input type="text" id="searchInput" class="form-input pl-10 pr-12" placeholder="Search elections by title, category, or candidate..." autocomplete="off" />
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                        <button id="filterToggle" class="p-1 text-secondary-400 hover:text-primary transition-gentle">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <!-- Search Autocomplete -->
+                    <div id="searchAutocomplete" class="absolute top-full left-0 right-0 bg-surface border border-gray-200 rounded-lg shadow-gentle-md mt-1 hidden z-30">
+                        <div class="p-2">
+                            <div class="text-xs text-text-secondary mb-2">Recent Searches</div>
+                            <div class="space-y-1">
+                                <button class="w-full text-left px-3 py-2 text-sm text-text-primary hover:bg-secondary-50 rounded-md transition-gentle">Presidential Election 2024</button>
+                                <button class="w-full text-left px-3 py-2 text-sm text-text-primary hover:bg-secondary-50 rounded-md transition-gentle">City Council</button>
+                                <button class="w-full text-left px-3 py-2 text-sm text-text-primary hover:bg-secondary-50 rounded-md transition-gentle">School Board</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filter Chips -->
+                <div class="flex items-center space-x-2 overflow-x-auto pb-2" id="filterChips">
+                    <div class="flex items-center space-x-2 min-w-max">
+                        <span class="text-sm text-text-secondary whitespace-nowrap">Filters:</span>
+                        <div class="flex items-center bg-primary-50 text-primary px-3 py-1 rounded-full text-sm">
+                            <span>Active</span>
+                            <button class="ml-2 hover:text-primary-700">
+                                <svg class="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="flex items-center bg-accent-50 text-accent px-3 py-1 rounded-full text-sm">
+                            <span>Federal</span>
+                            <button class="ml-2 hover:text-accent-700">
+                                <svg class="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <button class="text-sm text-secondary-600 hover:text-primary transition-gentle whitespace-nowrap">Clear All</button>
+                    </div>
+                </div>
+
+                <!-- Sort Options -->
+                <div class="flex items-center justify-between mt-4">
+                    <div class="text-sm text-text-secondary">
+                        <span id="electionCount">12</span> elections found
+                    </div>
+                    <div class="relative">
+                        <select class="form-input text-sm py-2 pr-8" id="sortSelect">
+                            <option value="deadline">Sort by Deadline</option>
+                            <option value="alphabetical">Sort Alphabetically</option>
+                            <option value="status">Sort by Status</option>
+                            <option value="participation">Sort by Participation</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Elections Grid -->
+        <section class="py-8">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Loading State -->
+                <div id="loadingState" class="hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Skeleton Cards -->
+                        <div class="card animate-pulse" v-for="i in 6">
+                            <div class="h-4 bg-gray-200 rounded mb-4"></div>
+                            <div class="h-3 bg-gray-200 rounded mb-2"></div>
+                            <div class="h-3 bg-gray-200 rounded mb-4 w-3/4"></div>
+                            <div class="flex justify-between items-center mb-4">
+                                <div class="h-3 bg-gray-200 rounded w-1/3"></div>
+                                <div class="h-3 bg-gray-200 rounded w-1/4"></div>
+                            </div>
+                            <div class="h-10 bg-gray-200 rounded"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Elections Grid -->
+                <div id="electionsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Active Election Card -->
+                    <div class="card-interactive border-l-4 border-l-success">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="flex items-center space-x-2">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success-100 text-success-800">
+                                    Active
+                                </span>
+                                <span class="text-xs text-text-secondary">Federal</span>
+                            </div>
+                            <button class="text-secondary-400 hover:text-primary transition-gentle">
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <h3 class="text-lg font-semibold text-text-primary mb-2">2024 Presidential Election</h3>
+                        <p class="text-text-secondary text-sm mb-4">Choose the next President and Vice President of the United States. Your vote matters in shaping the future of our democracy.</p>
+                        
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center space-x-4">
+                                <div class="text-sm">
+                                    <span class="text-text-secondary">Candidates:</span>
+                                    <span class="font-medium text-text-primary">4</span>
+                                </div>
+                                <div class="text-sm">
+                                    <span class="text-text-secondary">Voted:</span>
+                                    <span class="font-medium text-text-primary">2.1M</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Countdown Timer -->
+                        <div class="bg-success-50 rounded-lg p-3 mb-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-success-800">Time Remaining</span>
+                                <div class="flex items-center space-x-1 text-success-800">
+                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                    <span class="font-mono text-sm" id="countdown-1">15d 08h 23m</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button onclick="window.location.href='voting_interface.html'" class="w-full btn-success">
+                            <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Vote Now
+                        </button>
+                    </div>
+
+                    <!-- Upcoming Election Card -->
+                    <div class="card-interactive border-l-4 border-l-primary">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="flex items-center space-x-2">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
+                                    Upcoming
+                                </span>
+                                <span class="text-xs text-text-secondary">State</span>
+                            </div>
+                            <button class="text-secondary-400 hover:text-primary transition-gentle">
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <h3 class="text-lg font-semibold text-text-primary mb-2">Governor Election 2024</h3>
+                        <p class="text-text-secondary text-sm mb-4">Select your state governor who will lead policy decisions and represent your interests at the state level.</p>
+                        
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center space-x-4">
+                                <div class="text-sm">
+                                    <span class="text-text-secondary">Candidates:</span>
+                                    <span class="font-medium text-text-primary">3</span>
+                                </div>
+                                <div class="text-sm">
+                                    <span class="text-text-secondary">Registered:</span>
+                                    <span class="font-medium text-text-primary">850K</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Countdown Timer -->
+                        <div class="bg-primary-50 rounded-lg p-3 mb-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-primary-800">Starts In</span>
+                                <div class="flex items-center space-x-1 text-primary-800">
+                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                    <span class="font-mono text-sm" id="countdown-2">45d 12h 15m</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full btn-secondary" disabled>
+                            <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Voting Opens Soon
+                        </button>
+                    </div>
+
+                    <!-- Completed Election Card -->
+                    <div class="card-interactive border-l-4 border-l-secondary-300 opacity-75">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="flex items-center space-x-2">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary-100 text-secondary-700">
+                                    Completed
+                                </span>
+                                <span class="text-xs text-text-secondary">Local</span>
+                            </div>
+                            <button class="text-secondary-400 hover:text-primary transition-gentle">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <h3 class="text-lg font-semibold text-text-primary mb-2">City Council Election</h3>
+                        <p class="text-text-secondary text-sm mb-4">Local representatives who will address community issues and municipal governance for the next term.</p>
+                        
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center space-x-4">
+                                <div class="text-sm">
+                                    <span class="text-text-secondary">Candidates:</span>
+                                    <span class="font-medium text-text-primary">6</span>
+                                </div>
+                                <div class="text-sm">
+                                    <span class="text-text-secondary">Total Votes:</span>
+                                    <span class="font-medium text-text-primary">45.2K</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Results Summary -->
+                        <div class="bg-secondary-50 rounded-lg p-3 mb-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-secondary-700">Election Completed</span>
+                                <div class="flex items-center space-x-1 text-secondary-700">
+                                    <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-sm">Aug 15, 2025</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button onclick="window.location.href='vote_confirmation.html'" class="w-full btn-secondary">
+                            <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                            </svg>
+                            View Results
+                        </button>
+                    </div>
+
+                    <!-- Additional Active Election -->
+                    <div class="card-interactive border-l-4 border-l-success">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="flex items-center space-x-2">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success-100 text-success-800">
+                                    Active
+                                </span>
+                                <span class="text-xs text-text-secondary">Local</span>
+                            </div>
+                            <button class="text-secondary-400 hover:text-primary transition-gentle">
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <h3 class="text-lg font-semibold text-text-primary mb-2">School Board Election</h3>
+                        <p class="text-text-secondary text-sm mb-4">Choose representatives who will shape educational policies and oversee school district operations.</p>
+                        
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center space-x-4">
+                                <div class="text-sm">
+                                    <span class="text-text-secondary">Candidates:</span>
+                                    <span class="font-medium text-text-primary">5</span>
+                                </div>
+                                <div class="text-sm">
+                                    <span class="text-text-secondary">Voted:</span>
+                                    <span class="font-medium text-text-primary">12.8K</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Countdown Timer -->
+                        <div class="bg-success-50 rounded-lg p-3 mb-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-success-800">Time Remaining</span>
+                                <div class="flex items-center space-x-1 text-success-800">
+                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                    <span class="font-mono text-sm" id="countdown-3">7d 14h 45m</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button onclick="window.location.href='voting_interface.html'" class="w-full btn-success">
+                            <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Vote Now
+                        </button>
+                    </div>
+
+                    <!-- Upcoming Election -->
+                    <div class="card-interactive border-l-4 border-l-primary">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="flex items-center space-x-2">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
+                                    Upcoming
+                                </span>
+                                <span class="text-xs text-text-secondary">Federal</span>
+                            </div>
+                            <button class="text-secondary-400 hover:text-primary transition-gentle">
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <h3 class="text-lg font-semibold text-text-primary mb-2">Senate Election 2024</h3>
+                        <p class="text-text-secondary text-sm mb-4">Select your state senators who will represent your interests in federal legislation and policy making.</p>
+                        
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center space-x-4">
+                                <div class="text-sm">
+                                    <span class="text-text-secondary">Candidates:</span>
+                                    <span class="font-medium text-text-primary">2</span>
+                                </div>
+                                <div class="text-sm">
+                                    <span class="text-text-secondary">Registered:</span>
+                                    <span class="font-medium text-text-primary">1.2M</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Countdown Timer -->
+                        <div class="bg-primary-50 rounded-lg p-3 mb-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-primary-800">Starts In</span>
+                                <div class="flex items-center space-x-1 text-primary-800">
+                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                    <span class="font-mono text-sm" id="countdown-4">62d 09h 30m</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full btn-secondary" disabled>
+                            <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Voting Opens Soon
+                        </button>
+                    </div>
+
+                    <!-- Another Active Election -->
+                    <div class="card-interactive border-l-4 border-l-success">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="flex items-center space-x-2">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success-100 text-success-800">
+                                    Active
+                                </span>
+                                <span class="text-xs text-text-secondary">State</span>
+                            </div>
+                            <button class="text-secondary-400 hover:text-primary transition-gentle">
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <h3 class="text-lg font-semibold text-text-primary mb-2">State Legislature Election</h3>
+                        <p class="text-text-secondary text-sm mb-4">Vote for state representatives who will advocate for your district's needs and priorities in the state legislature.</p>
+                        
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center space-x-4">
+                                <div class="text-sm">
+                                    <span class="text-text-secondary">Candidates:</span>
+                                    <span class="font-medium text-text-primary">3</span>
+                                </div>
+                                <div class="text-sm">
+                                    <span class="text-text-secondary">Voted:</span>
+                                    <span class="font-medium text-text-primary">89.5K</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Countdown Timer -->
+                        <div class="bg-success-50 rounded-lg p-3 mb-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-success-800">Time Remaining</span>
+                                <div class="flex items-center space-x-1 text-success-800">
+                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                    <span class="font-mono text-sm" id="countdown-5">3d 06h 12m</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button onclick="window.location.href='voting_interface.html'" class="w-full btn-success">
+                            <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Vote Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Load More Button -->
+                <div class="text-center mt-8">
+                    <button class="btn-secondary" id="loadMoreBtn">
+                        <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                        </svg>
+                        Load More Elections
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Filter Panel (Mobile Slide-up) -->
+    <div id="filterPanel" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="absolute bottom-0 left-0 right-0 bg-surface rounded-t-xl max-h-[80vh] overflow-y-auto">
+            <div class="p-6">
+                <!-- Panel Header -->
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-lg font-semibold text-text-primary">Filter Elections</h3>
+                    <button id="closePanelBtn" class="text-secondary-400 hover:text-primary transition-gentle">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Filter Sections -->
+                <div class="space-y-6">
+                    <!-- Election Status -->
+                    <div>
+                        <h4 class="text-sm font-medium text-text-primary mb-3">Election Status</h4>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded" checked />
+                                <span class="ml-3 text-sm text-text-primary">Active Elections</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded" />
+                                <span class="ml-3 text-sm text-text-primary">Upcoming Elections</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded" />
+                                <span class="ml-3 text-sm text-text-primary">Completed Elections</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Election Type -->
+                    <div>
+                        <h4 class="text-sm font-medium text-text-primary mb-3">Election Type</h4>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded" checked />
+                                <span class="ml-3 text-sm text-text-primary">Federal</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded" />
+                                <span class="ml-3 text-sm text-text-primary">State</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded" />
+                                <span class="ml-3 text-sm text-text-primary">Local</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Voting Period -->
+                    <div>
+                        <h4 class="text-sm font-medium text-text-primary mb-3">Voting Period</h4>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-xs text-text-secondary mb-1">From Date</label>
+                                <input type="date" class="form-input text-sm" value="2025-08-17" />
+                            </div>
+                            <div>
+                                <label class="block text-xs text-text-secondary mb-1">To Date</label>
+                                <input type="date" class="form-input text-sm" value="2025-12-31" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Eligibility -->
+                    <div>
+                        <h4 class="text-sm font-medium text-text-primary mb-3">Eligibility</h4>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded" />
+                                <span class="ml-3 text-sm text-text-primary">Eligible to Vote</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded" />
+                                <span class="ml-3 text-sm text-text-primary">Already Voted</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded" />
+                                <span class="ml-3 text-sm text-text-primary">Not Yet Voted</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel Actions -->
+                <div class="flex space-x-3 mt-8 pt-6 border-t border-gray-200">
+                    <button class="flex-1 btn-secondary">Clear All</button>
+                    <button class="flex-1 btn-primary">Apply Filters</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pull to Refresh Indicator -->
+    <div id="pullRefreshIndicator" class="fixed top-16 left-1/2 transform -translate-x-1/2 bg-primary text-white px-4 py-2 rounded-full text-sm hidden z-30">
+        <svg class="animate-spin h-4 w-4 mr-2 inline" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+        </svg>
+        Refreshing elections...
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const searchAutocomplete = document.getElementById('searchAutocomplete');
+
+        searchInput.addEventListener('focus', function() {
+            searchAutocomplete.classList.remove('hidden');
+        });
+
+        searchInput.addEventListener('blur', function() {
+            setTimeout(() => {
+                searchAutocomplete.classList.add('hidden');
+            }, 200);
+        });
+
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            // Simulate search filtering
+            console.log('Searching for:', query);
+        });
+
+        // Filter panel toggle
+        const filterToggle = document.getElementById('filterToggle');
+        const filterPanel = document.getElementById('filterPanel');
+        const closePanelBtn = document.getElementById('closePanelBtn');
+
+        filterToggle.addEventListener('click', function() {
+            filterPanel.classList.remove('hidden');
+        });
+
+        closePanelBtn.addEventListener('click', function() {
+            filterPanel.classList.add('hidden');
+        });
+
+        filterPanel.addEventListener('click', function(e) {
+            if (e.target === filterPanel) {
+                filterPanel.classList.add('hidden');
+            }
+        });
+
+        // Sort functionality
+        document.getElementById('sortSelect').addEventListener('change', function() {
+            const sortBy = this.value;
+            console.log('Sorting by:', sortBy);
+            // Implement sorting logic here
+        });
+
+        // Load more functionality
+        document.getElementById('loadMoreBtn').addEventListener('click', function() {
+            const btn = this;
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = `
+                <svg class="animate-spin h-4 w-4 mr-2 inline" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Loading...
+            `;
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                // Add more election cards here
+            }, 2000);
+        });
+
+        // Countdown timers
+        function updateCountdowns() {
+            const countdowns = [
+                { id: 'countdown-1', days: 15, hours: 8, minutes: 23 },
+                { id: 'countdown-2', days: 45, hours: 12, minutes: 15 },
+                { id: 'countdown-3', days: 7, hours: 14, minutes: 45 },
+                { id: 'countdown-4', days: 62, hours: 9, minutes: 30 },
+                { id: 'countdown-5', days: 3, hours: 6, minutes: 12 }
+            ];
+
+            countdowns.forEach(countdown => {
+                const element = document.getElementById(countdown.id);
+                if (element) {
+                    element.textContent = `${countdown.days}d ${countdown.hours.toString().padStart(2, '0')}h ${countdown.minutes.toString().padStart(2, '0')}m`;
+                }
+            });
+        }
+
+        // Update countdowns every minute
+        updateCountdowns();
+        setInterval(updateCountdowns, 60000);
+
+        // Pull to refresh simulation
+        let startY = 0;
+        let currentY = 0;
+        let pullDistance = 0;
+        const pullThreshold = 100;
+
+        document.addEventListener('touchstart', function(e) {
+            startY = e.touches[0].clientY;
+        });
+
+        document.addEventListener('touchmove', function(e) {
+            currentY = e.touches[0].clientY;
+            pullDistance = currentY - startY;
+
+            if (pullDistance > 0 && window.scrollY === 0) {
+                e.preventDefault();
+                if (pullDistance > pullThreshold) {
+                    document.getElementById('pullRefreshIndicator').classList.remove('hidden');
+                }
+            }
+        });
+
+        document.addEventListener('touchend', function(e) {
+            if (pullDistance > pullThreshold && window.scrollY === 0) {
+                // Trigger refresh
+                setTimeout(() => {
+                    document.getElementById('pullRefreshIndicator').classList.add('hidden');
+                    location.reload();
+                }, 2000);
+            } else {
+                document.getElementById('pullRefreshIndicator').classList.add('hidden');
+            }
+            pullDistance = 0;
+        });
+
+        // Bookmark functionality
+        document.querySelectorAll('button[class*="bookmark"]').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const svg = this.querySelector('svg');
+                if (svg.getAttribute('fill') === 'none') {
+                    svg.setAttribute('fill', 'currentColor');
+                    this.classList.add('text-primary');
+                } else {
+                    svg.setAttribute('fill', 'none');
+                    this.classList.remove('text-primary');
+                }
+            });
+        });
+
+        // Real-time updates simulation
+        function simulateRealTimeUpdates() {
+            // Simulate vote count updates
+            const voteElements = document.querySelectorAll('[class*="font-medium text-text-primary"]');
+            voteElements.forEach(element => {
+                if (element.textContent.includes('K') || element.textContent.includes('M')) {
+                    // Randomly update vote counts
+                    if (Math.random() > 0.95) {
+                        const currentText = element.textContent;
+                        const number = parseFloat(currentText);
+                        const suffix = currentText.includes('M') ? 'M' : 'K';
+                        const increment = suffix === 'M' ? 0.1 : 0.1;
+                        const newNumber = (number + increment).toFixed(1);
+                        element.textContent = newNumber + suffix;
+                    }
+                }
+            });
+        }
+
+        // Run real-time updates every 30 seconds
+        setInterval(simulateRealTimeUpdates, 30000);
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide loading state
+            document.getElementById('loadingState').classList.add('hidden');
+            
+            // Show elections grid
+            document.getElementById('electionsGrid').classList.remove('hidden');
+            
+            // Update election count
+            const electionCards = document.querySelectorAll('#electionsGrid > div').length;
+            document.getElementById('electionCount').textContent = electionCards;
+        });
+    </script>
+</body>
+</html>
