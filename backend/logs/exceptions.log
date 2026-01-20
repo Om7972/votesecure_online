@@ -1,0 +1,1937 @@
+2025-09-21 00:18:18 [ERROR]: uncaughtException: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+Error: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1244:15)
+    at Function._load (node:internal/modules/cjs/loader:1070:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1335:12)
+    at require (node:internal/modules/helpers:136:16)
+    at Object.<anonymous> (C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js:19:20)
+    at Module._compile (node:internal/modules/cjs/loader:1562:14)
+    at Object..js (node:internal/modules/cjs/loader:1699:10)
+    at Module.load (node:internal/modules/cjs/loader:1313:32)
+Error: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1244:15)
+    at Function._load (node:internal/modules/cjs/loader:1070:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1335:12)
+    at require (node:internal/modules/helpers:136:16)
+    at Object.<anonymous> (C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js:19:20)
+    at Module._compile (node:internal/modules/cjs/loader:1562:14)
+    at Object..js (node:internal/modules/cjs/loader:1699:10)
+    at Module.load (node:internal/modules/cjs/loader:1313:32)
+{
+  "error": {
+    "code": "MODULE_NOT_FOUND",
+    "requireStack": [
+      "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js"
+    ]
+  },
+  "exception": true,
+  "date": "Sun Sep 21 2025 00:18:18 GMT+0530 (India Standard Time)",
+  "process": {
+    "pid": 39640,
+    "uid": null,
+    "gid": null,
+    "cwd": "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend",
+    "execPath": "C:\\Program Files\\nodejs\\node.exe",
+    "version": "v22.13.1",
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js"
+    ],
+    "memoryUsage": {
+      "rss": 92545024,
+      "heapTotal": 59748352,
+      "heapUsed": 39726424,
+      "external": 20784441,
+      "arrayBuffers": 18263128
+    }
+  },
+  "os": {
+    "loadavg": [
+      0,
+      0,
+      0
+    ],
+    "uptime": 480205.859
+  },
+  "trace": [
+    {
+      "column": 15,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Function._resolveFilename",
+      "line": 1244,
+      "method": "_resolveFilename",
+      "native": false
+    },
+    {
+      "column": 27,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Function._load",
+      "line": 1070,
+      "method": "_load",
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:diagnostics_channel",
+      "function": "TracingChannel.traceSync",
+      "line": 322,
+      "method": "traceSync",
+      "native": false
+    },
+    {
+      "column": 24,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "wrapModuleLoad",
+      "line": 217,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.require",
+      "line": 1335,
+      "method": "require",
+      "native": false
+    },
+    {
+      "column": 16,
+      "file": "node:internal/modules/helpers",
+      "function": "require",
+      "line": 136,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 20,
+      "file": "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js",
+      "function": null,
+      "line": 19,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module._compile",
+      "line": 1562,
+      "method": "_compile",
+      "native": false
+    },
+    {
+      "column": 10,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Object..js",
+      "line": 1699,
+      "method": ".js",
+      "native": false
+    },
+    {
+      "column": 32,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.load",
+      "line": 1313,
+      "method": "load",
+      "native": false
+    }
+  ],
+  "service": "votesecure-backend"
+}
+2025-09-21 00:19:38 [ERROR]: uncaughtException: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+Error: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1244:15)
+    at Function._load (node:internal/modules/cjs/loader:1070:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1335:12)
+    at require (node:internal/modules/helpers:136:16)
+    at Object.<anonymous> (C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js:19:20)
+    at Module._compile (node:internal/modules/cjs/loader:1562:14)
+    at Object..js (node:internal/modules/cjs/loader:1699:10)
+    at Module.load (node:internal/modules/cjs/loader:1313:32)
+Error: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1244:15)
+    at Function._load (node:internal/modules/cjs/loader:1070:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1335:12)
+    at require (node:internal/modules/helpers:136:16)
+    at Object.<anonymous> (C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js:19:20)
+    at Module._compile (node:internal/modules/cjs/loader:1562:14)
+    at Object..js (node:internal/modules/cjs/loader:1699:10)
+    at Module.load (node:internal/modules/cjs/loader:1313:32)
+{
+  "error": {
+    "code": "MODULE_NOT_FOUND",
+    "requireStack": [
+      "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js"
+    ]
+  },
+  "exception": true,
+  "date": "Sun Sep 21 2025 00:19:38 GMT+0530 (India Standard Time)",
+  "process": {
+    "pid": 32776,
+    "uid": null,
+    "gid": null,
+    "cwd": "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend",
+    "execPath": "C:\\Program Files\\nodejs\\node.exe",
+    "version": "v22.13.1",
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js"
+    ],
+    "memoryUsage": {
+      "rss": 90947584,
+      "heapTotal": 58953728,
+      "heapUsed": 40586584,
+      "external": 20784441,
+      "arrayBuffers": 18263128
+    }
+  },
+  "os": {
+    "loadavg": [
+      0,
+      0,
+      0
+    ],
+    "uptime": 480286.703
+  },
+  "trace": [
+    {
+      "column": 15,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Function._resolveFilename",
+      "line": 1244,
+      "method": "_resolveFilename",
+      "native": false
+    },
+    {
+      "column": 27,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Function._load",
+      "line": 1070,
+      "method": "_load",
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:diagnostics_channel",
+      "function": "TracingChannel.traceSync",
+      "line": 322,
+      "method": "traceSync",
+      "native": false
+    },
+    {
+      "column": 24,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "wrapModuleLoad",
+      "line": 217,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.require",
+      "line": 1335,
+      "method": "require",
+      "native": false
+    },
+    {
+      "column": 16,
+      "file": "node:internal/modules/helpers",
+      "function": "require",
+      "line": 136,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 20,
+      "file": "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js",
+      "function": null,
+      "line": 19,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module._compile",
+      "line": 1562,
+      "method": "_compile",
+      "native": false
+    },
+    {
+      "column": 10,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Object..js",
+      "line": 1699,
+      "method": ".js",
+      "native": false
+    },
+    {
+      "column": 32,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.load",
+      "line": 1313,
+      "method": "load",
+      "native": false
+    }
+  ],
+  "service": "votesecure-backend"
+}
+2025-09-21 12:11:30 [ERROR]: uncaughtException: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+Error: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1244:15)
+    at Function._load (node:internal/modules/cjs/loader:1070:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1335:12)
+    at require (node:internal/modules/helpers:136:16)
+    at Object.<anonymous> (C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js:19:20)
+    at Module._compile (node:internal/modules/cjs/loader:1562:14)
+    at Object..js (node:internal/modules/cjs/loader:1699:10)
+    at Module.load (node:internal/modules/cjs/loader:1313:32)
+Error: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1244:15)
+    at Function._load (node:internal/modules/cjs/loader:1070:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1335:12)
+    at require (node:internal/modules/helpers:136:16)
+    at Object.<anonymous> (C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js:19:20)
+    at Module._compile (node:internal/modules/cjs/loader:1562:14)
+    at Object..js (node:internal/modules/cjs/loader:1699:10)
+    at Module.load (node:internal/modules/cjs/loader:1313:32)
+{
+  "error": {
+    "code": "MODULE_NOT_FOUND",
+    "requireStack": [
+      "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js"
+    ]
+  },
+  "exception": true,
+  "date": "Sun Sep 21 2025 12:11:30 GMT+0530 (India Standard Time)",
+  "process": {
+    "pid": 35192,
+    "uid": null,
+    "gid": null,
+    "cwd": "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend",
+    "execPath": "C:\\Program Files\\nodejs\\node.exe",
+    "version": "v22.13.1",
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js"
+    ],
+    "memoryUsage": {
+      "rss": 88776704,
+      "heapTotal": 59748352,
+      "heapUsed": 39939672,
+      "external": 20784441,
+      "arrayBuffers": 18263128
+    }
+  },
+  "os": {
+    "loadavg": [
+      0,
+      0,
+      0
+    ],
+    "uptime": 522997.906
+  },
+  "trace": [
+    {
+      "column": 15,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Function._resolveFilename",
+      "line": 1244,
+      "method": "_resolveFilename",
+      "native": false
+    },
+    {
+      "column": 27,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Function._load",
+      "line": 1070,
+      "method": "_load",
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:diagnostics_channel",
+      "function": "TracingChannel.traceSync",
+      "line": 322,
+      "method": "traceSync",
+      "native": false
+    },
+    {
+      "column": 24,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "wrapModuleLoad",
+      "line": 217,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.require",
+      "line": 1335,
+      "method": "require",
+      "native": false
+    },
+    {
+      "column": 16,
+      "file": "node:internal/modules/helpers",
+      "function": "require",
+      "line": 136,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 20,
+      "file": "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js",
+      "function": null,
+      "line": 19,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module._compile",
+      "line": 1562,
+      "method": "_compile",
+      "native": false
+    },
+    {
+      "column": 10,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Object..js",
+      "line": 1699,
+      "method": ".js",
+      "native": false
+    },
+    {
+      "column": 32,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.load",
+      "line": 1313,
+      "method": "load",
+      "native": false
+    }
+  ],
+  "service": "votesecure-backend"
+}
+2025-09-21 19:48:39 [ERROR]: uncaughtException: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+Error: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1244:15)
+    at Function._load (node:internal/modules/cjs/loader:1070:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1335:12)
+    at require (node:internal/modules/helpers:136:16)
+    at Object.<anonymous> (C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js:19:20)
+    at Module._compile (node:internal/modules/cjs/loader:1562:14)
+    at Object..js (node:internal/modules/cjs/loader:1699:10)
+    at Module.load (node:internal/modules/cjs/loader:1313:32)
+Error: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1244:15)
+    at Function._load (node:internal/modules/cjs/loader:1070:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1335:12)
+    at require (node:internal/modules/helpers:136:16)
+    at Object.<anonymous> (C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js:19:20)
+    at Module._compile (node:internal/modules/cjs/loader:1562:14)
+    at Object..js (node:internal/modules/cjs/loader:1699:10)
+    at Module.load (node:internal/modules/cjs/loader:1313:32)
+{
+  "error": {
+    "code": "MODULE_NOT_FOUND",
+    "requireStack": [
+      "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js"
+    ]
+  },
+  "exception": true,
+  "date": "Sun Sep 21 2025 19:48:39 GMT+0530 (India Standard Time)",
+  "process": {
+    "pid": 50208,
+    "uid": null,
+    "gid": null,
+    "cwd": "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend",
+    "execPath": "C:\\Program Files\\nodejs\\node.exe",
+    "version": "v22.13.1",
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js"
+    ],
+    "memoryUsage": {
+      "rss": 89575424,
+      "heapTotal": 58953728,
+      "heapUsed": 40602848,
+      "external": 20784441,
+      "arrayBuffers": 18263128
+    }
+  },
+  "os": {
+    "loadavg": [
+      0,
+      0,
+      0
+    ],
+    "uptime": 550425.781
+  },
+  "trace": [
+    {
+      "column": 15,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Function._resolveFilename",
+      "line": 1244,
+      "method": "_resolveFilename",
+      "native": false
+    },
+    {
+      "column": 27,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Function._load",
+      "line": 1070,
+      "method": "_load",
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:diagnostics_channel",
+      "function": "TracingChannel.traceSync",
+      "line": 322,
+      "method": "traceSync",
+      "native": false
+    },
+    {
+      "column": 24,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "wrapModuleLoad",
+      "line": 217,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.require",
+      "line": 1335,
+      "method": "require",
+      "native": false
+    },
+    {
+      "column": 16,
+      "file": "node:internal/modules/helpers",
+      "function": "require",
+      "line": 136,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 20,
+      "file": "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js",
+      "function": null,
+      "line": 19,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module._compile",
+      "line": 1562,
+      "method": "_compile",
+      "native": false
+    },
+    {
+      "column": 10,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Object..js",
+      "line": 1699,
+      "method": ".js",
+      "native": false
+    },
+    {
+      "column": 32,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.load",
+      "line": 1313,
+      "method": "load",
+      "native": false
+    }
+  ],
+  "service": "votesecure-backend"
+}
+2025-09-22 20:54:23 [ERROR]: uncaughtException: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+Error: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1244:15)
+    at Function._load (node:internal/modules/cjs/loader:1070:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1335:12)
+    at require (node:internal/modules/helpers:136:16)
+    at Object.<anonymous> (C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js:19:20)
+    at Module._compile (node:internal/modules/cjs/loader:1562:14)
+    at Object..js (node:internal/modules/cjs/loader:1699:10)
+    at Module.load (node:internal/modules/cjs/loader:1313:32)
+Error: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1244:15)
+    at Function._load (node:internal/modules/cjs/loader:1070:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1335:12)
+    at require (node:internal/modules/helpers:136:16)
+    at Object.<anonymous> (C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js:19:20)
+    at Module._compile (node:internal/modules/cjs/loader:1562:14)
+    at Object..js (node:internal/modules/cjs/loader:1699:10)
+    at Module.load (node:internal/modules/cjs/loader:1313:32)
+{
+  "error": {
+    "code": "MODULE_NOT_FOUND",
+    "requireStack": [
+      "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js"
+    ]
+  },
+  "exception": true,
+  "date": "Mon Sep 22 2025 20:54:22 GMT+0530 (India Standard Time)",
+  "process": {
+    "pid": 27828,
+    "uid": null,
+    "gid": null,
+    "cwd": "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend",
+    "execPath": "C:\\Program Files\\nodejs\\node.exe",
+    "version": "v22.13.1",
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js"
+    ],
+    "memoryUsage": {
+      "rss": 87957504,
+      "heapTotal": 59748352,
+      "heapUsed": 39455936,
+      "external": 20759227,
+      "arrayBuffers": 18262952
+    }
+  },
+  "os": {
+    "loadavg": [
+      0,
+      0,
+      0
+    ],
+    "uptime": 640768.562
+  },
+  "trace": [
+    {
+      "column": 15,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Function._resolveFilename",
+      "line": 1244,
+      "method": "_resolveFilename",
+      "native": false
+    },
+    {
+      "column": 27,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Function._load",
+      "line": 1070,
+      "method": "_load",
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:diagnostics_channel",
+      "function": "TracingChannel.traceSync",
+      "line": 322,
+      "method": "traceSync",
+      "native": false
+    },
+    {
+      "column": 24,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "wrapModuleLoad",
+      "line": 217,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.require",
+      "line": 1335,
+      "method": "require",
+      "native": false
+    },
+    {
+      "column": 16,
+      "file": "node:internal/modules/helpers",
+      "function": "require",
+      "line": 136,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 20,
+      "file": "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js",
+      "function": null,
+      "line": 19,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module._compile",
+      "line": 1562,
+      "method": "_compile",
+      "native": false
+    },
+    {
+      "column": 10,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Object..js",
+      "line": 1699,
+      "method": ".js",
+      "native": false
+    },
+    {
+      "column": 32,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.load",
+      "line": 1313,
+      "method": "load",
+      "native": false
+    }
+  ],
+  "service": "votesecure-backend"
+}
+2025-09-22 20:57:44 [ERROR]: uncaughtException: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+Error: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1244:15)
+    at Function._load (node:internal/modules/cjs/loader:1070:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1335:12)
+    at require (node:internal/modules/helpers:136:16)
+    at Object.<anonymous> (C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js:19:20)
+    at Module._compile (node:internal/modules/cjs/loader:1562:14)
+    at Object..js (node:internal/modules/cjs/loader:1699:10)
+    at Module.load (node:internal/modules/cjs/loader:1313:32)
+Error: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1244:15)
+    at Function._load (node:internal/modules/cjs/loader:1070:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1335:12)
+    at require (node:internal/modules/helpers:136:16)
+    at Object.<anonymous> (C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js:19:20)
+    at Module._compile (node:internal/modules/cjs/loader:1562:14)
+    at Object..js (node:internal/modules/cjs/loader:1699:10)
+    at Module.load (node:internal/modules/cjs/loader:1313:32)
+{
+  "error": {
+    "code": "MODULE_NOT_FOUND",
+    "requireStack": [
+      "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js"
+    ]
+  },
+  "exception": true,
+  "date": "Mon Sep 22 2025 20:57:44 GMT+0530 (India Standard Time)",
+  "process": {
+    "pid": 50336,
+    "uid": null,
+    "gid": null,
+    "cwd": "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend",
+    "execPath": "C:\\Program Files\\nodejs\\node.exe",
+    "version": "v22.13.1",
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js"
+    ],
+    "memoryUsage": {
+      "rss": 91357184,
+      "heapTotal": 59748352,
+      "heapUsed": 39683048,
+      "external": 20759227,
+      "arrayBuffers": 18262952
+    }
+  },
+  "os": {
+    "loadavg": [
+      0,
+      0,
+      0
+    ],
+    "uptime": 640970.515
+  },
+  "trace": [
+    {
+      "column": 15,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Function._resolveFilename",
+      "line": 1244,
+      "method": "_resolveFilename",
+      "native": false
+    },
+    {
+      "column": 27,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Function._load",
+      "line": 1070,
+      "method": "_load",
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:diagnostics_channel",
+      "function": "TracingChannel.traceSync",
+      "line": 322,
+      "method": "traceSync",
+      "native": false
+    },
+    {
+      "column": 24,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "wrapModuleLoad",
+      "line": 217,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.require",
+      "line": 1335,
+      "method": "require",
+      "native": false
+    },
+    {
+      "column": 16,
+      "file": "node:internal/modules/helpers",
+      "function": "require",
+      "line": 136,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 20,
+      "file": "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js",
+      "function": null,
+      "line": 19,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module._compile",
+      "line": 1562,
+      "method": "_compile",
+      "native": false
+    },
+    {
+      "column": 10,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Object..js",
+      "line": 1699,
+      "method": ".js",
+      "native": false
+    },
+    {
+      "column": 32,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.load",
+      "line": 1313,
+      "method": "load",
+      "native": false
+    }
+  ],
+  "service": "votesecure-backend"
+}
+2025-09-22 21:00:20 [ERROR]: uncaughtException: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+Error: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1244:15)
+    at Function._load (node:internal/modules/cjs/loader:1070:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1335:12)
+    at require (node:internal/modules/helpers:136:16)
+    at Object.<anonymous> (C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js:19:20)
+    at Module._compile (node:internal/modules/cjs/loader:1562:14)
+    at Object..js (node:internal/modules/cjs/loader:1699:10)
+    at Module.load (node:internal/modules/cjs/loader:1313:32)
+Error: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1244:15)
+    at Function._load (node:internal/modules/cjs/loader:1070:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1335:12)
+    at require (node:internal/modules/helpers:136:16)
+    at Object.<anonymous> (C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js:19:20)
+    at Module._compile (node:internal/modules/cjs/loader:1562:14)
+    at Object..js (node:internal/modules/cjs/loader:1699:10)
+    at Module.load (node:internal/modules/cjs/loader:1313:32)
+{
+  "error": {
+    "code": "MODULE_NOT_FOUND",
+    "requireStack": [
+      "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js"
+    ]
+  },
+  "exception": true,
+  "date": "Mon Sep 22 2025 21:00:20 GMT+0530 (India Standard Time)",
+  "process": {
+    "pid": 19152,
+    "uid": null,
+    "gid": null,
+    "cwd": "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend",
+    "execPath": "C:\\Program Files\\nodejs\\node.exe",
+    "version": "v22.13.1",
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js"
+    ],
+    "memoryUsage": {
+      "rss": 91357184,
+      "heapTotal": 59748352,
+      "heapUsed": 39519856,
+      "external": 20759227,
+      "arrayBuffers": 18262952
+    }
+  },
+  "os": {
+    "loadavg": [
+      0,
+      0,
+      0
+    ],
+    "uptime": 641125.781
+  },
+  "trace": [
+    {
+      "column": 15,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Function._resolveFilename",
+      "line": 1244,
+      "method": "_resolveFilename",
+      "native": false
+    },
+    {
+      "column": 27,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Function._load",
+      "line": 1070,
+      "method": "_load",
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:diagnostics_channel",
+      "function": "TracingChannel.traceSync",
+      "line": 322,
+      "method": "traceSync",
+      "native": false
+    },
+    {
+      "column": 24,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "wrapModuleLoad",
+      "line": 217,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.require",
+      "line": 1335,
+      "method": "require",
+      "native": false
+    },
+    {
+      "column": 16,
+      "file": "node:internal/modules/helpers",
+      "function": "require",
+      "line": 136,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 20,
+      "file": "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js",
+      "function": null,
+      "line": 19,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module._compile",
+      "line": 1562,
+      "method": "_compile",
+      "native": false
+    },
+    {
+      "column": 10,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Object..js",
+      "line": 1699,
+      "method": ".js",
+      "native": false
+    },
+    {
+      "column": 32,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.load",
+      "line": 1313,
+      "method": "load",
+      "native": false
+    }
+  ],
+  "service": "votesecure-backend"
+}
+2025-09-22 21:17:31 [ERROR]: uncaughtException: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+Error: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1244:15)
+    at Function._load (node:internal/modules/cjs/loader:1070:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1335:12)
+    at require (node:internal/modules/helpers:136:16)
+    at Object.<anonymous> (C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js:19:20)
+    at Module._compile (node:internal/modules/cjs/loader:1562:14)
+    at Object..js (node:internal/modules/cjs/loader:1699:10)
+    at Module.load (node:internal/modules/cjs/loader:1313:32)
+Error: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1244:15)
+    at Function._load (node:internal/modules/cjs/loader:1070:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1335:12)
+    at require (node:internal/modules/helpers:136:16)
+    at Object.<anonymous> (C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js:19:20)
+    at Module._compile (node:internal/modules/cjs/loader:1562:14)
+    at Object..js (node:internal/modules/cjs/loader:1699:10)
+    at Module.load (node:internal/modules/cjs/loader:1313:32)
+{
+  "error": {
+    "code": "MODULE_NOT_FOUND",
+    "requireStack": [
+      "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js"
+    ]
+  },
+  "exception": true,
+  "date": "Mon Sep 22 2025 21:17:31 GMT+0530 (India Standard Time)",
+  "process": {
+    "pid": 42716,
+    "uid": null,
+    "gid": null,
+    "cwd": "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend",
+    "execPath": "C:\\Program Files\\nodejs\\node.exe",
+    "version": "v22.13.1",
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js"
+    ],
+    "memoryUsage": {
+      "rss": 88264704,
+      "heapTotal": 59748352,
+      "heapUsed": 39421936,
+      "external": 20759227,
+      "arrayBuffers": 18262952
+    }
+  },
+  "os": {
+    "loadavg": [
+      0,
+      0,
+      0
+    ],
+    "uptime": 642156.937
+  },
+  "trace": [
+    {
+      "column": 15,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Function._resolveFilename",
+      "line": 1244,
+      "method": "_resolveFilename",
+      "native": false
+    },
+    {
+      "column": 27,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Function._load",
+      "line": 1070,
+      "method": "_load",
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:diagnostics_channel",
+      "function": "TracingChannel.traceSync",
+      "line": 322,
+      "method": "traceSync",
+      "native": false
+    },
+    {
+      "column": 24,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "wrapModuleLoad",
+      "line": 217,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.require",
+      "line": 1335,
+      "method": "require",
+      "native": false
+    },
+    {
+      "column": 16,
+      "file": "node:internal/modules/helpers",
+      "function": "require",
+      "line": 136,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 20,
+      "file": "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js",
+      "function": null,
+      "line": 19,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module._compile",
+      "line": 1562,
+      "method": "_compile",
+      "native": false
+    },
+    {
+      "column": 10,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Object..js",
+      "line": 1699,
+      "method": ".js",
+      "native": false
+    },
+    {
+      "column": 32,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.load",
+      "line": 1313,
+      "method": "load",
+      "native": false
+    }
+  ],
+  "service": "votesecure-backend"
+}
+2025-09-22 21:26:01 [ERROR]: uncaughtException: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+Error: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1244:15)
+    at Function._load (node:internal/modules/cjs/loader:1070:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1335:12)
+    at require (node:internal/modules/helpers:136:16)
+    at Object.<anonymous> (C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js:19:20)
+    at Module._compile (node:internal/modules/cjs/loader:1562:14)
+    at Object..js (node:internal/modules/cjs/loader:1699:10)
+    at Module.load (node:internal/modules/cjs/loader:1313:32)
+Error: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1244:15)
+    at Function._load (node:internal/modules/cjs/loader:1070:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1335:12)
+    at require (node:internal/modules/helpers:136:16)
+    at Object.<anonymous> (C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js:19:20)
+    at Module._compile (node:internal/modules/cjs/loader:1562:14)
+    at Object..js (node:internal/modules/cjs/loader:1699:10)
+    at Module.load (node:internal/modules/cjs/loader:1313:32)
+{
+  "error": {
+    "code": "MODULE_NOT_FOUND",
+    "requireStack": [
+      "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js"
+    ]
+  },
+  "exception": true,
+  "date": "Mon Sep 22 2025 21:26:01 GMT+0530 (India Standard Time)",
+  "process": {
+    "pid": 51536,
+    "uid": null,
+    "gid": null,
+    "cwd": "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend",
+    "execPath": "C:\\Program Files\\nodejs\\node.exe",
+    "version": "v22.13.1",
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js"
+    ],
+    "memoryUsage": {
+      "rss": 90759168,
+      "heapTotal": 59215872,
+      "heapUsed": 40152824,
+      "external": 20784441,
+      "arrayBuffers": 18263128
+    }
+  },
+  "os": {
+    "loadavg": [
+      0,
+      0,
+      0
+    ],
+    "uptime": 642666.75
+  },
+  "trace": [
+    {
+      "column": 15,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Function._resolveFilename",
+      "line": 1244,
+      "method": "_resolveFilename",
+      "native": false
+    },
+    {
+      "column": 27,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Function._load",
+      "line": 1070,
+      "method": "_load",
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:diagnostics_channel",
+      "function": "TracingChannel.traceSync",
+      "line": 322,
+      "method": "traceSync",
+      "native": false
+    },
+    {
+      "column": 24,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "wrapModuleLoad",
+      "line": 217,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.require",
+      "line": 1335,
+      "method": "require",
+      "native": false
+    },
+    {
+      "column": 16,
+      "file": "node:internal/modules/helpers",
+      "function": "require",
+      "line": 136,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 20,
+      "file": "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js",
+      "function": null,
+      "line": 19,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module._compile",
+      "line": 1562,
+      "method": "_compile",
+      "native": false
+    },
+    {
+      "column": 10,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Object..js",
+      "line": 1699,
+      "method": ".js",
+      "native": false
+    },
+    {
+      "column": 32,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.load",
+      "line": 1313,
+      "method": "load",
+      "native": false
+    }
+  ],
+  "service": "votesecure-backend"
+}
+2025-09-22 21:26:50 [ERROR]: uncaughtException: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+Error: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1244:15)
+    at Function._load (node:internal/modules/cjs/loader:1070:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1335:12)
+    at require (node:internal/modules/helpers:136:16)
+    at Object.<anonymous> (C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js:19:20)
+    at Module._compile (node:internal/modules/cjs/loader:1562:14)
+    at Object..js (node:internal/modules/cjs/loader:1699:10)
+    at Module.load (node:internal/modules/cjs/loader:1313:32)
+Error: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1244:15)
+    at Function._load (node:internal/modules/cjs/loader:1070:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1335:12)
+    at require (node:internal/modules/helpers:136:16)
+    at Object.<anonymous> (C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js:19:20)
+    at Module._compile (node:internal/modules/cjs/loader:1562:14)
+    at Object..js (node:internal/modules/cjs/loader:1699:10)
+    at Module.load (node:internal/modules/cjs/loader:1313:32)
+{
+  "error": {
+    "code": "MODULE_NOT_FOUND",
+    "requireStack": [
+      "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js"
+    ]
+  },
+  "exception": true,
+  "date": "Mon Sep 22 2025 21:26:50 GMT+0530 (India Standard Time)",
+  "process": {
+    "pid": 40432,
+    "uid": null,
+    "gid": null,
+    "cwd": "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend",
+    "execPath": "C:\\Program Files\\nodejs\\node.exe",
+    "version": "v22.13.1",
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js"
+    ],
+    "memoryUsage": {
+      "rss": 90718208,
+      "heapTotal": 59215872,
+      "heapUsed": 39939168,
+      "external": 20784441,
+      "arrayBuffers": 18263128
+    }
+  },
+  "os": {
+    "loadavg": [
+      0,
+      0,
+      0
+    ],
+    "uptime": 642716.031
+  },
+  "trace": [
+    {
+      "column": 15,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Function._resolveFilename",
+      "line": 1244,
+      "method": "_resolveFilename",
+      "native": false
+    },
+    {
+      "column": 27,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Function._load",
+      "line": 1070,
+      "method": "_load",
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:diagnostics_channel",
+      "function": "TracingChannel.traceSync",
+      "line": 322,
+      "method": "traceSync",
+      "native": false
+    },
+    {
+      "column": 24,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "wrapModuleLoad",
+      "line": 217,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.require",
+      "line": 1335,
+      "method": "require",
+      "native": false
+    },
+    {
+      "column": 16,
+      "file": "node:internal/modules/helpers",
+      "function": "require",
+      "line": 136,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 20,
+      "file": "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js",
+      "function": null,
+      "line": 19,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module._compile",
+      "line": 1562,
+      "method": "_compile",
+      "native": false
+    },
+    {
+      "column": 10,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Object..js",
+      "line": 1699,
+      "method": ".js",
+      "native": false
+    },
+    {
+      "column": 32,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.load",
+      "line": 1313,
+      "method": "load",
+      "native": false
+    }
+  ],
+  "service": "votesecure-backend"
+}
+2025-09-22 21:27:50 [ERROR]: uncaughtException: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+Error: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1244:15)
+    at Function._load (node:internal/modules/cjs/loader:1070:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1335:12)
+    at require (node:internal/modules/helpers:136:16)
+    at Object.<anonymous> (C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js:19:20)
+    at Module._compile (node:internal/modules/cjs/loader:1562:14)
+    at Object..js (node:internal/modules/cjs/loader:1699:10)
+    at Module.load (node:internal/modules/cjs/loader:1313:32)
+Error: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1244:15)
+    at Function._load (node:internal/modules/cjs/loader:1070:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1335:12)
+    at require (node:internal/modules/helpers:136:16)
+    at Object.<anonymous> (C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js:19:20)
+    at Module._compile (node:internal/modules/cjs/loader:1562:14)
+    at Object..js (node:internal/modules/cjs/loader:1699:10)
+    at Module.load (node:internal/modules/cjs/loader:1313:32)
+{
+  "error": {
+    "code": "MODULE_NOT_FOUND",
+    "requireStack": [
+      "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js"
+    ]
+  },
+  "exception": true,
+  "date": "Mon Sep 22 2025 21:27:50 GMT+0530 (India Standard Time)",
+  "process": {
+    "pid": 39980,
+    "uid": null,
+    "gid": null,
+    "cwd": "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend",
+    "execPath": "C:\\Program Files\\nodejs\\node.exe",
+    "version": "v22.13.1",
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js"
+    ],
+    "memoryUsage": {
+      "rss": 90050560,
+      "heapTotal": 59748352,
+      "heapUsed": 39644728,
+      "external": 20784441,
+      "arrayBuffers": 18263128
+    }
+  },
+  "os": {
+    "loadavg": [
+      0,
+      0,
+      0
+    ],
+    "uptime": 642776.546
+  },
+  "trace": [
+    {
+      "column": 15,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Function._resolveFilename",
+      "line": 1244,
+      "method": "_resolveFilename",
+      "native": false
+    },
+    {
+      "column": 27,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Function._load",
+      "line": 1070,
+      "method": "_load",
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:diagnostics_channel",
+      "function": "TracingChannel.traceSync",
+      "line": 322,
+      "method": "traceSync",
+      "native": false
+    },
+    {
+      "column": 24,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "wrapModuleLoad",
+      "line": 217,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.require",
+      "line": 1335,
+      "method": "require",
+      "native": false
+    },
+    {
+      "column": 16,
+      "file": "node:internal/modules/helpers",
+      "function": "require",
+      "line": 136,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 20,
+      "file": "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js",
+      "function": null,
+      "line": 19,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module._compile",
+      "line": 1562,
+      "method": "_compile",
+      "native": false
+    },
+    {
+      "column": 10,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Object..js",
+      "line": 1699,
+      "method": ".js",
+      "native": false
+    },
+    {
+      "column": 32,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.load",
+      "line": 1313,
+      "method": "load",
+      "native": false
+    }
+  ],
+  "service": "votesecure-backend"
+}
+2025-09-24 10:09:49 [ERROR]: uncaughtException: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+Error: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1244:15)
+    at Function._load (node:internal/modules/cjs/loader:1070:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1335:12)
+    at require (node:internal/modules/helpers:136:16)
+    at Object.<anonymous> (C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js:19:20)
+    at Module._compile (node:internal/modules/cjs/loader:1562:14)
+    at Object..js (node:internal/modules/cjs/loader:1699:10)
+    at Module.load (node:internal/modules/cjs/loader:1313:32)
+Error: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1244:15)
+    at Function._load (node:internal/modules/cjs/loader:1070:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1335:12)
+    at require (node:internal/modules/helpers:136:16)
+    at Object.<anonymous> (C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js:19:20)
+    at Module._compile (node:internal/modules/cjs/loader:1562:14)
+    at Object..js (node:internal/modules/cjs/loader:1699:10)
+    at Module.load (node:internal/modules/cjs/loader:1313:32)
+{
+  "error": {
+    "code": "MODULE_NOT_FOUND",
+    "requireStack": [
+      "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js"
+    ]
+  },
+  "exception": true,
+  "date": "Wed Sep 24 2025 10:09:49 GMT+0530 (India Standard Time)",
+  "process": {
+    "pid": 45508,
+    "uid": null,
+    "gid": null,
+    "cwd": "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend",
+    "execPath": "C:\\Program Files\\nodejs\\node.exe",
+    "version": "v22.13.1",
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js"
+    ],
+    "memoryUsage": {
+      "rss": 89784320,
+      "heapTotal": 59748352,
+      "heapUsed": 39623360,
+      "external": 20784441,
+      "arrayBuffers": 18263128
+    }
+  },
+  "os": {
+    "loadavg": [
+      0,
+      0,
+      0
+    ],
+    "uptime": 774895.453
+  },
+  "trace": [
+    {
+      "column": 15,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Function._resolveFilename",
+      "line": 1244,
+      "method": "_resolveFilename",
+      "native": false
+    },
+    {
+      "column": 27,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Function._load",
+      "line": 1070,
+      "method": "_load",
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:diagnostics_channel",
+      "function": "TracingChannel.traceSync",
+      "line": 322,
+      "method": "traceSync",
+      "native": false
+    },
+    {
+      "column": 24,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "wrapModuleLoad",
+      "line": 217,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.require",
+      "line": 1335,
+      "method": "require",
+      "native": false
+    },
+    {
+      "column": 16,
+      "file": "node:internal/modules/helpers",
+      "function": "require",
+      "line": 136,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 20,
+      "file": "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js",
+      "function": null,
+      "line": 19,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module._compile",
+      "line": 1562,
+      "method": "_compile",
+      "native": false
+    },
+    {
+      "column": 10,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Object..js",
+      "line": 1699,
+      "method": ".js",
+      "native": false
+    },
+    {
+      "column": 32,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.load",
+      "line": 1313,
+      "method": "load",
+      "native": false
+    }
+  ],
+  "service": "votesecure-backend"
+}
+2025-09-24 10:10:03 [ERROR]: uncaughtException: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+Error: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1244:15)
+    at Function._load (node:internal/modules/cjs/loader:1070:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1335:12)
+    at require (node:internal/modules/helpers:136:16)
+    at Object.<anonymous> (C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js:19:20)
+    at Module._compile (node:internal/modules/cjs/loader:1562:14)
+    at Object..js (node:internal/modules/cjs/loader:1699:10)
+    at Module.load (node:internal/modules/cjs/loader:1313:32)
+Error: Cannot find module './routes/users'
+Require stack:
+- C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1244:15)
+    at Function._load (node:internal/modules/cjs/loader:1070:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1335:12)
+    at require (node:internal/modules/helpers:136:16)
+    at Object.<anonymous> (C:\Users\OM\OneDrive\Desktop\Voting_System\votesecure_online\backend\server.js:19:20)
+    at Module._compile (node:internal/modules/cjs/loader:1562:14)
+    at Object..js (node:internal/modules/cjs/loader:1699:10)
+    at Module.load (node:internal/modules/cjs/loader:1313:32)
+{
+  "error": {
+    "code": "MODULE_NOT_FOUND",
+    "requireStack": [
+      "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js"
+    ]
+  },
+  "exception": true,
+  "date": "Wed Sep 24 2025 10:10:03 GMT+0530 (India Standard Time)",
+  "process": {
+    "pid": 55676,
+    "uid": null,
+    "gid": null,
+    "cwd": "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend",
+    "execPath": "C:\\Program Files\\nodejs\\node.exe",
+    "version": "v22.13.1",
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js"
+    ],
+    "memoryUsage": {
+      "rss": 90497024,
+      "heapTotal": 58953728,
+      "heapUsed": 40202952,
+      "external": 20784441,
+      "arrayBuffers": 18263128
+    }
+  },
+  "os": {
+    "loadavg": [
+      0,
+      0,
+      0
+    ],
+    "uptime": 774908.64
+  },
+  "trace": [
+    {
+      "column": 15,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Function._resolveFilename",
+      "line": 1244,
+      "method": "_resolveFilename",
+      "native": false
+    },
+    {
+      "column": 27,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Function._load",
+      "line": 1070,
+      "method": "_load",
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:diagnostics_channel",
+      "function": "TracingChannel.traceSync",
+      "line": 322,
+      "method": "traceSync",
+      "native": false
+    },
+    {
+      "column": 24,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "wrapModuleLoad",
+      "line": 217,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.require",
+      "line": 1335,
+      "method": "require",
+      "native": false
+    },
+    {
+      "column": 16,
+      "file": "node:internal/modules/helpers",
+      "function": "require",
+      "line": 136,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 20,
+      "file": "C:\\Users\\OM\\OneDrive\\Desktop\\Voting_System\\votesecure_online\\backend\\server.js",
+      "function": null,
+      "line": 19,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 14,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module._compile",
+      "line": 1562,
+      "method": "_compile",
+      "native": false
+    },
+    {
+      "column": 10,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Object..js",
+      "line": 1699,
+      "method": ".js",
+      "native": false
+    },
+    {
+      "column": 32,
+      "file": "node:internal/modules/cjs/loader",
+      "function": "Module.load",
+      "line": 1313,
+      "method": "load",
+      "native": false
+    }
+  ],
+  "service": "votesecure-backend"
+}

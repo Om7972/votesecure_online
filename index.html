@@ -70,7 +70,17 @@
             background: #5a6fd8;
         }
     </style>
-<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fvotesecure6766back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.6"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    
+    <!-- Socket.IO -->
+    <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+    
+    <!-- Custom Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
 </head>
 <body>
     <div class="redirect-container">
@@ -83,14 +93,39 @@
     </div>
 
     <script>
-        // Redirect to voter dashboard after 3 seconds
-        setTimeout(function() {
-            window.location.href = 'pages/voter_dashboard.html';
-        }, 3000);
-        
-        // Show redirect message
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('VoteSecure Online - Redirecting to Voter Dashboard');
+        // Initialize authentication and redirect
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('VoteSecure Online - Initializing...');
+            
+            try {
+                // Wait for auth manager to initialize
+                await new Promise(resolve => {
+                    const checkAuth = () => {
+                        if (window.AuthManager && window.AuthManager.isInitialized) {
+                            resolve();
+                        } else {
+                            setTimeout(checkAuth, 100);
+                        }
+                    };
+                    checkAuth();
+                });
+                
+                // Check authentication state and redirect accordingly
+                if (window.AuthManager.isAuthenticated()) {
+                    console.log('User is authenticated, redirecting to dashboard');
+                    window.location.href = 'pages/voter_dashboard.html';
+                } else {
+                    console.log('User not authenticated, redirecting to login');
+                    window.location.href = 'pages/secure_login.html';
+                }
+                
+            } catch (error) {
+                console.error('Initialization error:', error);
+                // Fallback redirect after 3 seconds
+                setTimeout(function() {
+                    window.location.href = 'pages/secure_login.html';
+                }, 3000);
+            }
         });
     </script>
 </body>
