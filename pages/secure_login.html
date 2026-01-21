@@ -8,8 +8,7 @@
     <link rel="stylesheet" href="../css/main.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <script type="module"
-        src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fvotesecure6766back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.6"></script>
+    <script src="../js/utils.js"></script>
 </head>
 
 <body class="bg-background min-h-screen">
@@ -354,7 +353,7 @@
                 loadingSpinner.classList.remove('hidden');
 
                 try {
-                    const response = await fetch('/api/auth/login', {
+                    const response = await fetch(`${API_URL}/auth/login`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -362,21 +361,15 @@
                         body: JSON.stringify({ email, password })
                     });
 
-                    const data = await response.json();
+                    let data = null;
+                    try {
+                        data = await response.json();
+                    } catch (_) { }
 
-                    if (data.success) {
-                        // Success
-                        localStorage.setItem('token', data.token);
-                        localStorage.setItem('user', JSON.stringify(data.user));
-
-                        // Check for MFA (Mock for now, easy to enable if backend sends flag)
-                        // For now direct redirect
-                        window.location.href = data.user.role === 'admin' ? 'admin_dashboard.html' : 'voter_dashboard.html';
-
-                    } else {
-                        // Handle failed login
+                    if (!response.ok || !data || data.success !== true) {
                         failedAttempts++;
-                        document.getElementById('passwordError').textContent = data.message || 'Invalid credentials';
+                        const message = data && data.message ? data.message : 'Invalid credentials';
+                        document.getElementById('passwordError').textContent = message;
                         document.getElementById('passwordError').classList.remove('hidden');
 
                         submitBtn.disabled = false;
@@ -388,10 +381,16 @@
                             submitText.textContent = 'Account Locked';
                             alert('Account temporarily locked due to multiple failed attempts.');
                         }
+                        return;
                     }
+
+                    document.getElementById('passwordError').classList.add('hidden');
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    window.location.href = data.user.role === 'admin' ? 'admin_dashboard.html' : 'voter_dashboard.html';
                 } catch (error) {
                     console.error('Login error:', error);
-                    document.getElementById('passwordError').textContent = 'Server error. Please try again.';
+                    document.getElementById('passwordError').textContent = 'Unable to reach server. Please ensure the backend is running.';
                     document.getElementById('passwordError').classList.remove('hidden');
                     submitBtn.disabled = false;
                     submitText.textContent = 'Sign In';

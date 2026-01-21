@@ -1,4 +1,6 @@
-const API_URL = '/api';
+const API_URL = (typeof window !== 'undefined' && window.location && window.location.port === '5000')
+    ? `${window.location.origin}/api`
+    : 'http://localhost:5000/api';
 
 async function fetchWithAuth(endpoint, options = {}) {
     const token = localStorage.getItem('token');

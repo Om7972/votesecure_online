@@ -3,6 +3,7 @@ const Election = require('./Election');
 const Candidate = require('./Candidate');
 const Vote = require('./Vote');
 const AuditLog = require('./AuditLog');
+const Session = require('./Session');
 
 // Election Created By User (Admin)
 User.hasMany(Election, { foreignKey: 'created_by' });
@@ -26,4 +27,8 @@ Vote.belongsTo(Candidate, { foreignKey: 'candidate_id' });
 User.hasMany(AuditLog, { foreignKey: 'user_id' });
 AuditLog.belongsTo(User, { foreignKey: 'user_id' });
 
-module.exports = { User, Election, Candidate, Vote, AuditLog };
+// Session Associations
+User.hasMany(Session, { foreignKey: 'user_id', onDelete: 'CASCADE' });
+Session.belongsTo(User, { foreignKey: 'user_id' });
+
+module.exports = { User, Election, Candidate, Vote, AuditLog, Session };

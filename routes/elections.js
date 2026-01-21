@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Election, Candidate, Vote, User } = require('../models');
+const { Election, Candidate, Vote, User, AuditLog } = require('../models');
 const { verifyToken, verifyAdmin } = require('../middleware/authMiddleware');
 const crypto = require('crypto');
 
@@ -57,6 +57,27 @@ router.post('/', [verifyToken, verifyAdmin], async (req, res) => {
     }
 });
 
+// Get Single Election Details
+router.get('/:id', verifyToken, async (req, res) => {
+    try {
+        const election = await Election.findByPk(req.params.id, {
+            include: [{
+                model: Candidate,
+                attributes: ['id', 'name', 'party', 'manifesto', 'image_url', 'vote_count'] // Include vote_count for display if needed, or remove if secret
+            }]
+        });
+
+        if (!election) {
+            return res.status(404).json({ success: false, message: 'Election not found.' });
+        }
+
+        res.json({ success: true, election });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Error fetching election details.' });
+    }
+});
+
 // Vote in an election
 router.post('/vote', verifyToken, async (req, res) => {
     try {
@@ -86,6 +107,13 @@ router.post('/vote', verifyToken, async (req, res) => {
             election_id,
             candidate_id,
             receipt_hash: receiptHash
+        });
+
+        await AuditLog.create({
+            user_id: userId,
+            action: 'VOTE_CAST',
+            details: `Voted in election ID: ${election_id}`,
+            ip_address: req.ip
         });
 
         // Increment candidate vote count
