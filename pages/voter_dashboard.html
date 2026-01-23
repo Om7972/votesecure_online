@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="../css/main.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <script type="module"
-        src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fvotesecure6766back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.6"></script>
     <script src="../js/utils.js"></script>
 </head>
 
@@ -46,7 +44,7 @@
                 <div class="flex items-center space-x-4">
                     <!-- Notifications -->
                     <button class="relative p-2 text-secondary-600 hover:text-primary transition-gentle"
-                        id="notificationBtn">
+                        id="notificationBtn" aria-label="Open notifications">
                         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M15 17h5l-5 5v-5zM10.07 2.82l3.93 3.93-3.93 3.93-3.93-3.93 3.93-3.93z" />
@@ -457,7 +455,7 @@
         <div class="bg-surface rounded-xl p-6 max-w-md mx-4 max-h-96 overflow-y-auto">
             <div class="flex items-center justify-between mb-4">
                 <h3 class="text-lg font-semibold text-text-primary">Notifications</h3>
-                <button id="closeNotificationModal" class="text-text-secondary hover:text-text-primary">
+                <button id="closeNotificationModal" class="text-text-secondary hover:text-text-primary" aria-label="Close notifications">
                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M6 18L18 6M6 6l12 12" />

@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="../css/main.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <script type="module"
-        src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fvotesecure6766back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.6"></script>
 </head>
 
 <body class="bg-background min-h-screen">
@@ -70,7 +68,7 @@
                 <span>Vote Confirmation</span>
             </div>
             <div class="w-full bg-secondary-200 rounded-full h-2">
-                <div class="bg-primary h-2 rounded-full" style="width: 100%"></div>
+                <div class="bg-primary h-2 rounded-full w-full"></div>
             </div>
         </div>
 
@@ -250,7 +248,7 @@
             <h3 class="text-lg font-semibold text-text-primary mb-2">Submitting Your Vote</h3>
             <p class="text-text-secondary mb-4" id="loadingMessage">Encrypting ballot data...</p>
             <div class="w-full bg-gray-200 rounded-full h-2">
-                <div class="bg-primary h-2 rounded-full transition-all duration-300" id="progressBar" style="width: 0%">
+                <div class="bg-primary h-2 rounded-full transition-all duration-300 w-0" id="progressBar">
                 </div>
             </div>
         </div>

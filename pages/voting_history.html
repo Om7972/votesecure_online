@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="../css/main.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <script type="module"
-        src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fvotesecure6766back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.6"></script>
     <script src="../js/utils.js"></script>
 </head>
 
@@ -191,7 +189,7 @@
                             <div class="flex flex-col sm:flex-row gap-3">
                                 <!-- Date Range Filter -->
                                 <div class="relative">
-                                    <select class="form-input pr-10" id="dateFilter">
+                                    <select class="form-input pr-10" id="dateFilter" aria-label="Filter by date range">
                                         <option value="all">All Time</option>
                                         <option value="month">Last Month</option>
                                         <option value="3months">Last 3 Months</option>
@@ -202,7 +200,7 @@
 
                                 <!-- Election Type Filter -->
                                 <div class="relative">
-                                    <select class="form-input pr-10" id="typeFilter">
+                                    <select class="form-input pr-10" id="typeFilter" aria-label="Filter by election type">
                                         <option value="all">All Elections</option>
                                         <option value="local">Local Elections</option>
                                         <option value="state">State Elections</option>
@@ -213,7 +211,7 @@
 
                                 <!-- Status Filter -->
                                 <div class="relative">
-                                    <select class="form-input pr-10" id="statusFilter">
+                                    <select class="form-input pr-10" id="statusFilter" aria-label="Filter by status">
                                         <option value="all">All Status</option>
                                         <option value="completed">Completed</option>
                                         <option value="pending_results">Pending Results</option>
@@ -225,14 +223,14 @@
                             <div class="flex items-center bg-secondary-100 rounded-lg p-1">
                                 <button
                                     class="px-3 py-1 text-sm font-medium bg-surface rounded-md shadow-sm transition-gentle"
-                                    id="listViewBtn">
+                                    id="listViewBtn" aria-label="Switch to list view">
                                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M4 6h16M4 10h16M4 14h16M4 18h16" />
                                     </svg>
                                 </button>
                                 <button class="px-3 py-1 text-sm font-medium text-secondary-600 transition-gentle"
-                                    id="timelineViewBtn">
+                                    id="timelineViewBtn" aria-label="Switch to timeline view">
                                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
@@ -598,7 +596,7 @@
                                     </p>
                                 </div>
                                 <div class="relative">
-                                    <input type="checkbox" id="historyVisibility" class="sr-only" checked />
+                                    <input type="checkbox" id="historyVisibility" class="sr-only" checked aria-label="Toggle voting history visibility" />
                                     <label for="historyVisibility"
                                         class="block w-10 h-6 bg-secondary-200 rounded-full cursor-pointer relative">
                                         <span
@@ -613,7 +611,7 @@
                                     </p>
                                 </div>
                                 <div class="relative">
-                                    <input type="checkbox" id="shareStats" class="sr-only" />
+                                    <input type="checkbox" id="shareStats" class="sr-only" aria-label="Toggle sharing election statistics" />
                                     <label for="shareStats"
                                         class="block w-10 h-6 bg-secondary-200 rounded-full cursor-pointer relative">
                                         <span
@@ -634,7 +632,7 @@
                                     <span class="text-sm font-medium">8/8</span>
                                 </div>
                                 <div class="w-full bg-secondary-200 rounded-full h-2">
-                                    <div class="bg-success h-2 rounded-full" style="width: 100%"></div>
+                                    <div class="bg-success h-2 rounded-full w-full"></div>
                                 </div>
                             </div>
                             <div>
@@ -643,7 +641,7 @@
                                     <span class="text-sm font-medium">3/4</span>
                                 </div>
                                 <div class="w-full bg-secondary-200 rounded-full h-2">
-                                    <div class="bg-warning h-2 rounded-full" style="width: 75%"></div>
+                                    <div class="bg-warning h-2 rounded-full w-3/4"></div>
                                 </div>
                             </div>
                             <div>
@@ -652,7 +650,7 @@
                                     <span class="text-sm font-medium">1/1</span>
                                 </div>
                                 <div class="w-full bg-secondary-200 rounded-full h-2">
-                                    <div class="bg-success h-2 rounded-full" style="width: 100%"></div>
+                                    <div class="bg-success h-2 rounded-full w-full"></div>
                                 </div>
                             </div>
                         </div>
@@ -702,7 +700,7 @@
         <div class="bg-surface rounded-xl p-6 max-w-md mx-4 max-h-96 overflow-y-auto">
             <div class="flex items-center justify-between mb-4">
                 <h3 class="text-lg font-semibold text-text-primary">Notifications</h3>
-                <button id="closeNotificationModal" class="text-text-secondary hover:text-text-primary">
+                <button id="closeNotificationModal" class="text-text-secondary hover:text-text-primary" aria-label="Close notifications">
                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M6 18L18 6M6 6l12 12" />

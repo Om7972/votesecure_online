@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Load Election Details
     try {
-        const response = await fetchWithAuth(`${API_URL}/elections/${electionId}`);
+        const response = await fetchWithAuth(`/elections/${electionId}`);
         const data = await response.json();
 
         if (data.success) {
@@ -155,11 +155,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <p class="text-sm text-text-secondary">${party}</p>
             </div>
         `;
-        selectionSummary.style.display = 'block';
+        selectionSummary.classList.remove('hidden');
         reviewVoteBtn.disabled = false;
 
         // Update Progress
-        progressBar.style.width = '100%';
+        progressBar.classList.remove('w-1/3');
+        progressBar.classList.add('w-full');
         progressBar.classList.remove('bg-primary');
         progressBar.classList.add('bg-success');
         progressText.textContent = '1 of 1 selections complete';
@@ -196,9 +197,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         radios.forEach(r => r.checked = false);
         document.querySelectorAll('.candidate-card').forEach(c => c.classList.remove('ring-2', 'ring-primary', 'bg-primary-50'));
 
-        selectionSummary.style.display = 'none';
+        selectionSummary.classList.add('hidden');
         reviewVoteBtn.disabled = true;
-        progressBar.style.width = '33%'; // Reset to initial
+        progressBar.classList.remove('w-full');
+        progressBar.classList.add('w-1/3');
         progressBar.classList.remove('bg-success');
         progressBar.classList.add('bg-primary');
         progressText.textContent = '0 of 1 selections complete';

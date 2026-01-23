@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             // Note: We don't need to send receipt_hash, the server generates it. 
             // We just send election_id and candidate_id.
-            const response = await fetchWithAuth(`${API_URL}/elections/vote`, {
+            const response = await fetchWithAuth(`/elections/vote`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
