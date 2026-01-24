@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             loadingState.classList.remove('hidden');
             electionsGrid.innerHTML = ''; // Clear existing content
 
-            const response = await fetchWithAuth(`${API_URL}/elections?status=${status}`);
+            const response = await fetchWithAuth(`/elections?status=${status}`);
 
             if (!response.ok) {
                 throw new Error('Failed to fetch elections');
@@ -179,6 +179,75 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Initial Load
     fetchElections();
+
+    // User menu toggle
+    const userMenuBtn = document.getElementById('userMenuBtn');
+    const userDropdown = document.getElementById('userDropdown');
+
+    if (userMenuBtn && userDropdown) {
+        userMenuBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            userDropdown.classList.toggle('hidden');
+        });
+
+        document.addEventListener('click', function () {
+            userDropdown.classList.add('hidden');
+        });
+    }
+
+    // Notification modal
+    const notificationBtn = document.getElementById('notificationBtn');
+    const notificationModal = document.getElementById('notificationModal');
+    const closeNotificationModal = document.getElementById('closeNotificationModal');
+
+    if (notificationBtn && notificationModal) {
+        notificationBtn.addEventListener('click', function () {
+            notificationModal.classList.remove('hidden');
+            notificationModal.classList.add('flex');
+        });
+    }
+
+    if (closeNotificationModal) {
+        closeNotificationModal.addEventListener('click', function () {
+            if (notificationModal) {
+                notificationModal.classList.add('hidden');
+                notificationModal.classList.remove('flex');
+            }
+        });
+    }
+
+    if (notificationModal) {
+        notificationModal.addEventListener('click', function (e) {
+            if (e.target === notificationModal) {
+                notificationModal.classList.add('hidden');
+                notificationModal.classList.remove('flex');
+            }
+        });
+    }
+
+    // Keyboard navigation support
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            if (userDropdown) userDropdown.classList.add('hidden');
+            if (notificationModal) {
+                notificationModal.classList.add('hidden');
+                notificationModal.classList.remove('flex');
+            }
+        }
+    });
+
+    // Populate User Info in Header if available
+    const user = getUser();
+    if (user) {
+        // Update header name
+        const headerName = document.querySelector('#userMenuBtn span');
+        if (headerName) headerName.textContent = user.name;
+        // Update dropdown info
+        const ddName = document.querySelector('#userDropdown p.font-medium');
+        const ddEmail = document.querySelector('#userDropdown p.text-xs');
+        if (ddName) ddName.textContent = user.name;
+        if (ddEmail) ddEmail.textContent = user.email;
+    }
 
     // Filter Chips Logic (Simplified)
     document.getElementById('filterChips').addEventListener('click', (e) => {

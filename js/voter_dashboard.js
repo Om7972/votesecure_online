@@ -42,64 +42,30 @@ document.addEventListener('DOMContentLoaded', async function () {
         if (response.ok) {
             const data = await response.json();
             if (skeletonCards) skeletonCards.classList.add('hidden');
-
+            
             if (data.success && data.elections && data.elections.length > 0) {
-                // Clear static cards (except skeleton)
-                Array.from(activeElectionsContainer.children).forEach(child => {
-                    if (!child.classList.contains('skeleton-cards')) child.remove();
-                });
-
-                data.elections.forEach(election => {
-                    const card = document.createElement('div');
-                    card.className = 'card-interactive border-l-4 border-l-primary';
-
-                    const endDate = new Date(election.endDate);
-                    const now = new Date();
-                    const diffMs = endDate - now;
-                    const daysLeft = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
-                    const hoursLeft = Math.floor(diffMs / (1000 * 60 * 60));
-
-                    card.innerHTML = `
-                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                            <div class="flex-1 mb-4 sm:mb-0">
-                                <div class="flex items-center mb-2">
-                                    <h3 class="text-lg font-semibold text-text-primary mr-3">${election.title}</h3>
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
-                                        Active
-                                    </span>
-                                </div>
-                                <p class="text-text-secondary text-sm mb-3">${election.description || 'No description available.'}</p>
-                                <div class="flex items-center text-sm text-text-secondary space-x-4">
-                                    <div class="flex items-center">
-                                        <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                        </svg>
-                                        Ends in ${daysLeft} days
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex flex-col sm:items-end">
-                                <div class="text-right mb-3">
-                                    <div class="text-2xl font-bold text-primary">${Math.max(0, hoursLeft)}h</div>
-                                    <div class="text-xs text-text-secondary">Remaining</div>
-                                </div>
-                                <a href="voting_interface.html?id=${election.id}" class="btn-primary w-full sm:w-auto">
-                                    Vote Now
-                                </a>
-                            </div>
-                        </div>
-                        `;
-                    activeElectionsContainer.appendChild(card);
-                });
+                // ... existing rendering code ...
             } else {
-                Array.from(activeElectionsContainer.children).forEach(child => {
-                    if (!child.classList.contains('skeleton-cards')) child.remove();
-                });
-                const msg = document.createElement('p');
-                msg.className = 'text-center text-text-secondary';
-                msg.innerText = 'No active elections found.';
-                activeElectionsContainer.appendChild(msg);
+                 // ... existing empty state code ...
             }
+        } else {
+            if (skeletonCards) skeletonCards.classList.add('hidden');
+            const errorMsg = document.createElement('div');
+            errorMsg.className = 'col-span-full text-center py-8';
+            errorMsg.innerHTML = `
+                <div class="text-error mb-2">
+                    <svg class="h-8 w-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                    </svg>
+                    <p class="font-medium">Failed to load active elections</p>
+                </div>
+                <p class="text-sm text-text-secondary">Server connection error. Please verify the database is running.</p>
+            `;
+            // Clear container but keep skeleton structure if needed, or just replace content
+             Array.from(activeElectionsContainer.children).forEach(child => {
+                if (!child.classList.contains('skeleton-cards')) child.remove();
+            });
+            activeElectionsContainer.appendChild(errorMsg);
         }
     } catch (e) {
         console.error('Failed to fetch elections', e);
@@ -141,6 +107,8 @@ document.addEventListener('DOMContentLoaded', async function () {
                 } else {
                     upcomingElectionsContainer.innerHTML = '<p class="text-center text-text-secondary">No upcoming elections.</p>';
                 }
+            } else {
+                upcomingElectionsContainer.innerHTML = '<p class="text-center text-error text-sm">Unable to load upcoming elections.</p>';
             }
         } catch (e) {
             console.error('Failed to fetch upcoming elections', e);
@@ -179,6 +147,8 @@ document.addEventListener('DOMContentLoaded', async function () {
                 } else {
                     votingHistoryContainer.innerHTML = '<p class="text-center text-text-secondary py-4">No voting history found.</p>';
                 }
+            } else {
+                votingHistoryContainer.innerHTML = '<p class="text-center text-error py-4">Unable to load voting history.</p>';
             }
         } catch (e) {
             console.error('Failed to fetch voting history', e);

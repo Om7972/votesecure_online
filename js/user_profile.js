@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 submitBtn.textContent = 'Updating...';
 
                 try {
-                    const response = await fetchWithAuth(`${API_URL}/auth/change-password`, {
+                    const response = await fetchWithAuth('/auth/change-password', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ currentPassword, newPassword })
@@ -267,7 +267,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         if (!sessionsContainer) return;
 
         try {
-            const response = await fetchWithAuth(`${API_URL}/users/sessions`);
+            const response = await fetchWithAuth('/users/sessions');
             const data = await response.json();
 
             if (data.success) {
@@ -315,7 +315,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         if (!confirm('Are you sure you want to revoke this session?')) return;
 
         try {
-            const response = await fetchWithAuth(`${API_URL}/users/sessions/${sessionId}`, {
+            const response = await fetchWithAuth(`/users/sessions/${sessionId}`, {
                 method: 'DELETE'
             });
 
@@ -335,7 +335,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         if (!container) return;
 
         try {
-            const response = await fetchWithAuth(`${API_URL}/users/logs?limit=5`);
+            const response = await fetchWithAuth('/users/logs?limit=5');
             const data = await response.json();
 
             if (data.success) {
@@ -369,5 +369,4 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     // Load logs initially
     loadActivityLog();
-});
 });
