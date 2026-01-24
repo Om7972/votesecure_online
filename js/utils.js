@@ -23,7 +23,7 @@ async function fetchWithAuth(endpoint, options = {}) {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         window.location.href = 'secure_login.html';
-        return null;
+        return response; // Return response so callers don't crash on null check
     }
 
     return response;

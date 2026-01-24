@@ -44,9 +44,63 @@ document.addEventListener('DOMContentLoaded', async function () {
             if (skeletonCards) skeletonCards.classList.add('hidden');
             
             if (data.success && data.elections && data.elections.length > 0) {
-                // ... existing rendering code ...
+                // Clear static cards (except skeleton)
+                Array.from(activeElectionsContainer.children).forEach(child => {
+                    if (!child.classList.contains('skeleton-cards')) child.remove();
+                });
+
+                data.elections.forEach(election => {
+                    const card = document.createElement('div');
+                    card.className = 'card-interactive border-l-4 border-l-primary';
+
+                    const endDate = new Date(election.end_time || election.endDate); // Handle DB vs API naming
+                    const now = new Date();
+                    const diffMs = endDate - now;
+                    const daysLeft = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+                    const hoursLeft = Math.floor(diffMs / (1000 * 60 * 60));
+
+                    card.innerHTML = `
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                            <div class="flex-1 mb-4 sm:mb-0">
+                                <div class="flex items-center mb-2">
+                                    <h3 class="text-lg font-semibold text-text-primary mr-3">${election.title}</h3>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
+                                        Active
+                                    </span>
+                                </div>
+                                <p class="text-text-secondary text-sm mb-3">${election.description || 'No description available.'}</p>
+                                <div class="flex items-center text-sm text-text-secondary space-x-4">
+                                    <div class="flex items-center">
+                                        <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                        Ends in ${daysLeft} days
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col sm:items-end">
+                                <div class="text-right mb-3">
+                                    <div class="text-2xl font-bold text-primary">${Math.max(0, hoursLeft)}h</div>
+                                    <div class="text-xs text-text-secondary">Remaining</div>
+                                </div>
+                                <a href="voting_interface.html?id=${election.id}" class="btn-primary w-full sm:w-auto">
+                                    Vote Now
+                                </a>
+                            </div>
+                        </div>
+                        `;
+                    activeElectionsContainer.appendChild(card);
+                });
             } else {
-                 // ... existing empty state code ...
+                 const msg = document.createElement('p');
+                 msg.className = 'text-center text-text-secondary py-4';
+                 msg.innerText = 'No active elections found.';
+                 
+                 // Clear container except skeleton
+                 Array.from(activeElectionsContainer.children).forEach(child => {
+                    if (!child.classList.contains('skeleton-cards')) child.remove();
+                });
+                activeElectionsContainer.appendChild(msg);
             }
         } else {
             if (skeletonCards) skeletonCards.classList.add('hidden');
