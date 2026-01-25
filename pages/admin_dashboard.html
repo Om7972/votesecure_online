@@ -6,30 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Dashboard - VoteSecure Online</title>
     <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/custom.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script type="module"
-        src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fvotesecure6766back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.6"></script>
     <script src="../js/utils.js"></script>
 </head>
 
-<body class="bg-background min-h-screen">
+<body class="bg-slate-900 text-slate-200 min-h-screen">
     <!-- Admin Header -->
-    <header class="bg-surface shadow-gentle-sm border-b border-gray-200 sticky top-0 z-40">
+    <header class="nav-glass border-b border-white/10 sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <!-- Logo & Admin Badge -->
                 <div class="flex items-center">
-                    <a href="../index.html" class="flex items-center mr-6">
-                        <svg class="h-8 w-8 text-primary mr-3" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z" />
-                            <path d="M10 17l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" fill="white" />
-                        </svg>
-                        <h1 class="text-xl font-bold text-primary">VoteSecure Admin</h1>
+                    <a href="../index.html" class="flex items-center mr-6 group">
+                        <div
+                            class="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-sm shadow-lg group-hover:shadow-indigo-500/50 transition-all duration-300 mr-2">
+                            🛡️
+                        </div>
+                        <h1 class="text-xl font-bold font-outfit tracking-tight text-white">VoteSecure <span
+                                class="text-indigo-400">Admin</span></h1>
                     </a>
                     <span
-                        class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-error-100 text-error-800">
+                        class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20">
                         <svg class="h-3 w-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
                                 d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
@@ -43,49 +44,48 @@
                 <div class="hidden md:flex items-center space-x-4">
                     <div class="flex items-center space-x-2 text-sm">
                         <div class="flex items-center">
-                            <div class="w-2 h-2 bg-success rounded-full mr-2"></div>
-                            <span class="text-success font-medium">System Healthy</span>
+                            <div class="w-2 h-2 bg-emerald-400 rounded-full mr-2 shadow-[0_0_8px_rgba(52,211,153,0.5)]">
+                            </div>
+                            <span class="text-emerald-400 font-medium">System Healthy</span>
                         </div>
-                        <span class="text-text-secondary">|</span>
-                        <span class="text-text-secondary">Load: <span class="font-medium">23%</span></span>
+                        <span class="text-slate-600">|</span>
+                        <span class="text-slate-400">Load: <span class="font-medium text-white">23%</span></span>
                     </div>
 
                     <!-- Notifications -->
-                    <button class="relative p-2 text-secondary-600 hover:text-primary transition-gentle"
+                    <button class="relative p-2 text-slate-300 hover:text-white transition-colors"
                         id="adminNotificationBtn">
                         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M15 17h5l-5 5v-5zM10.07 2.82l3.93 3.93-3.93 3.93-3.93-3.93 3.93-3.93z" />
                         </svg>
                         <span
-                            class="absolute -top-1 -right-1 h-4 w-4 bg-warning text-white text-xs rounded-full flex items-center justify-center">7</span>
+                            class="absolute -top-1 -right-1 h-4 w-4 bg-amber-500 text-white text-xs rounded-full flex items-center justify-center shadow-lg shadow-amber-500/50">7</span>
                     </button>
 
                     <!-- Admin Menu -->
                     <div class="relative" id="adminMenuContainer">
-                        <button
-                            class="flex items-center space-x-3 p-2 rounded-lg hover:bg-secondary-50 transition-gentle"
+                        <button class="flex items-center space-x-3 p-2 rounded-lg hover:bg-white/5 transition-colors"
                             id="adminMenuBtn">
                             <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                alt="Admin Avatar" class="h-8 w-8 rounded-full object-cover" />
-                            <span class="hidden sm:block text-sm font-medium text-text-primary">Admin User</span>
-                            <svg class="h-4 w-4 text-secondary-400" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
+                                alt="Admin Avatar" class="h-8 w-8 rounded-full object-cover border border-white/20" />
+                            <span class="hidden sm:block text-sm font-medium text-white">Admin User</span>
+                            <svg class="h-4 w-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M19 9l-7 7-7-7" />
                             </svg>
                         </button>
 
                         <!-- Admin Dropdown Menu -->
-                        <div class="absolute right-0 mt-2 w-48 bg-surface rounded-lg shadow-gentle-lg border border-gray-200 hidden"
+                        <div class="absolute right-0 mt-2 w-48 bg-slate-800 border border-white/10 rounded-lg shadow-xl hidden backdrop-blur-xl"
                             id="adminDropdown">
                             <div class="py-2">
-                                <div class="px-4 py-2 border-b border-gray-100">
-                                    <p class="text-sm font-medium text-text-primary">Admin User</p>
-                                    <p class="text-xs text-text-secondary">Super Administrator</p>
+                                <div class="px-4 py-2 border-b border-white/10">
+                                    <p class="text-sm font-medium text-white">Admin User</p>
+                                    <p class="text-xs text-slate-400">Super Administrator</p>
                                 </div>
                                 <a href="javascript:void(0)"
-                                    class="block px-4 py-2 text-sm text-text-secondary hover:bg-secondary-50 transition-gentle">
+                                    class="block px-4 py-2 text-sm text-slate-300 hover:bg-white/5 transition-colors">
                                     <svg class="h-4 w-4 inline mr-2" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -96,7 +96,7 @@
                                     System Configuration
                                 </a>
                                 <a href="javascript:void(0)"
-                                    class="block px-4 py-2 text-sm text-text-secondary hover:bg-secondary-50 transition-gentle">
+                                    class="block px-4 py-2 text-sm text-slate-300 hover:bg-white/5 transition-colors">
                                     <svg class="h-4 w-4 inline mr-2" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -104,9 +104,9 @@
                                     </svg>
                                     Audit Logs
                                 </a>
-                                <div class="border-t border-gray-100 mt-2 pt-2">
+                                <div class="border-t border-white/10 mt-2 pt-2">
                                     <a href="secure_login.html"
-                                        class="block px-4 py-2 text-sm text-error hover:bg-error-50 transition-gentle">
+                                        class="block px-4 py-2 text-sm text-red-500 hover:bg-red-500/10 transition-colors">
                                         <svg class="h-4 w-4 inline mr-2" fill="none" stroke="currentColor"
                                             viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -122,7 +122,7 @@
 
                 <!-- Mobile Menu Button -->
                 <div class="md:hidden">
-                    <button class="p-2 text-secondary-600 hover:text-primary transition-gentle" id="mobileAdminMenuBtn">
+                    <button class="p-2 text-slate-300 hover:text-white transition-colors" id="mobileAdminMenuBtn">
                         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M4 6h16M4 12h16M4 18h16" />

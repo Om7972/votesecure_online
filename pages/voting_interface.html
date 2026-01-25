@@ -6,42 +6,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Voting Interface - VoteSecure Online</title>
     <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/custom.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-background min-h-screen">
+<body class="bg-slate-900 text-slate-200 min-h-screen">
     <!-- Header Section -->
-    <header class="bg-surface shadow-gentle-sm border-b border-gray-200 sticky top-0 z-40">
+    <header class="nav-glass border-b border-white/10 sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <!-- Logo and Election Title -->
                 <div class="flex items-center">
-                    <svg class="h-8 w-8 text-primary mr-3" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z" />
-                        <path d="M10 17l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" fill="white" />
-                    </svg>
+                    <a href="active_elections.html"
+                        class="flex items-center space-x-2 mr-6 text-slate-400 hover:text-white transition-colors">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                    </a>
                     <div>
-                        <h1 class="text-lg font-bold text-primary">2025 City Council Election</h1>
-                        <p class="text-xs text-text-secondary">District 3 Representative</p>
+                        <h1 class="text-lg font-bold text-white font-outfit">2025 City Council Election</h1>
+                        <p class="text-xs text-slate-400">District 3 Representative</p>
                     </div>
                 </div>
 
                 <!-- Security Status and Progress -->
                 <div class="flex items-center space-x-4">
                     <!-- Security Indicator -->
-                    <div class="flex items-center text-success">
-                        <svg class="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                                clip-rule="evenodd" />
-                        </svg>
-                        <span class="text-xs font-medium">Secure</span>
+                    <div
+                        class="flex items-center text-emerald-400 bg-emerald-400/10 px-3 py-1 rounded-full border border-emerald-400/20">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse mr-2"></span>
+                        <span class="text-xs font-medium">Secure Connection</span>
                     </div>
 
                     <!-- Session Timer -->
-                    <div class="flex items-center text-warning">
-                        <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div
+                        class="flex items-center text-amber-400 bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20">
+                        <svg class="h-4 w-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
@@ -49,7 +52,8 @@
                     </div>
 
                     <!-- Exit Button -->
-                    <button onclick="showExitModal()" class="text-secondary-600 hover:text-error transition-gentle" aria-label="Exit voting session">
+                    <button onclick="showExitModal()" class="text-slate-400 hover:text-red-400 transition-colors p-2"
+                        aria-label="Exit voting session">
                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M6 18L18 6M6 6l12 12" />
@@ -136,7 +140,8 @@
                             <!-- Selected candidate info will be populated here -->
                         </div>
                     </div>
-                    <button onclick="clearSelection()" class="text-secondary-600 hover:text-error transition-gentle" aria-label="Clear selection">
+                    <button onclick="clearSelection()" class="text-secondary-600 hover:text-error transition-gentle"
+                        aria-label="Clear selection">
                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />

@@ -6,29 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Secure Login - VoteSecure Online</title>
     <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/custom.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="../js/utils.js"></script>
 </head>
 
-<body class="bg-background min-h-screen">
+<body class="bg-slate-900 text-slate-200 min-h-screen">
     <!-- Header Section -->
-    <header class="bg-surface shadow-gentle-sm border-b border-gray-200">
+    <header class="nav-glass border-b border-white/10 sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
                 <div class="flex items-center">
-                    <svg class="h-8 w-8 text-primary mr-3" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z" />
-                        <path d="M10 17l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" fill="white" />
-                    </svg>
-                    <h1 class="text-xl font-bold text-primary">VoteSecure Online</h1>
+                    <a href="../index.html" class="flex items-center space-x-2 group">
+                        <div
+                            class="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-sm shadow-lg group-hover:shadow-indigo-500/50 transition-all duration-300">
+                            🗳️
+                        </div>
+                        <span class="text-xl font-bold font-outfit tracking-tight text-white">VoteSecure<span
+                                class="text-indigo-400">Online</span></span>
+                    </a>
                 </div>
 
                 <!-- Language Selector -->
                 <div class="flex items-center">
                     <select aria-label="Select language"
-                        class="text-sm border border-gray-200 rounded-lg px-3 py-2 bg-white text-text-primary focus:outline-none focus:ring-2 focus:ring-primary">
+                        class="text-sm border border-white/10 rounded-lg px-3 py-2 bg-slate-800 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
                         <option value="en">English</option>
                         <option value="es">Español</option>
                         <option value="fr">Français</option>
@@ -39,25 +44,31 @@
     </header>
 
     <!-- Main Content -->
-    <main class="flex-1 py-8 px-4 sm:px-6 lg:px-8">
+    <main
+        class="flex-1 py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden flex items-center justify-center min-h-[calc(100vh-4rem)]">
         <!-- Background Pattern -->
         <div class="absolute inset-0 overflow-hidden pointer-events-none">
-            <div class="absolute -top-40 -right-40 w-80 h-80 bg-primary opacity-5 rounded-full"></div>
-            <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-accent opacity-5 rounded-full"></div>
+            <div
+                class="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-purple-600/20 blur-[100px] animate-pulse">
+            </div>
+            <div class="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-indigo-600/20 blur-[100px] animate-pulse"
+                style="animation-delay: 1s;">
+            </div>
         </div>
 
-        <div class="max-w-md mx-auto relative z-10">
+        <div class="max-w-md w-full relative z-10">
             <!-- Login Form Container -->
-            <div class="card">
+            <div class="glass-panel p-8">
                 <div class="text-center mb-8">
-                    <div class="mx-auto w-16 h-16 bg-primary-50 rounded-full flex items-center justify-center mb-4">
-                        <svg class="h-8 w-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div
+                        class="mx-auto w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mb-4 border border-white/10 shadow-inner">
+                        <svg class="h-8 w-8 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                         </svg>
                     </div>
-                    <h2 class="text-3xl font-bold text-text-primary mb-2">Welcome Back</h2>
-                    <p class="text-text-secondary">Sign in to access your secure voting dashboard</p>
+                    <h2 class="text-3xl font-bold text-white mb-2 font-outfit">Welcome Back</h2>
+                    <p class="text-slate-400">Sign in to access your secure voting dashboard</p>
                 </div>
 
                 <!-- Login Form -->

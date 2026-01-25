@@ -25,6 +25,7 @@ router.post('/register', async (req, res) => {
             name,
             email,
             password_hash,
+            phone: req.body.phone,
             role: 'voter' // Default role
         });
 

@@ -46,6 +46,10 @@ const User = sequelize.define('User', {
     two_factor_secret: {
         type: DataTypes.STRING,
         allowNull: true
+    },
+    badges: {
+        type: DataTypes.JSON,
+        defaultValue: []
     }
 }, {
     timestamps: true,

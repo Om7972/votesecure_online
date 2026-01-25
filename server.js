@@ -20,11 +20,12 @@ app.use(helmet({
     contentSecurityPolicy: {
         directives: {
             defaultSrc: ["'self'"],
-            scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net", "https://static.rocket.new"],
-            styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-            fontSrc: ["'self'", "https://fonts.gstatic.com"],
+            scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://cdn.jsdelivr.net", "https://cdn.tailwindcss.com", "https://unpkg.com", "https://www.gstatic.com", "https://cdn.socket.io"],
+            styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://unpkg.com", "https://cdn.tailwindcss.com"],
+            fontSrc: ["'self'", "https://fonts.gstatic.com", "https://unpkg.com", "data:"],
             imgSrc: ["'self'", "data:", "blob:", "https://images.unsplash.com"],
-            connectSrc: ["'self'", "https://votesecure6766back.builtwithrocket.new", "https://application.rocket.new"], // Allow Rocket & Self
+            connectSrc: ["'self'", "https://votesecure6766back.builtwithrocket.new", "https://application.rocket.new", "ws://localhost:5000", "https://unpkg.com"],
+            workerSrc: ["'self'", "blob:"],
         },
     },
 }));
