@@ -1,257 +1,173 @@
-
-document.addEventListener('DOMContentLoaded', async () => {
-    const electionsGrid = document.getElementById('electionsGrid');
-    const loadingState = document.getElementById('loadingState');
-    const sortSelect = document.getElementById('sortSelect');
+// Active Elections Page Logic
+document.addEventListener('DOMContentLoaded', async function () {
+    const electionsContainer = document.getElementById('electionsGrid');
+    const filterButtons = document.querySelectorAll('[data-filter]');
     const searchInput = document.getElementById('searchInput');
 
     let allElections = [];
+    let currentFilter = 'all';
 
-    // Fetch and display elections
-    async function fetchElections(status = 'active') {
+    // Load elections from API
+    async function loadElections() {
         try {
-            loadingState.classList.remove('hidden');
-            electionsGrid.innerHTML = ''; // Clear existing content
-
-            const response = await fetchWithAuth(`/elections?status=${status}`);
-
-            if (!response.ok) {
-                throw new Error('Failed to fetch elections');
-            }
-
+            const response = await fetchWithAuth('/elections?status=active');
             const data = await response.json();
-            if (data.success) {
-                allElections = data.elections;
-                renderElections(allElections);
-            } else {
-                electionsGrid.innerHTML = `<p class="text-center col-span-3 text-red-500">${data.message}</p>`;
-            }
 
+            if (data.success) {
+                allElections = data.elections || [];
+                displayElections(allElections);
+            } else {
+                showError('Failed to load elections');
+            }
         } catch (error) {
-            console.error('Error:', error);
-            electionsGrid.innerHTML = `<p class="text-center col-span-3 text-red-500">Error loading elections. Please try again.</p>`;
-        } finally {
-            loadingState.classList.add('hidden');
+            console.error('Error loading elections:', error);
+            showError('Unable to connect to server');
         }
     }
 
-    function renderElections(elections) {
-        electionsGrid.innerHTML = '';
-
-        if (elections.length === 0) {
-            electionsGrid.innerHTML = `<p class="text-center col-span-3 text-gray-500">No elections found.</p>`;
+    // Display elections
+    function displayElections(elections) {
+        if (!elections || elections.length === 0) {
+            electionsContainer.innerHTML = `
+                <div class="col-span-full text-center py-12">
+                    <svg class="mx-auto h-12 w-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                    </svg>
+                    <h3 class="mt-2 text-sm font-medium text-white">No active elections</h3>
+                    <p class="mt-1 text-sm text-slate-400">Check back later for upcoming elections</p>
+                </div>
+            `;
             return;
         }
 
-        elections.forEach(election => {
-            const card = document.createElement('div');
-            card.className = `card-interactive border-l-4 ${getBorderColor(election.status)}`;
+        electionsContainer.innerHTML = elections.map(election => createElectionCard(election)).join('');
+    }
 
-            // Calculate time remaining or status text
-            const timeInfo = getTimeInfo(election);
+    // Create election card HTML
+    function createElectionCard(election) {
+        const candidates = election.Candidates || [];
+        const endDate = new Date(election.end_time);
+        const daysLeft = Math.ceil((endDate - new Date()) / (1000 * 60 * 60 * 24));
 
-            card.innerHTML = `
-                <div class="flex items-start justify-between mb-3">
-                    <div class="flex items-center space-x-2">
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusBadgeColor(election.status)}">
-                            ${election.status.charAt(0).toUpperCase() + election.status.slice(1)}
-                        </span>
-                        <span class="text-xs text-text-secondary">Federal</span> <!-- Placeholder Category -->
-                    </div>
-                </div>
-                
-                <h3 class="text-lg font-semibold text-text-primary mb-2">${election.title}</h3>
-                <p class="text-text-secondary text-sm mb-4 line-clamp-2">${election.description}</p>
-                
-                <div class="flex items-center justify-between mb-4">
-                    <div class="flex items-center space-x-4">
-                        <div class="text-sm">
-                            <span class="text-text-secondary">Candidates:</span>
-                            <span class="font-medium text-text-primary">${election.Candidates ? election.Candidates.length : 0}</span>
+        return `
+            <div class="card-interactive group">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex-1">
+                        <h3 class="text-lg font-semibold text-white mb-2 group-hover:text-indigo-400 transition-colors">
+                            ${election.title}
+                        </h3>
+                        <p class="text-sm text-slate-400 mb-3">${election.description || ''}</p>
+                        <div class="flex items-center space-x-4 text-xs text-slate-500">
+                            <div class="flex items-center">
+                                <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                </svg>
+                                ${candidates.length} candidates
+                            </div>
+                            <div class="flex items-center">
+                                <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                ${daysLeft > 0 ? `${daysLeft} days left` : 'Ending soon'}
+                            </div>
                         </div>
                     </div>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-500/10 text-green-400 border border-green-500/20">
+                        Active
+                    </span>
                 </div>
-                
-                <div class="${getBgColor(election.status)} rounded-lg p-3 mb-4">
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm font-medium ${getTextColor(election.status)}">${timeInfo.label}</span>
-                        <div class="flex items-center space-x-1 ${getTextColor(election.status)}">
-                             <span class="font-mono text-sm">${timeInfo.value}</span>
+
+                <div class="space-y-2 mb-4">
+                    ${candidates.slice(0, 3).map(candidate => `
+                        <div class="flex items-center p-2 bg-slate-800/50 rounded-lg">
+                            <img src="${candidate.image_url || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e'}" 
+                                 alt="${candidate.name}" 
+                                 class="h-8 w-8 rounded-full object-cover mr-3"
+                                 onerror="this.src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e'">
+                            <div class="flex-1">
+                                <p class="text-sm font-medium text-white">${candidate.name}</p>
+                                <p class="text-xs text-slate-400">${candidate.party || 'Independent'}</p>
+                            </div>
                         </div>
-                    </div>
+                    `).join('')}
+                    ${candidates.length > 3 ? `
+                        <p class="text-xs text-slate-500 text-center">+${candidates.length - 3} more candidates</p>
+                    ` : ''}
                 </div>
-                
-                <button onclick="window.location.href='voting_interface.html?id=${election.id}'" class="w-full ${getButtonClass(election.status)}" ${election.status !== 'active' ? 'disabled' : ''}>
-                    ${getButtonText(election.status)}
-                </button>
-            `;
-            electionsGrid.appendChild(card);
+
+                <div class="flex space-x-3">
+                    <a href="voting_interface.html?election=${election.id}" 
+                       class="flex-1 btn-primary text-center">
+                        Vote Now
+                    </a>
+                    <a href="election_results.html?election=${election.id}" 
+                       class="px-4 py-2 bg-slate-800 text-slate-300 rounded-lg hover:bg-slate-700 transition-colors text-sm font-medium">
+                        View Details
+                    </a>
+                </div>
+            </div>
+        `;
+    }
+
+    // Filter elections
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            filterButtons.forEach(btn => {
+                btn.classList.remove('bg-indigo-500', 'text-white');
+                btn.classList.add('text-slate-400');
+            });
+            this.classList.add('bg-indigo-500', 'text-white');
+            this.classList.remove('text-slate-400');
+
+            currentFilter = this.dataset.filter;
+            applyFilters();
         });
-
-        document.getElementById('electionCount').textContent = elections.length;
-    }
-
-    // Helper functions for styling logic
-    function getBorderColor(status) {
-        switch (status) {
-            case 'active': return 'border-l-success';
-            case 'upcoming': return 'border-l-primary';
-            default: return 'border-l-secondary-300';
-        }
-    }
-
-    function getStatusBadgeColor(status) {
-        switch (status) {
-            case 'active': return 'bg-success-100 text-success-800';
-            case 'upcoming': return 'bg-primary-100 text-primary-800';
-            default: return 'bg-secondary-100 text-secondary-700';
-        }
-    }
-
-    function getBgColor(status) {
-        switch (status) {
-            case 'active': return 'bg-success-50';
-            case 'upcoming': return 'bg-primary-50';
-            default: return 'bg-secondary-50';
-        }
-    }
-
-    function getTextColor(status) {
-        switch (status) {
-            case 'active': return 'text-success-800';
-            case 'upcoming': return 'text-primary-800';
-            default: return 'text-secondary-700';
-        }
-    }
-
-    function getButtonClass(status) {
-        if (status === 'active') return 'btn-success';
-        return 'btn-secondary';
-    }
-
-    function getButtonText(status) {
-        if (status === 'active') return 'Vote Now';
-        if (status === 'upcoming') return 'Voting Opens Soon';
-        return 'View Results';
-    }
-
-    function getTimeInfo(election) {
-        const now = new Date();
-        const start = new Date(election.start_time);
-        const end = new Date(election.end_time);
-
-        if (election.status === 'upcoming') {
-            return { label: 'Starts In', value: new Date(start).toLocaleDateString() };
-        } else if (election.status === 'active') {
-            // Simple logic for now, could use a countdown library
-            const diffTime = Math.abs(end - now);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            return { label: 'Time Remaining', value: `${diffDays} days` };
-        } else {
-            return { label: 'Ended', value: new Date(end).toLocaleDateString() };
-        }
-    }
-
-    // Search Filter
-    searchInput.addEventListener('input', (e) => {
-        const term = e.target.value.toLowerCase();
-        const filtered = allElections.filter(election =>
-            election.title.toLowerCase().includes(term) ||
-            election.description.toLowerCase().includes(term)
-        );
-        renderElections(filtered);
     });
 
-    // Sorting
-    sortSelect.addEventListener('change', (e) => {
-        const sortBy = e.target.value;
-        let sorted = [...allElections];
+    // Search functionality
+    if (searchInput) {
+        searchInput.addEventListener('input', debounce(applyFilters, 300));
+    }
 
-        if (sortBy === 'deadline') {
-            sorted.sort((a, b) => new Date(a.end_time) - new Date(b.end_time));
-        } else if (sortBy === 'alphabetical') {
-            sorted.sort((a, b) => a.title.localeCompare(b.title));
+    function applyFilters() {
+        let filtered = allElections;
+
+        // Apply search
+        if (searchInput && searchInput.value) {
+            const searchTerm = searchInput.value.toLowerCase();
+            filtered = filtered.filter(election =>
+                election.title.toLowerCase().includes(searchTerm) ||
+                (election.description && election.description.toLowerCase().includes(searchTerm))
+            );
         }
-        // Add more sorts as needed
 
-        renderElections(sorted);
-    });
-
-    // Initial Load
-    fetchElections();
-
-    // User menu toggle
-    const userMenuBtn = document.getElementById('userMenuBtn');
-    const userDropdown = document.getElementById('userDropdown');
-
-    if (userMenuBtn && userDropdown) {
-        userMenuBtn.addEventListener('click', function (e) {
-            e.stopPropagation();
-            userDropdown.classList.toggle('hidden');
-        });
-
-        document.addEventListener('click', function () {
-            userDropdown.classList.add('hidden');
-        });
+        displayElections(filtered);
     }
 
-    // Notification modal
-    const notificationBtn = document.getElementById('notificationBtn');
-    const notificationModal = document.getElementById('notificationModal');
-    const closeNotificationModal = document.getElementById('closeNotificationModal');
-
-    if (notificationBtn && notificationModal) {
-        notificationBtn.addEventListener('click', function () {
-            notificationModal.classList.remove('hidden');
-            notificationModal.classList.add('flex');
-        });
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
     }
 
-    if (closeNotificationModal) {
-        closeNotificationModal.addEventListener('click', function () {
-            if (notificationModal) {
-                notificationModal.classList.add('hidden');
-                notificationModal.classList.remove('flex');
-            }
-        });
+    function showError(message) {
+        electionsContainer.innerHTML = `
+            <div class="col-span-full text-center py-12">
+                <svg class="mx-auto h-12 w-12 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <h3 class="mt-2 text-sm font-medium text-white">${message}</h3>
+                <button onclick="location.reload()" class="mt-4 btn-secondary">Retry</button>
+            </div>
+        `;
     }
 
-    if (notificationModal) {
-        notificationModal.addEventListener('click', function (e) {
-            if (e.target === notificationModal) {
-                notificationModal.classList.add('hidden');
-                notificationModal.classList.remove('flex');
-            }
-        });
-    }
-
-    // Keyboard navigation support
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') {
-            if (userDropdown) userDropdown.classList.add('hidden');
-            if (notificationModal) {
-                notificationModal.classList.add('hidden');
-                notificationModal.classList.remove('flex');
-            }
-        }
-    });
-
-    // Populate User Info in Header if available
-    const user = getUser();
-    if (user) {
-        // Update header name
-        const headerName = document.querySelector('#userMenuBtn span');
-        if (headerName) headerName.textContent = user.name;
-        // Update dropdown info
-        const ddName = document.querySelector('#userDropdown p.font-medium');
-        const ddEmail = document.querySelector('#userDropdown p.text-xs');
-        if (ddName) ddName.textContent = user.name;
-        if (ddEmail) ddEmail.textContent = user.email;
-    }
-
-    // Filter Chips Logic (Simplified)
-    document.getElementById('filterChips').addEventListener('click', (e) => {
-        // Logic to toggle active class on chips and refetch/filter
-    });
-
+    // Initialize
+    await loadElections();
 });

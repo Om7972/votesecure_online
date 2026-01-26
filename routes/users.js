@@ -30,7 +30,7 @@ router.put('/profile', verifyToken, upload.single('profile_image'), async (req, 
         const updateData = { name, phone };
 
         if (req.file) {
-            updateData.profile_image = `/uploads/profiles/${req.file.filename}`;
+            updateData.profile_image = `/public/uploads/profiles/${req.file.filename}`;
         }
 
         await User.update(updateData, {

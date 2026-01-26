@@ -45,7 +45,7 @@ app.use('/api/votes', voteRoutes);
 
 // Sync Database
 // Note: In production, use migrations instead of sync({ alter: true })
-sequelize.sync({ alter: true }).then(() => {
+sequelize.sync().then(() => {
     console.log('Database synced');
 }).catch(err => {
     console.error('Failed to sync database:', err);

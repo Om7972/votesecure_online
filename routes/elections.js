@@ -38,7 +38,7 @@ router.post('/', [verifyToken, verifyAdmin], async (req, res) => {
             description,
             start_time,
             end_time,
-            status: 'active', // For simplicity
+            status: req.body.status || 'active',
             created_by: req.userId
         });
 
