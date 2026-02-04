@@ -50,15 +50,55 @@
                     </a>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#features"
-                        class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Features</a>
-                    <a href="#about" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">How
-                        it Works</a>
-                    <a href="#security"
-                        class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Security</a>
+                <div class="hidden md:flex items-center space-x-6">
+                    <!-- Platform Dropdown -->
+                    <div class="nav-item group">
+                        <button
+                            class="flex items-center space-x-1 text-sm font-medium text-slate-300 hover:text-white transition-colors focus:outline-none py-2">
+                            <span>Platform</span>
+                            <i class='bx bx-chevron-down text-lg transition-transform group-hover:rotate-180'></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="pages/platform/features.html" class="dropdown-item">
+                                <i class='bx bx-star mr-2 text-indigo-400'></i>Features
+                            </a>
+                            <a href="pages/platform/security.html" class="dropdown-item">
+                                <i class='bx bx-shield-quarter mr-2 text-emerald-400'></i>Security
+                            </a>
+                            <a href="pages/platform/pricing.html" class="dropdown-item">
+                                <i class='bx bx-dollar-circle mr-2 text-amber-400'></i>Pricing
+                            </a>
+                            <a href="pages/platform/roadmap.html" class="dropdown-item">
+                                <i class='bx bx-map-alt mr-2 text-purple-400'></i>Roadmap
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Resources Dropdown -->
+                    <div class="nav-item group">
+                        <button
+                            class="flex items-center space-x-1 text-sm font-medium text-slate-300 hover:text-white transition-colors focus:outline-none py-2">
+                            <span>Resources</span>
+                            <i class='bx bx-chevron-down text-lg transition-transform group-hover:rotate-180'></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="pages/resources/documentation.html" class="dropdown-item">
+                                <i class='bx bx-file mr-2 text-blue-400'></i>Documentation
+                            </a>
+                            <a href="pages/resources/api-reference.html" class="dropdown-item">
+                                <i class='bx bx-code-curly mr-2 text-pink-400'></i>API Reference
+                            </a>
+                            <a href="pages/resources/validations.html" class="dropdown-item">
+                                <i class='bx bx-check-shield mr-2 text-green-400'></i>Validations
+                            </a>
+                            <a href="pages/resources/case-studies.html" class="dropdown-item">
+                                <i class='bx bx-news mr-2 text-orange-400'></i>Case Studies
+                            </a>
+                        </div>
+                    </div>
+
                     <a href="pages/secure_login.html"
-                        class="text-sm font-medium text-white hover:text-indigo-300 transition-colors">Login</a>
+                        class="text-sm font-medium text-white hover:text-indigo-300 transition-colors ml-4">Login</a>
                     <a href="pages/user_registration.html"
                         class="px-5 py-2.5 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold transition-all shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 transform hover:-translate-y-0.5">
                         Get Started

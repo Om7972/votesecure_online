@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Platform Features - VoteSecure Online</title>
+    <link rel="stylesheet" href="../../css/output.css" />
+    <link rel="stylesheet" href="../../css/main.css" />
+    <link rel="stylesheet" href="../../css/custom.css" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="bg-slate-900 text-white font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="nav-glass fixed w-full z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center">
+                    <a href="../../index.html" class="flex items-center space-x-2 group">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-xl shadow-lg group-hover:shadow-indigo-500/50 transition-all duration-300">
+                            🗳️
+                        </div>
+                        <span class="text-2xl font-bold font-outfit tracking-tight">VoteSecure<span
+                                class="text-indigo-400">Online</span></span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <div class="nav-item group">
+                        <button
+                            class="flex items-center space-x-1 text-sm font-medium text-slate-300 hover:text-white transition-colors focus:outline-none py-2">
+                            <span>Platform</span>
+                            <i class='bx bx-chevron-down text-lg transition-transform group-hover:rotate-180'></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="features.html" class="dropdown-item bg-indigo-500/10 text-white"><i
+                                    class='bx bx-star mr-2 text-indigo-400'></i>Features</a>
+                            <a href="security.html" class="dropdown-item"><i
+                                    class='bx bx-shield-quarter mr-2 text-emerald-400'></i>Security</a>
+                            <a href="pricing.html" class="dropdown-item"><i
+                                    class='bx bx-dollar-circle mr-2 text-amber-400'></i>Pricing</a>
+                            <a href="roadmap.html" class="dropdown-item"><i
+                                    class='bx bx-map-alt mr-2 text-purple-400'></i>Roadmap</a>
+                        </div>
+                    </div>
+                    <div class="nav-item group">
+                        <button
+                            class="flex items-center space-x-1 text-sm font-medium text-slate-300 hover:text-white transition-colors focus:outline-none py-2">
+                            <span>Resources</span>
+                            <i class='bx bx-chevron-down text-lg transition-transform group-hover:rotate-180'></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="../resources/documentation.html" class="dropdown-item"><i
+                                    class='bx bx-file mr-2 text-blue-400'></i>Documentation</a>
+                            <a href="../resources/api-reference.html" class="dropdown-item"><i
+                                    class='bx bx-code-curly mr-2 text-pink-400'></i>API Reference</a>
+                            <a href="../resources/validations.html" class="dropdown-item"><i
+                                    class='bx bx-check-shield mr-2 text-green-400'></i>Validations</a>
+                            <a href="../resources/case-studies.html" class="dropdown-item"><i
+                                    class='bx bx-news mr-2 text-orange-400'></i>Case Studies</a>
+                        </div>
+                    </div>
+                    <a href="../secure_login.html"
+                        class="text-sm font-medium text-white hover:text-indigo-300 transition-colors ml-4">Login</a>
+                    <a href="../user_registration.html"
+                        class="px-5 py-2.5 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold transition-colors shadow-lg shadow-indigo-500/20">Get
+                        Started</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="pt-32 pb-20 relative overflow-hidden">
+        <div class="absolute inset-0 bg-slate-900 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.15),transparent_40%)]"
+            z-0></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <h1 class="text-4xl md:text-6xl font-extrabold font-outfit leading-tight mb-6">
+                The Future of <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Digital
+                    Democracy</span>
+            </h1>
+            <p class="text-xl text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed">
+                Experience a voting platform built on integrity. From military-grade encryption to real-time blockchain
+                verification, we provide the tools for trustless elections.
+            </p>
+            <div class="flex justify-center gap-4">
+                <a href="#core-features"
+                    class="btn-primary px-8 py-3 rounded-full text-lg font-semibold shadow-xl shadow-indigo-500/20">Explore
+                    Features</a>
+                <a href="../resources/documentation.html"
+                    class="btn-secondary px-8 py-3 rounded-full text-lg font-semibold">Read Docs</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Core Features Grid -->
+    <main class="py-20" id="core-features">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="glass-card p-8 rounded-2xl group hover:-translate-y-2 transition-transform duration-300">
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-indigo-500/20 flex items-center justify-center text-3xl text-indigo-400 mb-6 group-hover:scale-110 transition-transform">
+                        <i class='bx bx-fingerprint'></i>
+                    </div>
+                    <h3 class="text-2xl font-bold font-outfit mb-3 text-white">Biometric Auth</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        Ensure one-person-one-vote with AI-powered facial recognition and liveness detection linked to
+                        government ID.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="glass-card p-8 rounded-2xl group hover:-translate-y-2 transition-transform duration-300">
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-emerald-500/20 flex items-center justify-center text-3xl text-emerald-400 mb-6 group-hover:scale-110 transition-transform">
+                        <i class='bx bx-link'></i>
+                    </div>
+                    <h3 class="text-2xl font-bold font-outfit mb-3 text-white">Blockchain Ledger</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        Every vote is recorded on an immutable, distributed ledger, allowing for public auditability
+                        without compromising privacy.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="glass-card p-8 rounded-2xl group hover:-translate-y-2 transition-transform duration-300">
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-purple-500/20 flex items-center justify-center text-3xl text-purple-400 mb-6 group-hover:scale-110 transition-transform">
+                        <i class='bx bx-analyse'></i>
+                    </div>
+                    <h3 class="text-2xl font-bold font-outfit mb-3 text-white">Real-Time Analytics</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        Monitor turnout, demographics, and voting result trends instantly with our comprehensive admin
+                        dashboard.
+                    </p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="glass-card p-8 rounded-2xl group hover:-translate-y-2 transition-transform duration-300">
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-pink-500/20 flex items-center justify-center text-3xl text-pink-400 mb-6 group-hover:scale-110 transition-transform">
+                        <i class='bx bx-globe'></i>
+                    </div>
+                    <h3 class="text-2xl font-bold font-outfit mb-3 text-white">Remote Accessibility</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        Vote securely from anywhere in the world on any device. Our platform is WCAG 2.1 AA compliant
+                        for accessibility.
+                    </p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="glass-card p-8 rounded-2xl group hover:-translate-y-2 transition-transform duration-300">
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-amber-500/20 flex items-center justify-center text-3xl text-amber-400 mb-6 group-hover:scale-110 transition-transform">
+                        <i class='bx bx-support'></i>
+                    </div>
+                    <h3 class="text-2xl font-bold font-outfit mb-3 text-white">24/7 Expert Support</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        Dedicated election managers and technical support teams are always available to ensure your
+                        event runs smoothly.
+                    </p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="glass-card p-8 rounded-2xl group hover:-translate-y-2 transition-transform duration-300">
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-blue-500/20 flex items-center justify-center text-3xl text-blue-400 mb-6 group-hover:scale-110 transition-transform">
+                        <i class='bx bx-receipt'></i>
+                    </div>
+                    <h3 class="text-2xl font-bold font-outfit mb-3 text-white">Verifiable Receipts</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        Voters receive a cryptographic receipt to independently verify their vote was counted correctly
+                        on the blockchain.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Deep Dive / Alternating Sections -->
+    <section class="py-20 bg-slate-900/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center gap-12 mb-24">
+                <div class="flex-1">
+                    <div
+                        class="inline-flex items-center px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-sm font-medium mb-4 border border-indigo-500/20">
+                        <span class="w-2 h-2 rounded-full bg-indigo-500 mr-2"></span>
+                        Admin Control
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold font-outfit mb-6">Powerful Tools for Election Managers
+                    </h2>
+                    <p class="text-slate-400 text-lg mb-6 max-w-lg">
+                        Configure complex ballots, manage voter rolls, and audit logs with granular permissions. Our
+                        dashboard gives you total control without the complexity.
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-slate-300"><i
+                                class='bx bx-check-circle text-green-400 mr-3 text-xl'></i> Ranked Choice Voting (RCV)
+                            support</li>
+                        <li class="flex items-center text-slate-300"><i
+                                class='bx bx-check-circle text-green-400 mr-3 text-xl'></i> Bulk user import/export</li>
+                        <li class="flex items-center text-slate-300"><i
+                                class='bx bx-check-circle text-green-400 mr-3 text-xl'></i> Automated email & SMS
+                            reminders</li>
+                    </ul>
+                </div>
+                <!-- Visual placeholder for Admin UI -->
+                <div class="flex-1 relative">
+                    <div
+                        class="glass-panel p-6 rounded-xl border border-white/10 shadow-2xl skew-y-3 hover:skew-y-0 transition-transform duration-500">
+                        <!-- Mock Dashboard Header -->
+                        <div class="flex items-center justify-between mb-6 border-b border-white/5 pb-4">
+                            <div class="h-4 w-32 bg-slate-700 rounded"></div>
+                            <div class="h-8 w-8 bg-indigo-500 rounded-full"></div>
+                        </div>
+                        <!-- Mock Chart -->
+                        <div class="flex items-end space-x-4 h-40 mb-6">
+                            <div class="w-1/5 bg-indigo-500/20 h-[60%] rounded-t"></div>
+                            <div class="w-1/5 bg-indigo-500/40 h-[80%] rounded-t"></div>
+                            <div class="w-1/5 bg-indigo-500/60 h-[40%] rounded-t"></div>
+                            <div class="w-1/5 bg-indigo-500/80 h-[90%] rounded-t"></div>
+                            <div class="w-1/5 bg-indigo-500 h-[70%] rounded-t"></div>
+                        </div>
+                        <!-- Mock Stats -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-slate-800 p-3 rounded">
+                                <div class="h-3 w-16 bg-slate-600 rounded mb-2"></div>
+                                <div class="h-6 w-24 bg-white/20 rounded"></div>
+                            </div>
+                            <div class="bg-slate-800 p-3 rounded">
+                                <div class="h-3 w-16 bg-slate-600 rounded mb-2"></div>
+                                <div class="h-6 w-24 bg-white/20 rounded"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-950 py-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-2xl font-bold font-outfit mb-4">Ready to Modernize Your Elections?</h2>
+            <p class="text-slate-400 mb-8 max-w-2xl mx-auto">Join thousands of organizations who trust VoteSecure Online
+                for their critical decision-making processes.</p>
+            <a href="../user_registration.html"
+                class="btn-glow px-8 py-3 rounded-full font-bold text-white shadow-lg shadow-indigo-500/40">Get Started
+                for Free</a>
+            <div class="mt-12 pt-8 border-t border-white/5 text-slate-500 text-sm">
+                &copy; 2026 VoteSecure Online. All rights reserved.
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

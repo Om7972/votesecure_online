@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Reference - VoteSecure Online</title>
+    <link rel="stylesheet" href="../../css/output.css" />
+    <link rel="stylesheet" href="../../css/main.css" />
+    <link rel="stylesheet" href="../../css/custom.css" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- Highlight.js for code syntax -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+
+<body class="bg-slate-900 text-white font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="nav-glass fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center">
+                    <a href="../../index.html" class="flex items-center space-x-2 group">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-xl shadow-lg group-hover:shadow-indigo-500/50 transition-all duration-300">
+                            🗳️
+                        </div>
+                        <span class="text-2xl font-bold font-outfit tracking-tight">VoteSecure<span
+                                class="text-indigo-400">Online</span></span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <div class="nav-item group">
+                        <button
+                            class="flex items-center space-x-1 text-sm font-medium text-slate-300 hover:text-white transition-colors focus:outline-none py-2">
+                            <span>Platform</span>
+                            <i class='bx bx-chevron-down text-lg transition-transform group-hover:rotate-180'></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="../platform/features.html" class="dropdown-item"><i
+                                    class='bx bx-star mr-2 text-indigo-400'></i>Features</a>
+                            <a href="../platform/security.html" class="dropdown-item"><i
+                                    class='bx bx-shield-quarter mr-2 text-emerald-400'></i>Security</a>
+                            <a href="../platform/pricing.html" class="dropdown-item"><i
+                                    class='bx bx-dollar-circle mr-2 text-amber-400'></i>Pricing</a>
+                            <a href="../platform/roadmap.html" class="dropdown-item"><i
+                                    class='bx bx-map-alt mr-2 text-purple-400'></i>Roadmap</a>
+                        </div>
+                    </div>
+                    <div class="nav-item group">
+                        <button
+                            class="flex items-center space-x-1 text-sm font-medium text-slate-300 hover:text-white transition-colors focus:outline-none py-2">
+                            <span>Resources</span>
+                            <i class='bx bx-chevron-down text-lg transition-transform group-hover:rotate-180'></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="documentation.html" class="dropdown-item"><i
+                                    class='bx bx-file mr-2 text-blue-400'></i>Documentation</a>
+                            <a href="api-reference.html" class="dropdown-item bg-indigo-500/10 text-white"><i
+                                    class='bx bx-code-curly mr-2 text-pink-400'></i>API Reference</a>
+                            <a href="validations.html" class="dropdown-item"><i
+                                    class='bx bx-check-shield mr-2 text-green-400'></i>Validations</a>
+                            <a href="case-studies.html" class="dropdown-item"><i
+                                    class='bx bx-news mr-2 text-orange-400'></i>Case Studies</a>
+                        </div>
+                    </div>
+                    <a href="../secure_login.html"
+                        class="text-sm font-medium text-white hover:text-indigo-300 transition-colors ml-4">Login</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="flex pt-20 h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside class="w-64 hidden lg:block border-r border-white/5 bg-slate-900 overflow-y-auto">
+            <div class="p-6">
+                <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4">Core</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#auth" class="block text-indigo-400 font-medium">Authentication</a></li>
+                    <li><a href="#users" class="block text-slate-400 hover:text-white transition-colors">Users</a></li>
+                </ul>
+                <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-8 mb-4">Elections</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#list-elections" class="block text-slate-400 hover:text-white transition-colors">List
+                            Elections</a></li>
+                    <li><a href="#get-election" class="block text-slate-400 hover:text-white transition-colors">Get
+                            Details</a></li>
+                    <li><a href="#vote" class="block text-slate-400 hover:text-white transition-colors">Cast Vote</a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Content -->
+        <main class="flex-1 overflow-y-auto p-6 lg:p-12 scroll-smooth">
+            <div class="max-w-4xl mx-auto">
+                <div class="mb-12">
+                    <span
+                        class="inline-flex items-center px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/20 text-pink-400 text-xs font-medium mb-4">v1.0.0</span>
+                    <h1 class="text-4xl font-bold font-outfit mb-4">API Reference</h1>
+                    <p class="text-slate-400 text-lg">Integrate VoteSecure functionality directly into your
+                        applications.</p>
+                </div>
+
+                <div class="space-y-16">
+
+                    <!-- Authentication Section -->
+                    <section id="auth">
+                        <div class="flex items-center space-x-3 mb-6">
+                            <h2 class="text-2xl font-bold text-white">Authentication</h2>
+                        </div>
+                        <p class="text-slate-400 mb-6">All API requests must be authenticated using a Bearer Token.</p>
+
+                        <!-- Users Section -->
+                        <section id="users">
+                            <div class="flex items-center space-x-3 mb-6">
+                                <h2 class="text-2xl font-bold text-white">Users</h2>
+                            </div>
+                            <p class="text-slate-400 mb-6">Manage user accounts and profile information.</p>
+
+                            <!-- Get User Profile -->
+                            <div class="mb-10">
+                                <div class="flex items-center space-x-3 mb-4">
+                                    <span
+                                        class="px-2 py-1 rounded bg-blue-500/20 text-blue-400 text-xs font-bold border border-blue-500/30">GET</span>
+                                    <h3 class="text-xl font-bold text-white">/api/users/me</h3>
+                                </div>
+                                <p class="text-slate-400 mb-4">Retrieve the authenticated user's profile information.
+                                </p>
+                                <div class="glass-card bg-[#282c34] border-none overflow-hidden rounded-xl">
+                                    <pre class="m-0"><code class="language-json text-xs p-4 m-0 bg-transparent">{
+  "success": true,
+  "user": {
+    "id": 1,
+    "name": "Jane User",
+    "email": "jane@example.com",
+    "role": "voter"
+  }
+}</code></pre>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Elections Section (Expanded) -->
+                        <section id="get-election">
+                            <div class="flex items-center space-x-3 mb-4">
+                                <span
+                                    class="px-2 py-1 rounded bg-blue-500/20 text-blue-400 text-xs font-bold border border-blue-500/30">GET</span>
+                                <h3 class="text-xl font-bold text-white">/api/elections/:id</h3>
+                            </div>
+                            <p class="text-slate-400 mb-6">Get detailed information about a specific election, including
+                                candidates.</p>
+
+                            <div class="glass-card bg-[#282c34] border-none overflow-hidden rounded-xl">
+                                <pre class="m-0"><code class="language-json text-xs p-4 m-0 bg-transparent">{
+  "success": true,
+  "election": {
+    "id": 101,
+    "title": "City Council 2026",
+    "description": "Vote for your local representative.",
+    "candidates": [
+        { "id": 1, "name": "Alice Voter", "party": "Progressive" },
+        { "id": 2, "name": "Bob Ballot", "party": "Conservative" }
+    ]
+  }
+}</code></pre>
+                            </div>
+                        </section>
+
+                        <!-- Get Elections -->
+                        <section id="list-elections">
+                            <div class="flex items-center space-x-3 mb-4">
+                                <span
+                                    class="px-2 py-1 rounded bg-blue-500/20 text-blue-400 text-xs font-bold border border-blue-500/30">GET</span>
+                                <h3 class="text-xl font-bold text-white">/api/elections</h3>
+                            </div>
+                            <p class="text-slate-400 mb-6">Retrieve a list of active and upcoming elections.</p>
+
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="text-sm font-bold text-white mb-2">Parameters</h4>
+                                    <ul class="text-sm space-y-2 mb-4">
+                                        <li class="flex justify-between border-b border-white/5 pb-2">
+                                            <span class="font-mono text-indigo-400">status</span>
+                                            <span class="text-slate-500">Optional. 'active' | 'upcoming'</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="glass-card bg-[#282c34] border-none overflow-hidden rounded-xl">
+                                    <div
+                                        class="flex justify-between items-center px-4 py-2 bg-slate-800/50 border-b border-white/5">
+                                        <span class="text-xs text-slate-400">Response 200 OK</span>
+                                    </div>
+                                    <pre class="m-0"><code class="language-json text-xs p-4 m-0 bg-transparent">{
+  "success": true,
+  "data": [
+    {
+      "id": 101,
+      "title": "City Council 2026",
+      "status": "active",
+      "end_date": "2026-11-04T00:00:00Z"
+    }
+  ]
+}</code></pre>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Cast Vote -->
+                        <section id="vote">
+                            <div class="flex items-center space-x-3 mb-4">
+                                <span
+                                    class="px-2 py-1 rounded bg-emerald-500/20 text-emerald-400 text-xs font-bold border border-emerald-500/30">POST</span>
+                                <h3 class="text-xl font-bold text-white">/api/elections/:id/vote</h3>
+                            </div>
+                            <p class="text-slate-400 mb-6">Submit a ballot for a specific election.</p>
+
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="text-sm font-bold text-white mb-2">Body</h4>
+                                    <ul class="text-sm space-y-2 mb-4">
+                                        <li class="flex justify-between border-b border-white/5 pb-2">
+                                            <span class="font-mono text-indigo-400">candidate_id</span>
+                                            <span class="text-slate-500">Required. Integer</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="glass-card bg-[#282c34] border-none overflow-hidden rounded-xl">
+                                    <div
+                                        class="flex justify-between items-center px-4 py-2 bg-slate-800/50 border-b border-white/5">
+                                        <span class="text-xs text-slate-400">Response 200 OK</span>
+                                    </div>
+                                    <pre class="m-0"><code class="language-json text-xs p-4 m-0 bg-transparent">{
+  "success": true,
+  "message": "Vote cast successfully",
+  "receipt_hash": "0x8f2a...c4b1"
+}</code></pre>
+                                </div>
+                            </div>
+                        </section>
+
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Documentation - VoteSecure Online</title>
+    <link rel="stylesheet" href="../../css/output.css" />
+    <link rel="stylesheet" href="../../css/main.css" />
+    <link rel="stylesheet" href="../../css/custom.css" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="bg-slate-900 text-white font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="nav-glass fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center">
+                    <a href="../../index.html" class="flex items-center space-x-2 group">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-xl shadow-lg group-hover:shadow-indigo-500/50 transition-all duration-300">
+                            🗳️
+                        </div>
+                        <span class="text-2xl font-bold font-outfit tracking-tight">VoteSecure<span
+                                class="text-indigo-400">Online</span></span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <div class="nav-item group">
+                        <button
+                            class="flex items-center space-x-1 text-sm font-medium text-slate-300 hover:text-white transition-colors focus:outline-none py-2">
+                            <span>Platform</span>
+                            <i class='bx bx-chevron-down text-lg transition-transform group-hover:rotate-180'></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="../platform/features.html" class="dropdown-item"><i
+                                    class='bx bx-star mr-2 text-indigo-400'></i>Features</a>
+                            <a href="../platform/security.html" class="dropdown-item"><i
+                                    class='bx bx-shield-quarter mr-2 text-emerald-400'></i>Security</a>
+                            <a href="../platform/pricing.html" class="dropdown-item"><i
+                                    class='bx bx-dollar-circle mr-2 text-amber-400'></i>Pricing</a>
+                            <a href="../platform/roadmap.html" class="dropdown-item"><i
+                                    class='bx bx-map-alt mr-2 text-purple-400'></i>Roadmap</a>
+                        </div>
+                    </div>
+                    <div class="nav-item group">
+                        <button
+                            class="flex items-center space-x-1 text-sm font-medium text-slate-300 hover:text-white transition-colors focus:outline-none py-2">
+                            <span>Resources</span>
+                            <i class='bx bx-chevron-down text-lg transition-transform group-hover:rotate-180'></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="documentation.html" class="dropdown-item bg-indigo-500/10 text-white"><i
+                                    class='bx bx-file mr-2 text-blue-400'></i>Documentation</a>
+                            <a href="api-reference.html" class="dropdown-item"><i
+                                    class='bx bx-code-curly mr-2 text-pink-400'></i>API Reference</a>
+                            <a href="validations.html" class="dropdown-item"><i
+                                    class='bx bx-check-shield mr-2 text-green-400'></i>Validations</a>
+                            <a href="case-studies.html" class="dropdown-item"><i
+                                    class='bx bx-news mr-2 text-orange-400'></i>Case Studies</a>
+                        </div>
+                    </div>
+                    <a href="../secure_login.html"
+                        class="text-sm font-medium text-white hover:text-indigo-300 transition-colors ml-4">Login</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="flex pt-20 h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside class="w-64 hidden lg:block border-r border-white/5 bg-slate-900 overflow-y-auto">
+            <div class="p-6">
+                <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4">Getting Started</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#intro" class="block text-indigo-400 font-medium">Introduction</a></li>
+                    <li><a href="#quickstart" class="block text-slate-400 hover:text-white transition-colors">Quick
+                            Start Guide</a></li>
+                    <li><a href="#architecture" class="block text-slate-400 hover:text-white transition-colors">System
+                            Architecture</a></li>
+                </ul>
+                <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-8 mb-4">Election Management</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#creating-elections"
+                            class="block text-slate-400 hover:text-white transition-colors">Creating Elections</a></li>
+                    <li><a href="#voter-registration"
+                            class="block text-slate-400 hover:text-white transition-colors">Voter Registration</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto p-6 lg:p-12 scroll-smooth">
+            <div class="max-w-4xl mx-auto prose prose-invert prose-slate">
+                <h1 class="font-outfit text-4xl mb-6">Introduction</h1>
+                <p class="lead text-lg text-slate-400 mb-8">
+                    Welcome to the comprehensive documentation for VoteSecure Online. Our platform empowers
+                    organizations to conduct secure, transparent, and verifiable elections using advanced cryptography
+                    and blockchain technology.
+                </p>
+
+                <section id="quickstart" class="mb-16">
+                    <h2 class="text-2xl font-bold font-outfit mb-4 text-white">Quick Start Guide</h2>
+                    <p class="text-slate-400 mb-6">Get up and running with your first secure election in minutes.</p>
+
+                    <div class="grid md:grid-cols-2 gap-6 not-prose">
+                        <div class="glass-card p-6">
+                            <div
+                                class="w-10 h-10 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center mb-4 text-xl font-bold">
+                                1</div>
+                            <h3 class="font-bold text-white mb-2">Register Organization</h3>
+                            <p class="text-sm text-slate-400">Sign up for an admin account and complete the KYC
+                                verification process.</p>
+                        </div>
+                        <div class="glass-card p-6">
+                            <div
+                                class="w-10 h-10 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center mb-4 text-xl font-bold">
+                                2</div>
+                            <h3 class="font-bold text-white mb-2">Configure Election</h3>
+                            <p class="text-sm text-slate-400">Define candidates, set voting windows, and upload your
+                                voter roll.</p>
+                        </div>
+                        <div class="glass-card p-6">
+                            <div
+                                class="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-4 text-xl font-bold">
+                                3</div>
+                            <h3 class="font-bold text-white mb-2">Invite Voters</h3>
+                            <p class="text-sm text-slate-400">System automatically sends secure one-time voting links
+                                via email/SMS.</p>
+                        </div>
+                        <div class="glass-card p-6">
+                            <div
+                                class="w-10 h-10 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center mb-4 text-xl font-bold">
+                                4</div>
+                            <h3 class="font-bold text-white mb-2">Monitor Live</h3>
+                            <p class="text-sm text-slate-400">Watch results verify on the blockchain in real-time as
+                                votes come in.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="architecture" class="mb-16">
+                    <h2 class="text-2xl font-bold font-outfit mb-4 text-white">System Architecture</h2>
+                    <p class="text-slate-400 mb-6">Understanding how VoteSecure protects voter privacy while ensuring
+                        integrity.</p>
+
+                    <div class="glass-panel p-8 border border-white/10 rounded-xl relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-indigo-600/10 blur-[80px]"></div>
+                        <div class="space-y-6 relative z-10">
+                            <div class="flex items-start">
+                                <i class='bx bx-user text-2xl text-indigo-400 mr-4 mt-1'></i>
+                                <div>
+                                    <h4 class="font-bold text-white">Client-Side Encryption</h4>
+                                    <p class="text-sm text-slate-400">Votes are encrypted in the user's browser. The
+                                        server never sees the raw vote choice.</p>
+                                </div>
+                            </div>
+                            <div class="flex justify-center">
+                                <i class='bx bx-down-arrow-alt text-2xl text-slate-600'></i>
+                            </div>
+                            <div class="flex items-start">
+                                <i class='bx bx-server text-2xl text-purple-400 mr-4 mt-1'></i>
+                                <div>
+                                    <h4 class="font-bold text-white">Blind Signature Service</h4>
+                                    <p class="text-sm text-slate-400">The server verifies eligibility and signs the
+                                        encrypted vote without knowing its contents.</p>
+                                </div>
+                            </div>
+                            <div class="flex justify-center">
+                                <i class='bx bx-down-arrow-alt text-2xl text-slate-600'></i>
+                            </div>
+                            <div class="flex items-start">
+                                <i class='bx bx-cube-alt text-2xl text-emerald-400 mr-4 mt-1'></i>
+                                <div>
+                                    <h4 class="font-bold text-white">Blockchain Ledger</h4>
+                                    <p class="text-sm text-slate-400">The signed vote is submitted to the immutable
+                                        ledger. Results are calculated via homomorphic tallying.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="creating-elections" class="mb-16">
+                    <h2 class="text-2xl font-bold font-outfit mb-4 text-white">Creating Elections</h2>
+                    <p class="text-slate-400 mb-6">Learn how to set up highly configurable elections with diverse ballot
+                        types.</p>
+
+                    <div class="glass-panel p-6 border border-white/10 rounded-xl mb-8">
+                        <h3 class="font-bold text-white mb-4">Step-by-Step Configuration</h3>
+                        <ol class="space-y-4 text-slate-300 list-decimal pl-5">
+                            <li class="pl-2"><span class="font-medium text-white">Define Ballot Type:</span> Choose
+                                between First-Past-The-Post, Ranked Choice (RCV), or Approval Voting.</li>
+                            <li class="pl-2"><span class="font-medium text-white">Set Timelines:</span> Configure
+                                precise start and end times (UTC) for the voting window.</li>
+                            <li class="pl-2"><span class="font-medium text-white">Add Candidates:</span> Upload
+                                candidate profiles, including bios, photos, and party affiliations.</li>
+                            <li class="pl-2"><span class="font-medium text-white">Configure Security:</span>
+                                Enable/disable strict IP checking, biometric requirements, and result visibility.</li>
+                        </ol>
+                    </div>
+
+                    <div class="bg-indigo-900/20 border-l-4 border-indigo-500 p-4 rounded-r-lg">
+                        <div class="flex">
+                            <i class='bx bx-info-circle text-indigo-400 text-xl mr-3'></i>
+                            <div>
+                                <h4 class="font-bold text-indigo-300 text-sm uppercase">Pro Tip</h4>
+                                <p class="text-sm text-slate-400 mt-1">Use 'Test Mode' to simulate the election flow
+                                    with dummy voters before going live.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="voter-registration" class="mb-16">
+                    <h2 class="text-2xl font-bold font-outfit mb-4 text-white">Voter Registration</h2>
+                    <p class="text-slate-400 mb-6">Managing your voter rolls securely and efficiently.</p>
+
+                    <div class="grid md:grid-cols-2 gap-6 mb-8">
+                        <div class="glass-card p-6 border-t-4 border-t-purple-500">
+                            <h3 class="font-bold text-white mb-2">Bulk Import</h3>
+                            <p class="text-sm text-slate-400 mb-4">Upload CSV or JSON files containing voter data. The
+                                system automatically validates formats and checks for duplicates.</p>
+                            <code
+                                class="block bg-slate-950 p-2 rounded text-xs text-green-400 font-mono">email, name, id_number</code>
+                        </div>
+                        <div class="glass-card p-6 border-t-4 border-t-pink-500">
+                            <h3 class="font-bold text-white mb-2">Self-Registration Portal</h3>
+                            <p class="text-sm text-slate-400 mb-4">Enable a public landing page where voters can
+                                register themselves using government ID verification.</p>
+                            <span
+                                class="inline-flex items-center text-xs font-bold text-pink-400 bg-pink-500/10 px-2 py-1 rounded">Requires
+                                KYC Add-on</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+</body>
+
+</html>

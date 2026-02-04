@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pricing Plans - VoteSecure Online</title>
+    <link rel="stylesheet" href="../../css/output.css" />
+    <link rel="stylesheet" href="../../css/main.css" />
+    <link rel="stylesheet" href="../../css/custom.css" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="bg-slate-900 text-white font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="nav-glass fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center">
+                    <a href="../../index.html" class="flex items-center space-x-2 group">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-xl shadow-lg group-hover:shadow-indigo-500/50 transition-all duration-300">
+                            🗳️
+                        </div>
+                        <span class="text-2xl font-bold font-outfit tracking-tight">VoteSecure<span
+                                class="text-indigo-400">Online</span></span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <div class="nav-item group">
+                        <button
+                            class="flex items-center space-x-1 text-sm font-medium text-slate-300 hover:text-white transition-colors focus:outline-none py-2">
+                            <span>Platform</span>
+                            <i class='bx bx-chevron-down text-lg transition-transform group-hover:rotate-180'></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="features.html" class="dropdown-item"><i
+                                    class='bx bx-star mr-2 text-indigo-400'></i>Features</a>
+                            <a href="security.html" class="dropdown-item"><i
+                                    class='bx bx-shield-quarter mr-2 text-emerald-400'></i>Security</a>
+                            <a href="pricing.html" class="dropdown-item bg-indigo-500/10 text-white"><i
+                                    class='bx bx-dollar-circle mr-2 text-amber-400'></i>Pricing</a>
+                            <a href="roadmap.html" class="dropdown-item"><i
+                                    class='bx bx-map-alt mr-2 text-purple-400'></i>Roadmap</a>
+                        </div>
+                    </div>
+                    <div class="nav-item group">
+                        <button
+                            class="flex items-center space-x-1 text-sm font-medium text-slate-300 hover:text-white transition-colors focus:outline-none py-2">
+                            <span>Resources</span>
+                            <i class='bx bx-chevron-down text-lg transition-transform group-hover:rotate-180'></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="../resources/documentation.html" class="dropdown-item"><i
+                                    class='bx bx-file mr-2 text-blue-400'></i>Documentation</a>
+                            <a href="../resources/api-reference.html" class="dropdown-item"><i
+                                    class='bx bx-code-curly mr-2 text-pink-400'></i>API Reference</a>
+                            <a href="../resources/validations.html" class="dropdown-item"><i
+                                    class='bx bx-check-shield mr-2 text-green-400'></i>Validations</a>
+                            <a href="../resources/case-studies.html" class="dropdown-item"><i
+                                    class='bx bx-news mr-2 text-orange-400'></i>Case Studies</a>
+                        </div>
+                    </div>
+                    <a href="../secure_login.html"
+                        class="text-sm font-medium text-white hover:text-indigo-300 transition-colors ml-4">Login</a>
+                    <a href="../user_registration.html"
+                        class="px-5 py-2.5 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold transition-colors">Get
+                        Started</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="pt-32 pb-16 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold font-outfit mb-6">Simple, Transparent <span
+                class="text-gradient">Pricing</span></h1>
+        <p class="text-xl text-slate-400 max-w-2xl mx-auto mb-10">
+            Choose the perfect plan for your organization's voting needs. No hidden fees.
+        </p>
+
+        <!-- Toggle -->
+        <div class="flex justify-center items-center mb-16">
+            <span class="text-sm font-medium text-slate-400 mr-3">Monthly</span>
+            <div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+                <input type="checkbox" name="toggle" id="toggle"
+                    class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" />
+                <label for="toggle"
+                    class="toggle-label block overflow-hidden h-6 rounded-full bg-indigo-900 cursor-pointer"></label>
+            </div>
+            <span class="text-sm font-medium text-white ml-3">Yearly <span
+                    class="text-xs text-green-400 font-bold ml-1">SAVE 20%</span></span>
+        </div>
+    </header>
+
+    <!-- Pricing Tables -->
+    <main class="container mx-auto px-4 pb-24">
+        <div class="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+
+            <!-- Starter Plan -->
+            <div
+                class="glass-card p-8 rounded-2xl relative border border-white/5 hover:border-indigo-500/30 transition-all">
+                <h3 class="text-lg font-semibold text-slate-300 mb-2">Starter</h3>
+                <div class="flex items-baseline mb-6">
+                    <span class="text-4xl font-bold text-white">$0</span>
+                    <span class="text-slate-500 ml-2">/ month</span>
+                </div>
+                <p class="text-sm text-slate-400 mb-6">Perfect for small community groups and trial elections.</p>
+                <a href="#"
+                    class="block w-full py-3 px-4 bg-slate-800 hover:bg-slate-700 text-white text-center rounded-lg font-medium transition-colors mb-8 border border-white/10">Get
+                    Started Free</a>
+
+                <ul class="space-y-4 text-sm text-slate-300">
+                    <li class="flex items-center"><i class='bx bx-check text-green-400 mr-3 text-lg'></i> Up to 100
+                        voters</li>
+                    <li class="flex items-center"><i class='bx bx-check text-green-400 mr-3 text-lg'></i> 1 Active
+                        Election</li>
+                    <li class="flex items-center"><i class='bx bx-check text-green-400 mr-3 text-lg'></i> Basic
+                        Encryption</li>
+                    <li class="flex items-center"><i class='bx bx-check text-green-400 mr-3 text-lg'></i> Email Support
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Professional Plan (Featured) -->
+            <div
+                class="glass-card p-8 rounded-2xl relative border-2 border-indigo-500 transform md:-translate-y-4 shadow-2xl shadow-indigo-500/20">
+                <div class="absolute top-0 right-0 left-0 flex justify-center -mt-4">
+                    <span
+                        class="bg-indigo-500 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">Most
+                        Popular</span>
+                </div>
+                <h3 class="text-lg font-semibold text-indigo-400 mb-2">Professional</h3>
+                <div class="flex items-baseline mb-6">
+                    <span class="text-4xl font-bold text-white">$49</span>
+                    <span class="text-slate-500 ml-2">/ month</span>
+                </div>
+                <p class="text-sm text-slate-400 mb-6">For organizations requiring robust security and scale.</p>
+                <a href="#"
+                    class="block w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white text-center rounded-lg font-medium transition-colors mb-8 shadow-lg shadow-indigo-500/25">Start
+                    Free Trial</a>
+
+                <ul class="space-y-4 text-sm text-slate-300">
+                    <li class="flex items-center"><i class='bx bx-check text-indigo-400 mr-3 text-lg'></i> Up to 10,000
+                        voters</li>
+                    <li class="flex items-center"><i class='bx bx-check text-indigo-400 mr-3 text-lg'></i> Unlimited
+                        Elections</li>
+                    <li class="flex items-center"><i class='bx bx-check text-indigo-400 mr-3 text-lg'></i> AES-256 +
+                        Blockchain</li>
+                    <li class="flex items-center"><i class='bx bx-check text-indigo-400 mr-3 text-lg'></i> Voter
+                        Verification (SMS/Email)</li>
+                    <li class="flex items-center"><i class='bx bx-check text-indigo-400 mr-3 text-lg'></i> Real-time
+                        Analytics</li>
+                </ul>
+            </div>
+
+            <!-- Enterprise Plan -->
+            <div
+                class="glass-card p-8 rounded-2xl relative border border-white/5 hover:border-purple-500/30 transition-all">
+                <h3 class="text-lg font-semibold text-slate-300 mb-2">Enterprise</h3>
+                <div class="flex items-baseline mb-6">
+                    <span class="text-4xl font-bold text-white">Custom</span>
+                </div>
+                <p class="text-sm text-slate-400 mb-6">Tailored solutions for governments and large corporations.</p>
+                <a href="#"
+                    class="block w-full py-3 px-4 bg-slate-800 hover:bg-slate-700 text-white text-center rounded-lg font-medium transition-colors mb-8 border border-white/10">Contact
+                    Sales</a>
+
+                <ul class="space-y-4 text-sm text-slate-300">
+                    <li class="flex items-center"><i class='bx bx-check text-purple-400 mr-3 text-lg'></i> Unlimited
+                        voters</li>
+                    <li class="flex items-center"><i class='bx bx-check text-purple-400 mr-3 text-lg'></i> Dedicated
+                        Infrastructure</li>
+                    <li class="flex items-center"><i class='bx bx-check text-purple-400 mr-3 text-lg'></i> Biometric
+                        Integration</li>
+                    <li class="flex items-center"><i class='bx bx-check text-purple-400 mr-3 text-lg'></i> SLA &
+                        Priority Support</li>
+                    <li class="flex items-center"><i class='bx bx-check text-purple-400 mr-3 text-lg'></i> Custom API
+                        Access</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="max-w-3xl mx-auto mt-24">
+            <h2 class="text-2xl font-bold text-center mb-8">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                <div class="glass-panel p-6">
+                    <h4 class="font-semibold text-white mb-2">Can I change plans later?</h4>
+                    <p class="text-sm text-slate-400">Yes, you can upgrade or downgrade your plan at any time. Changes
+                        take effect on the next billing cycle.</p>
+                </div>
+                <div class="glass-panel p-6">
+                    <h4 class="font-semibold text-white mb-2">Is the free plan really free?</h4>
+                    <p class="text-sm text-slate-400">Absolutely. The Starter plan is free forever for small groups up
+                        to 100 voters. No credit card required.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-slate-950 py-10 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-slate-500 text-sm">&copy; 2026 VoteSecure Online. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <style>
+        /* Custom Toggle Switch */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #68D391;
+        }
+
+        .toggle-checkbox:checked+.toggle-label {
+            background-color: #68D391;
+        }
+    </style>
+</body>
+
+</html>
