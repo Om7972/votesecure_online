@@ -2,6 +2,8 @@ const API_URL = (typeof window !== 'undefined' && window.location && window.loca
     ? `${window.location.origin}/api`
     : 'http://localhost:5000/api';
 
+console.log('VoteSecure App: Utils Loaded');
+
 async function fetchWithAuth(endpoint, options = {}) {
     const token = localStorage.getItem('token');
     const headers = {
@@ -20,10 +22,11 @@ async function fetchWithAuth(endpoint, options = {}) {
 
     if (response.status === 401) {
         // Token expired or invalid
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        window.location.href = 'secure_login.html';
-        return response; // Return response so callers don't crash on null check
+        // Let the caller handle the redirect or error display
+        // localStorage.removeItem('token');
+        // localStorage.removeItem('user');
+        console.warn('Unauthorized access (401)');
+        return response;
     }
 
     return response;

@@ -1,3 +1,4 @@
+const sequelize = require('../config/database');
 const User = require('./User');
 const Election = require('./Election');
 const Candidate = require('./Candidate');
@@ -31,4 +32,4 @@ AuditLog.belongsTo(User, { foreignKey: 'user_id' });
 User.hasMany(Session, { foreignKey: 'user_id', onDelete: 'CASCADE' });
 Session.belongsTo(User, { foreignKey: 'user_id' });
 
-module.exports = { User, Election, Candidate, Vote, AuditLog, Session };
+module.exports = { sequelize, User, Election, Candidate, Vote, AuditLog, Session };

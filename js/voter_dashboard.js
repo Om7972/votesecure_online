@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Check Auth
     const user = getUser();
     if (!user) {
+        console.warn('No user found in localStorage. Redirecting to login.');
         window.location.href = 'secure_login.html';
         return;
     }
@@ -42,18 +43,24 @@ document.addEventListener('DOMContentLoaded', async function () {
         if (response.ok) {
             const data = await response.json();
             if (skeletonCards) skeletonCards.classList.add('hidden');
-            
+
             if (data.success && data.elections && data.elections.length > 0) {
+                // ... (render logic) ...
                 // Clear static cards (except skeleton)
                 Array.from(activeElectionsContainer.children).forEach(child => {
                     if (!child.classList.contains('skeleton-cards')) child.remove();
                 });
 
                 data.elections.forEach(election => {
+                    // ... (render card) ...
                     const card = document.createElement('div');
-                    card.className = 'card-interactive border-l-4 border-l-primary';
+                    // ... (rendering code kept same as much as possible or simplified for this replace) ...
+                    // To avoid huge replacement block, I will focus on the error handling part mostly.
+                    // But I must replace the whole block I requested.
+                    // I'll copy the rendering logic from the view_file output.
 
-                    const endDate = new Date(election.end_time || election.endDate); // Handle DB vs API naming
+                    card.className = 'card-interactive border-l-4 border-l-primary';
+                    const endDate = new Date(election.end_time || election.endDate);
                     const now = new Date();
                     const diffMs = endDate - now;
                     const daysLeft = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
@@ -64,16 +71,12 @@ document.addEventListener('DOMContentLoaded', async function () {
                             <div class="flex-1 mb-4 sm:mb-0">
                                 <div class="flex items-center mb-2">
                                     <h3 class="text-lg font-semibold text-text-primary mr-3">${election.title}</h3>
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
-                                        Active
-                                    </span>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800">Active</span>
                                 </div>
                                 <p class="text-text-secondary text-sm mb-3">${election.description || 'No description available.'}</p>
                                 <div class="flex items-center text-sm text-text-secondary space-x-4">
                                     <div class="flex items-center">
-                                        <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                        </svg>
+                                        <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                                         Ends in ${daysLeft} days
                                     </div>
                                 </div>
@@ -83,25 +86,38 @@ document.addEventListener('DOMContentLoaded', async function () {
                                     <div class="text-2xl font-bold text-primary">${Math.max(0, hoursLeft)}h</div>
                                     <div class="text-xs text-text-secondary">Remaining</div>
                                 </div>
-                                <a href="voting_interface.html?id=${election.id}" class="btn-primary w-full sm:w-auto">
-                                    Vote Now
-                                </a>
+                                <a href="voting_interface.html?id=${election.id}" class="btn-primary w-full sm:w-auto">Vote Now</a>
                             </div>
-                        </div>
-                        `;
+                        </div>`;
                     activeElectionsContainer.appendChild(card);
                 });
             } else {
-                 const msg = document.createElement('p');
-                 msg.className = 'text-center text-text-secondary py-4';
-                 msg.innerText = 'No active elections found.';
-                 
-                 // Clear container except skeleton
-                 Array.from(activeElectionsContainer.children).forEach(child => {
+                const msg = document.createElement('p');
+                msg.className = 'text-center text-text-secondary py-4';
+                msg.innerText = 'No active elections found.';
+                Array.from(activeElectionsContainer.children).forEach(child => {
                     if (!child.classList.contains('skeleton-cards')) child.remove();
                 });
                 activeElectionsContainer.appendChild(msg);
             }
+        } else if (response.status === 401) {
+            if (skeletonCards) skeletonCards.classList.add('hidden');
+            // Show Session Expired and Redirect Option
+            activeElectionsContainer.innerHTML = `
+                <div class="col-span-full text-center py-8">
+                    <div class="text-warning mb-4">
+                        <svg class="h-12 w-12 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                        </svg>
+                        <h3 class="text-lg font-bold">Session Expired</h3>
+                        <p class="text-sm">Please log in again to continue.</p>
+                    </div>
+                    <a href="secure_login.html" class="btn-primary inline-block">Log In</a>
+                </div>
+            `;
+            // Clear local storage to force fresh login on click
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
         } else {
             if (skeletonCards) skeletonCards.classList.add('hidden');
             const errorMsg = document.createElement('div');
@@ -113,10 +129,9 @@ document.addEventListener('DOMContentLoaded', async function () {
                     </svg>
                     <p class="font-medium">Failed to load active elections</p>
                 </div>
-                <p class="text-sm text-text-secondary">Server connection error. Please verify the database is running.</p>
+                <p class="text-sm text-text-secondary">Server connection error (Status: ${response.status}).</p>
             `;
-            // Clear container but keep skeleton structure if needed, or just replace content
-             Array.from(activeElectionsContainer.children).forEach(child => {
+            Array.from(activeElectionsContainer.children).forEach(child => {
                 if (!child.classList.contains('skeleton-cards')) child.remove();
             });
             activeElectionsContainer.appendChild(errorMsg);
@@ -124,6 +139,11 @@ document.addEventListener('DOMContentLoaded', async function () {
     } catch (e) {
         console.error('Failed to fetch elections', e);
         if (skeletonCards) skeletonCards.classList.add('hidden');
+        // Show error in UI
+        const errorMsg = document.createElement('div');
+        errorMsg.className = 'col-span-full text-center py-8 text-red-500';
+        errorMsg.textContent = 'Application Error: ' + e.message;
+        activeElectionsContainer.appendChild(errorMsg);
     }
 
     // Fetch Upcoming Elections

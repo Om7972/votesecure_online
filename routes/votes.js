@@ -16,15 +16,7 @@ router.get('/history', verifyToken, async (req, res) => {
         });
 
         // Map to flat structure expected by frontend
-        const formattedVotes = votes.map(vote => ({
-            id: vote.id,
-            electionTitle: vote.Election ? vote.Election.title : 'Unknown Election',
-            candidateName: vote.Candidate ? vote.Candidate.name : 'Unknown Candidate',
-            castedAt: vote.createdAt,
-            receiptHash: vote.receipt_hash
-        }));
-
-        res.json({ success: true, votes: formattedVotes });
+        res.json({ success: true, votes });
     } catch (error) {
         console.error(error);
         res.status(500).json({ success: false, message: 'Error fetching history.' });

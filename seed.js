@@ -3,6 +3,8 @@ const { User, Election, Candidate, sequelize } = require('./models');
 
 async function seedDatabase() {
     try {
+        console.log('Syncing database...');
+        await sequelize.sync({ alter: true });
         console.log('Starting database seeding...');
 
         // Create admin user

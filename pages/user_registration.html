@@ -57,29 +57,34 @@
         </div>
         <div class="max-w-md mx-auto">
             <!-- Registration Form Container -->
-            <div class="card">
+            <div class="card glass-panel p-8">
                 <div class="text-center mb-8">
-                    <h2 class="text-3xl font-bold text-text-primary mb-2">Create Your Account</h2>
-                    <p class="text-text-secondary">Join VoteSecure Online to participate in secure digital voting</p>
+                    <h2 class="text-3xl font-bold text-white mb-2">Create Your Account</h2>
+                    <p class="text-slate-400">Join VoteSecure Online to participate in secure digital voting</p>
                 </div>
 
                 <!-- Registration Form -->
                 <form id="registrationForm" class="space-y-6">
+                    <!-- Global Error -->
+                    <div id="globalError"
+                        class="hidden bg-red-500/10 border border-red-500/50 rounded-lg p-3 text-red-400 text-sm text-center">
+                    </div>
+
                     <!-- Personal Information Section -->
                     <div class="space-y-4">
-                        <h3 class="text-lg font-semibold text-text-primary border-b border-gray-200 pb-2">Personal
+                        <h3 class="text-lg font-semibold text-white border-b border-white/10 pb-2">Personal
                             Information</h3>
 
                         <!-- Full Name -->
                         <div>
                             <label for="fullName" class="block text-sm font-medium text-text-primary mb-2">
-                                Full Name <span class="text-error">*</span>
+                                Full Name <span class="text-red-500">*</span>
                             </label>
                             <div class="relative">
                                 <input type="text" id="fullName" name="fullName" required class="form-input pr-10"
-                                    placeholder="Enter your full name" value="John Doe" />
+                                    placeholder="Enter your full name" />
                                 <div class="absolute inset-y-0 right-0 flex items-center pr-3">
-                                    <svg class="h-5 w-5 text-success hidden" id="fullNameCheck" fill="currentColor"
+                                    <svg class="h-5 w-5 text-green-500 hidden" id="fullNameCheck" fill="currentColor"
                                         viewBox="0 0 20 20">
                                         <path fill-rule="evenodd"
                                             d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -87,19 +92,20 @@
                                     </svg>
                                 </div>
                             </div>
-                            <p class="text-xs text-error mt-1 hidden" id="fullNameError">Please enter your full name</p>
+                            <p class="text-xs text-red-400 mt-1 hidden" id="fullNameError">Please enter your full name
+                            </p>
                         </div>
 
                         <!-- Email Address -->
                         <div>
                             <label for="email" class="block text-sm font-medium text-text-primary mb-2">
-                                Email Address <span class="text-error">*</span>
+                                Email Address <span class="text-red-500">*</span>
                             </label>
                             <div class="relative">
                                 <input type="email" id="email" name="email" required class="form-input pr-10"
-                                    placeholder="Enter your email address" value="john.doe@email.com" />
+                                    placeholder="Enter your email address" />
                                 <div class="absolute inset-y-0 right-0 flex items-center pr-3">
-                                    <svg class="h-5 w-5 text-success" id="emailCheck" fill="currentColor"
+                                    <svg class="h-5 w-5 text-green-500 hidden" id="emailCheck" fill="currentColor"
                                         viewBox="0 0 20 20">
                                         <path fill-rule="evenodd"
                                             d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -107,20 +113,21 @@
                                     </svg>
                                 </div>
                             </div>
-                            <p class="text-xs text-error mt-1 hidden" id="emailError">Please enter a valid email address
+                            <p class="text-xs text-red-400 mt-1 hidden" id="emailError">Please enter a valid email
+                                address
                             </p>
                         </div>
 
                         <!-- Phone Number -->
                         <div>
                             <label for="phone" class="block text-sm font-medium text-text-primary mb-2">
-                                Phone Number <span class="text-error">*</span>
+                                Phone Number <span class="text-red-500">*</span>
                             </label>
                             <div class="relative">
                                 <input type="tel" id="phone" name="phone" required class="form-input pr-10"
-                                    placeholder="(555) 123-4567" value="(555) 123-4567" />
+                                    placeholder="(555) 123-4567" />
                                 <div class="absolute inset-y-0 right-0 flex items-center pr-3">
-                                    <svg class="h-5 w-5 text-success" id="phoneCheck" fill="currentColor"
+                                    <svg class="h-5 w-5 text-green-500 hidden" id="phoneCheck" fill="currentColor"
                                         viewBox="0 0 20 20">
                                         <path fill-rule="evenodd"
                                             d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -128,28 +135,29 @@
                                     </svg>
                                 </div>
                             </div>
-                            <p class="text-xs text-error mt-1 hidden" id="phoneError">Please enter a valid phone number
+                            <p class="text-xs text-red-400 mt-1 hidden" id="phoneError">Please enter a valid phone
+                                number
                             </p>
                         </div>
                     </div>
 
                     <!-- Security Credentials Section -->
                     <div class="space-y-4">
-                        <h3 class="text-lg font-semibold text-text-primary border-b border-gray-200 pb-2">Security
+                        <h3 class="text-lg font-semibold text-white border-b border-white/10 pb-2">Security
                             Credentials</h3>
 
                         <!-- Password -->
                         <div>
                             <label for="password" class="block text-sm font-medium text-text-primary mb-2">
-                                Password <span class="text-error">*</span>
+                                Password <span class="text-red-500">*</span>
                             </label>
                             <div class="relative">
                                 <input type="password" id="password" name="password" required class="form-input pr-10"
-                                    placeholder="Create a strong password" value="SecurePass123!" />
+                                    placeholder="Create a strong password" />
                                 <button type="button" id="togglePassword" aria-label="Toggle password visibility"
-                                    class="absolute inset-y-0 right-0 flex items-center pr-3">
-                                    <svg class="h-5 w-5 text-secondary-400" id="eyeIcon" fill="none"
-                                        stroke="currentColor" viewBox="0 0 24 24">
+                                    class="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer z-10">
+                                    <svg class="h-5 w-5 text-slate-400" id="eyeIcon" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -162,10 +170,10 @@
                             <div class="mt-2">
                                 <div class="flex items-center justify-between mb-1">
                                     <span class="text-xs text-text-secondary">Password Strength</span>
-                                    <span class="text-xs font-medium text-success" id="strengthText">Strong</span>
+                                    <span class="text-xs font-medium text-slate-400" id="strengthText">None</span>
                                 </div>
-                                <div class="w-full bg-gray-200 rounded-full h-2">
-                                    <div class="bg-success h-2 rounded-full transition-all duration-300 w-full"
+                                <div class="w-full bg-slate-700 rounded-full h-2">
+                                    <div class="bg-red-500 h-2 rounded-full transition-all duration-300 w-0"
                                         id="strengthBar"></div>
                                 </div>
                             </div>
@@ -173,38 +181,24 @@
                             <!-- Password Requirements -->
                             <div class="mt-2 space-y-1">
                                 <p class="text-xs text-text-secondary">Password must contain:</p>
-                                <ul class="text-xs space-y-1">
-                                    <li class="flex items-center text-success">
+                                <ul class="text-xs space-y-1 text-slate-400">
+                                    <li class="flex items-center" id="req-length">
                                         <svg class="h-3 w-3 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd"
-                                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                                clip-rule="evenodd" />
+                                            <circle cx="10" cy="10" r="10" />
                                         </svg>
                                         At least 8 characters
                                     </li>
-                                    <li class="flex items-center text-success">
+                                    <li class="flex items-center" id="req-uppercase">
                                         <svg class="h-3 w-3 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd"
-                                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                                clip-rule="evenodd" />
+                                            <circle cx="10" cy="10" r="10" />
                                         </svg>
                                         One uppercase letter
                                     </li>
-                                    <li class="flex items-center text-success">
+                                    <li class="flex items-center" id="req-number">
                                         <svg class="h-3 w-3 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd"
-                                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                                clip-rule="evenodd" />
+                                            <circle cx="10" cy="10" r="10" />
                                         </svg>
                                         One number
-                                    </li>
-                                    <li class="flex items-center text-success">
-                                        <svg class="h-3 w-3 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd"
-                                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                        One special character
                                     </li>
                                 </ul>
                             </div>
@@ -213,98 +207,74 @@
                         <!-- Confirm Password -->
                         <div>
                             <label for="confirmPassword" class="block text-sm font-medium text-text-primary mb-2">
-                                Confirm Password <span class="text-error">*</span>
+                                Confirm Password <span class="text-red-500">*</span>
                             </label>
                             <div class="relative">
                                 <input type="password" id="confirmPassword" name="confirmPassword" required
-                                    class="form-input pr-10" placeholder="Confirm your password"
-                                    value="SecurePass123!" />
+                                    class="form-input pr-10" placeholder="Confirm your password" />
                                 <div class="absolute inset-y-0 right-0 flex items-center pr-3">
-                                    <svg class="h-5 w-5 text-success" id="confirmPasswordCheck" fill="currentColor"
-                                        viewBox="0 0 20 20">
+                                    <svg class="h-5 w-5 text-green-500 hidden" id="confirmPasswordCheck"
+                                        fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd"
                                             d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                             clip-rule="evenodd" />
                                     </svg>
                                 </div>
                             </div>
-                            <p class="text-xs text-error mt-1 hidden" id="confirmPasswordError">Passwords do not match
+                            <p class="text-xs text-red-400 mt-1 hidden" id="confirmPasswordError">Passwords do not match
                             </p>
                         </div>
                     </div>
 
                     <!-- Verification Preferences Section -->
                     <div class="space-y-4">
-                        <h3 class="text-lg font-semibold text-text-primary border-b border-gray-200 pb-2">Verification
+                        <h3 class="text-lg font-semibold text-white border-b border-white/10 pb-2">Verification
                             Preferences</h3>
 
                         <!-- Multi-Factor Authentication -->
                         <div>
                             <label class="block text-sm font-medium text-text-primary mb-3">
-                                Multi-Factor Authentication <span class="text-error">*</span>
+                                Multi-Factor Authentication <span class="text-red-500">*</span>
                             </label>
                             <div class="space-y-3">
-                                <label class="flex items-center">
+                                <label class="flex items-center cursor-pointer">
                                     <input type="radio" name="mfaMethod" value="sms"
-                                        class="h-4 w-4 text-primary focus:ring-primary border-gray-300" checked />
-                                    <span class="ml-3 text-sm text-text-primary">SMS Text Message</span>
+                                        class="h-4 w-4 text-primary focus:ring-primary border-slate-600 bg-slate-800"
+                                        checked />
+                                    <span class="ml-3 text-sm text-slate-300">SMS Text Message</span>
                                 </label>
-                                <label class="flex items-center">
+                                <label class="flex items-center cursor-pointer">
                                     <input type="radio" name="mfaMethod" value="email"
-                                        class="h-4 w-4 text-primary focus:ring-primary border-gray-300" />
-                                    <span class="ml-3 text-sm text-text-primary">Email Verification</span>
+                                        class="h-4 w-4 text-primary focus:ring-primary border-slate-600 bg-slate-800" />
+                                    <span class="ml-3 text-sm text-slate-300">Email Verification</span>
                                 </label>
-                                <label class="flex items-center">
+                                <label class="flex items-center cursor-pointer">
                                     <input type="radio" name="mfaMethod" value="both"
-                                        class="h-4 w-4 text-primary focus:ring-primary border-gray-300" />
-                                    <span class="ml-3 text-sm text-text-primary">Both SMS and Email</span>
+                                        class="h-4 w-4 text-primary focus:ring-primary border-slate-600 bg-slate-800" />
+                                    <span class="ml-3 text-sm text-slate-300">Both SMS and Email</span>
                                 </label>
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- Document Upload Section -->
-                    <div class="space-y-4">
-                        <h3 class="text-lg font-semibold text-text-primary border-b border-gray-200 pb-2">Identity
-                            Verification (Optional)</h3>
-
-                        <div
-                            class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary transition-gentle">
-                            <svg class="mx-auto h-12 w-12 text-secondary-400 mb-4" stroke="currentColor" fill="none"
-                                viewBox="0 0 48 48">
-                                <path
-                                    d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                            <div class="text-sm text-text-secondary mb-2">
-                                <label for="documentUpload" class="cursor-pointer">
-                                    <span class="text-primary font-medium hover:text-primary-700">Upload a
-                                        document</span>
-                                    <span> or drag and drop</span>
-                                </label>
-                                <input id="documentUpload" name="documentUpload" type="file" class="sr-only"
-                                    accept=".pdf,.jpg,.jpeg,.png" />
-                            </div>
-                            <p class="text-xs text-text-secondary">PDF, PNG, JPG up to 10MB</p>
                         </div>
                     </div>
 
                     <!-- Terms and Conditions -->
                     <div class="flex items-start">
                         <input id="terms" name="terms" type="checkbox"
-                            class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded mt-1" required />
-                        <label for="terms" class="ml-3 text-sm text-text-secondary">
+                            class="h-4 w-4 text-primary focus:ring-primary border-slate-600 bg-slate-800 rounded mt-1 cursor-pointer"
+                            required />
+                        <label for="terms" class="ml-3 text-sm text-slate-300">
                             I agree to the <a href="javascript:void(0)"
-                                class="text-primary hover:text-primary-700">Terms of Service</a> and
-                            <a href="javascript:void(0)" class="text-primary hover:text-primary-700">Privacy Policy</a>
+                                class="text-indigo-400 hover:text-indigo-300">Terms of Service</a> and
+                            <a href="javascript:void(0)" class="text-indigo-400 hover:text-indigo-300">Privacy
+                                Policy</a>
                         </label>
                     </div>
 
                     <!-- Submit Button -->
                     <button type="submit" id="submitBtn"
-                        class="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed">
+                        class="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed py-3 text-base flex justify-center items-center">
                         <span id="submitText">Create Account</span>
-                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden" id="loadingSpinner" fill="none"
+                        <svg class="animate-spin ml-2 h-5 w-5 text-white hidden" id="loadingSpinner" fill="none"
                             viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
                             <path class="opacity-75" fill="currentColor"
@@ -316,7 +286,8 @@
                     <div class="text-center">
                         <p class="text-sm text-text-secondary">
                             Already have an account?
-                            <a href="secure_login.html" class="text-primary hover:text-primary-700 font-medium">Sign in
+                            <a href="secure_login.html"
+                                class="text-primary hover:text-primary-700 font-medium transition-colors">Sign in
                                 here</a>
                         </p>
                     </div>
@@ -354,19 +325,18 @@
     </main>
 
     <!-- Success Modal -->
-    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-        <div class="bg-surface rounded-xl p-8 max-w-md mx-4 text-center">
-            <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-success-100 mb-4">
-                <svg class="h-6 w-6 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div id="successModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden items-center justify-center z-50">
+        <div class="bg-slate-800 rounded-xl p-8 max-w-md mx-4 text-center border border-white/10 shadow-2xl">
+            <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-500/20 mb-4">
+                <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                 </svg>
             </div>
-            <h3 class="text-lg font-semibold text-text-primary mb-2">Registration Successful!</h3>
-            <p class="text-text-secondary mb-6">Please check your email for a verification link to activate your
-                account.</p>
-            <button onclick="window.location.href='secure_login.html'" class="btn-primary">
-                Continue to Login
-            </button>
+            <h3 class="text-lg font-semibold text-white mb-2">Registration Successful!</h3>
+            <p class="text-slate-400 mb-6">Your account has been created. Redirecting you to the dashboard...</p>
+            <div class="w-full bg-slate-700 h-1 mt-4 rounded">
+                <div class="bg-green-500 h-1 rounded animate-pulse w-full"></div>
+            </div>
         </div>
     </div>
 
@@ -379,6 +349,12 @@
             const passwordInput = document.getElementById('password');
             const confirmPasswordInput = document.getElementById('confirmPassword');
             const successModal = document.getElementById('successModal');
+            const globalError = document.getElementById('globalError');
+
+            // Password requirements elements
+            const reqLength = document.getElementById('req-length');
+            const reqUppercase = document.getElementById('req-uppercase');
+            const reqNumber = document.getElementById('req-number');
 
             // Password visibility toggle
             togglePassword.addEventListener('click', function () {
@@ -393,9 +369,76 @@
                 }
             });
 
+            // Password Input Listener
+            passwordInput.addEventListener('input', function () {
+                const password = this.value;
+
+                // Check length
+                if (password.length >= 8) {
+                    reqLength.classList.remove('text-slate-400');
+                    reqLength.classList.add('text-green-500');
+                } else {
+                    reqLength.classList.remove('text-green-500');
+                    reqLength.classList.add('text-slate-400');
+                }
+
+                // Check uppercase
+                if (/[A-Z]/.test(password)) {
+                    reqUppercase.classList.remove('text-slate-400');
+                    reqUppercase.classList.add('text-green-500');
+                } else {
+                    reqUppercase.classList.remove('text-green-500');
+                    reqUppercase.classList.add('text-slate-400');
+                }
+
+                // Check number
+                if (/\d/.test(password)) {
+                    reqNumber.classList.remove('text-slate-400');
+                    reqNumber.classList.add('text-green-500');
+                } else {
+                    reqNumber.classList.remove('text-green-500');
+                    reqNumber.classList.add('text-slate-400');
+                }
+
+                // Strength Bar
+                let strength = 0;
+                if (password.length > 5) strength++;
+                if (password.length >= 8) strength++;
+                if (/[A-Z]/.test(password)) strength++;
+                if (/\d/.test(password)) strength++;
+                if (/[^A-Za-z0-9]/.test(password)) strength++;
+
+                const strengthBar = document.getElementById('strengthBar');
+                const strengthText = document.getElementById('strengthText');
+
+                if (strength <= 1) {
+                    strengthBar.style.width = '20%';
+                    strengthBar.classList.replace('bg-green-500', 'bg-red-500');
+                    strengthBar.classList.replace('bg-yellow-500', 'bg-red-500');
+                    strengthText.textContent = 'Weak';
+                    strengthText.className = 'text-xs font-medium text-red-500';
+                } else if (strength <= 3) {
+                    strengthBar.style.width = '60%';
+                    strengthBar.classList.replace('bg-red-500', 'bg-yellow-500');
+                    strengthBar.classList.replace('bg-green-500', 'bg-yellow-500');
+                    strengthText.textContent = 'Medium';
+                    strengthText.className = 'text-xs font-medium text-yellow-500';
+                } else {
+                    strengthBar.style.width = '100%';
+                    strengthBar.classList.replace('bg-red-500', 'bg-green-500');
+                    strengthBar.classList.replace('bg-yellow-500', 'bg-green-500');
+                    strengthText.textContent = 'Strong';
+                    strengthText.className = 'text-xs font-medium text-green-500';
+                }
+            });
+
             // Form submission
             form.addEventListener('submit', async function (e) {
                 e.preventDefault();
+
+                // Reset global error
+                globalError.classList.add('hidden');
+                globalError.textContent = '';
 
                 // Show loading state
                 const submitText = document.getElementById('submitText');
@@ -419,22 +462,44 @@
                         })
                     });
 
-                    const data = await response.json();
+                    let data = null;
+                    try {
+                        data = await response.json();
+                    } catch (_) { }
 
-                    if (data.success) {
+                    if (response.ok && data && data.success) {
                         submitBtn.disabled = false;
                         submitText.textContent = 'Create Account';
                         loadingSpinner.classList.add('hidden');
 
+                        // Save token & user
+                        localStorage.setItem('token', data.token);
+                        localStorage.setItem('user', JSON.stringify(data.user));
+
                         // Show success modal
                         successModal.classList.remove('hidden');
                         successModal.classList.add('flex');
+
+                        // Redirect after 2s
+                        setTimeout(() => {
+                            window.location.href = data.user.role === 'admin' ? 'admin_dashboard.html' : 'voter_dashboard.html';
+                        }, 2000);
+
                     } else {
-                        throw new Error(data.message || 'Registration failed');
+                        const message = data && data.message ? data.message : 'Registration failed. Please try again.';
+                        console.error('Registration Failed:', message);
+                        globalError.textContent = message;
+                        globalError.classList.remove('hidden');
+
+                        submitBtn.disabled = false;
+                        submitText.textContent = 'Create Account';
+                        loadingSpinner.classList.add('hidden');
                     }
                 } catch (error) {
-                    console.error('Registration error:', error);
-                    alert(error.message || 'Error occurred during registration');
+                    console.error('Registration Network/Script Error:', error);
+                    globalError.textContent = 'Network error or browser extension conflict. Please try disabling extensions.';
+                    globalError.classList.remove('hidden');
+
                     submitBtn.disabled = false;
                     submitText.textContent = 'Create Account';
                     loadingSpinner.classList.add('hidden');
@@ -450,16 +515,38 @@
 
             function validateForm() {
                 let isValid = true;
+                const checkMap = {
+                    'fullName': 'fullNameCheck',
+                    'email': 'emailCheck',
+                    'phone': 'phoneCheck',
+                    'confirmPassword': 'confirmPasswordCheck'
+                };
 
                 // Validate all required fields
                 inputs.forEach(input => {
-                    if (!input.value.trim()) {
-                        isValid = false;
+                    if (input.id !== 'password') { // Password has special logic
+                        const checkId = checkMap[input.id];
+                        if (checkId) {
+                            if (input.value.trim()) {
+                                document.getElementById(checkId).classList.remove('hidden');
+                            } else {
+                                document.getElementById(checkId).classList.add('hidden');
+                                isValid = false;
+                            }
+                        }
                     }
                 });
 
                 // Check if passwords match
-                if (passwordInput.value !== confirmPasswordInput.value) {
+                if (passwordInput.value && confirmPasswordInput.value && passwordInput.value === confirmPasswordInput.value) {
+                    document.getElementById('confirmPasswordCheck').classList.remove('hidden');
+                } else {
+                    document.getElementById('confirmPasswordCheck').classList.add('hidden');
+                    if (confirmPasswordInput.value) isValid = false;
+                }
+
+                // Password complexity check
+                if (passwordInput.value.length < 8 || !/[A-Z]/.test(passwordInput.value) || !/\d/.test(passwordInput.value)) {
                     isValid = false;
                 }
 
@@ -471,23 +558,6 @@
 
                 submitBtn.disabled = !isValid;
             }
-
-            // Document upload handling
-            const documentUpload = document.getElementById('documentUpload');
-            documentUpload.addEventListener('change', function (e) {
-                const file = e.target.files[0];
-                if (file) {
-                    const uploadArea = documentUpload.closest('.border-dashed');
-                    uploadArea.innerHTML = `
-                        <div class="flex items-center justify-center">
-                            <svg class="h-8 w-8 text-success mr-3" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                            </svg>
-                            <span class="text-sm text-text-primary">${file.name} uploaded successfully</span>
-                        </div>
-                    `;
-                }
-            });
 
             // Initial form validation
             validateForm();
