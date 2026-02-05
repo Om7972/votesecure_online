@@ -10,16 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="../css/output.css" />
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
-    <!-- Socket.IO -->
-    <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
-
-    <!-- Custom Scripts -->
-    <script src="../js/utils.js"></script>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
 
 <body class="bg-slate-900 text-slate-200 min-h-screen">
@@ -29,7 +20,7 @@
             <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
                 <div class="flex items-center">
-                    <a href="voter_dashboard.html" class="flex items-center space-x-2 group">
+                    <a href="../index.html" class="flex items-center space-x-2 group">
                         <div
                             class="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-sm shadow-lg group-hover:shadow-indigo-500/50 transition-all duration-300">
                             🗳️
@@ -40,225 +31,105 @@
                 </div>
 
                 <!-- Navigation -->
-                <nav class="hidden md:flex items-center space-x-8">
+                <nav class="hidden md:flex items-center space-x-6">
                     <a href="voter_dashboard.html"
-                        class="text-slate-300 hover:text-white transition-colors text-sm font-medium">Dashboard</a>
-                    <a href="active_elections.html"
-                        class="text-white font-medium border-b-2 border-indigo-500 pb-1 text-sm">Elections</a>
-                    <a href="voting_history.html"
-                        class="text-slate-300 hover:text-white transition-colors text-sm font-medium">History</a>
+                        class="text-slate-300 hover:text-white transition-colors">Dashboard</a>
+                    <a href="active_elections.html" class="text-indigo-400 font-medium">Elections</a>
+                    <a href="voting_history.html" class="text-slate-300 hover:text-white transition-colors">History</a>
+                    <a href="user_profile_management.html"
+                        class="text-slate-300 hover:text-white transition-colors">Profile</a>
                 </nav>
 
                 <!-- User Menu -->
                 <div class="flex items-center space-x-4">
-                    <!-- Notifications -->
-                    <button class="relative p-2 text-slate-300 hover:text-white transition-colors">
-                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M15 17h5l-5 5v-5z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 19c-5 0-8-3-8-6s4-6 9-6 9 3 9 6c0 1-1 3-2 3h-1" />
-                        </svg>
-                        <span class="absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full"></span>
+                    <button class="p-2 text-slate-400 hover:text-white transition-colors">
+                        <i class='bx bx-bell text-xl'></i>
                     </button>
-
-                    <!-- User Avatar -->
-                    <div class="relative">
-                        <button class="flex items-center space-x-2 text-slate-300 hover:text-white transition-colors">
-                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                alt="User Avatar" class="h-8 w-8 rounded-full object-cover border border-white/20"
-                                onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
-                            <span class="hidden md:block text-sm font-medium">John Doe</span>
-                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </button>
-                    </div>
-
-                    <!-- Mobile Menu Button -->
-                    <button class="md:hidden p-2 text-slate-300 hover:text-white transition-colors" id="mobileMenuBtn">
-                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mobile Menu -->
-        <div class="md:hidden hidden bg-slate-900 border-t border-white/10" id="mobileMenu">
-            <div class="px-4 pt-2 pb-3 space-y-1">
-                <a href="voter_dashboard.html"
-                    class="block px-3 py-2 text-slate-300 hover:text-white transition-colors">Dashboard</a>
-                <a href="active_elections.html" class="block px-3 py-2 text-indigo-400 font-medium">Elections</a>
-                <a href="vote_confirmation.html"
-                    class="block px-3 py-2 text-slate-300 hover:text-white transition-colors">History</a>
-                <div class="border-t border-white/10 pt-2">
-                    <a href="secure_login.html"
-                        class="block px-3 py-2 text-red-500 hover:text-red-400 transition-colors">Sign Out</a>
+                    <a href="voter_dashboard.html"
+                        class="flex items-center space-x-2 p-2 rounded-lg hover:bg-white/5 transition-colors">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop"
+                            alt="User" class="w-8 h-8 rounded-full object-cover border-2 border-indigo-500">
+                    </a>
                 </div>
             </div>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="flex-1">
-        <!-- Search and Filter Section -->
-        <section class="bg-surface border-b border-gray-200">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-                <!-- Page Title -->
-                <div class="mb-4">
-                    <h2 class="text-2xl font-bold text-text-primary">Active Elections</h2>
-                    <p class="text-text-secondary mt-1">Participate in current voting opportunities</p>
-                </div>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Page Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-white mb-2">Active Elections</h1>
+            <p class="text-slate-400">Browse and participate in currently active elections</p>
+        </div>
 
-                <!-- Search Bar -->
-                <div class="relative mb-4">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg class="h-5 w-5 text-secondary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                    </div>
-                    <input type="text" id="searchInput" class="form-input pl-10 pr-12"
-                        placeholder="Search elections by title, category, or candidate..." autocomplete="off" />
-                    <div class="absolute inset-y-0 right-0 flex items-center pr-3">
-                        <button id="filterToggle" class="p-1 text-secondary-400 hover:text-primary transition-gentle">
-                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z" />
-                            </svg>
-                        </button>
-                    </div>
-
-                    <!-- Search Autocomplete -->
-                    <div id="searchAutocomplete"
-                        class="absolute top-full left-0 right-0 bg-surface border border-gray-200 rounded-lg shadow-gentle-md mt-1 hidden z-30">
-                        <div class="p-2">
-                            <div class="text-xs text-text-secondary mb-2">Recent Searches</div>
-                            <div class="space-y-1">
-                                <button
-                                    class="w-full text-left px-3 py-2 text-sm text-text-primary hover:bg-secondary-50 rounded-md transition-gentle">Presidential
-                                    Election 2024</button>
-                                <button
-                                    class="w-full text-left px-3 py-2 text-sm text-text-primary hover:bg-secondary-50 rounded-md transition-gentle">City
-                                    Council</button>
-                                <button
-                                    class="w-full text-left px-3 py-2 text-sm text-text-primary hover:bg-secondary-50 rounded-md transition-gentle">School
-                                    Board</button>
-                            </div>
-                        </div>
-                    </div>
+        <!-- Search and Filter -->
+        <div class="glass-card p-6 mb-8 border border-white/10">
+            <div class="flex flex-col md:flex-row gap-4">
+                <!-- Search -->
+                <div class="flex-1 relative">
+                    <i class='bx bx-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400'></i>
+                    <input type="text" id="searchInput" placeholder="Search elections..."
+                        class="w-full pl-12 pr-4 py-3 bg-slate-800 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
                 </div>
 
                 <!-- Filter Chips -->
-                <div class="flex items-center space-x-2 overflow-x-auto pb-2" id="filterChips">
-                    <div class="flex items-center space-x-2 min-w-max">
-                        <span class="text-sm text-text-secondary whitespace-nowrap">Filters:</span>
-                        <div class="flex items-center bg-primary-50 text-primary px-3 py-1 rounded-full text-sm">
-                            <span>Active</span>
-                            <button class="ml-2 hover:text-primary-700">
-                                <svg class="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd"
-                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="flex items-center bg-accent-50 text-accent px-3 py-1 rounded-full text-sm">
-                            <span>Federal</span>
-                            <button class="ml-2 hover:text-accent-700">
-                                <svg class="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd"
-                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </button>
-                        </div>
-                        <button
-                            class="text-sm text-secondary-600 hover:text-primary transition-gentle whitespace-nowrap">Clear
-                            All</button>
-                    </div>
-                </div>
-
-                <!-- Sort Options -->
-                <div class="flex items-center justify-between mt-4">
-                    <div class="text-sm text-text-secondary">
-                        <span id="electionCount">12</span> elections found
-                    </div>
-                    <div class="relative">
-                        <select class="form-input text-sm py-2 pr-8" id="sortSelect">
-                            <option value="deadline">Sort by Deadline</option>
-                            <option value="alphabetical">Sort Alphabetically</option>
-                            <option value="status">Sort by Status</option>
-                            <option value="participation">Sort by Participation</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Elections Grid -->
-        <section class="py-8">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <!-- Loading State -->
-                <div id="loadingState" class="hidden">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <!-- Skeleton Cards -->
-                        <div class="card animate-pulse" v-for="i in 6">
-                            <div class="h-4 bg-gray-200 rounded mb-4"></div>
-                            <div class="h-3 bg-gray-200 rounded mb-2"></div>
-                            <div class="h-3 bg-gray-200 rounded mb-4 w-3/4"></div>
-                            <div class="flex justify-between items-center mb-4">
-                                <div class="h-3 bg-gray-200 rounded w-1/3"></div>
-                                <div class="h-3 bg-gray-200 rounded w-1/4"></div>
-                            </div>
-                            <div class="h-10 bg-gray-200 rounded"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Elections Grid -->
-                <div id="electionsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Elections will be dynamically loaded here -->
-                </div>
-
-                <!-- Load More Button -->
-                <div class="text-center mt-8 hidden" id="loadMoreContainer">
-                    <button class="btn-secondary" id="loadMoreBtn">
-                        <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                        </svg>
-                        Load More Elections
+                <div class="flex flex-wrap gap-2">
+                    <button data-filter="all"
+                        class="px-4 py-2 rounded-full text-sm font-medium bg-indigo-500 text-white transition-colors">
+                        All
+                    </button>
+                    <button data-filter="federal"
+                        class="px-4 py-2 rounded-full text-sm font-medium bg-slate-700 text-slate-300 hover:bg-slate-600 transition-colors">
+                        Federal
+                    </button>
+                    <button data-filter="state"
+                        class="px-4 py-2 rounded-full text-sm font-medium bg-slate-700 text-slate-300 hover:bg-slate-600 transition-colors">
+                        State
+                    </button>
+                    <button data-filter="local"
+                        class="px-4 py-2 rounded-full text-sm font-medium bg-slate-700 text-slate-300 hover:bg-slate-600 transition-colors">
+                        Local
                     </button>
                 </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Filter Panel (Mobile Slide-up) -->
-    <div id="filterPanel" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
-        <!-- ... (Keeping filter panel HTML for now, logic handled in JS) ... -->
-        <div class="absolute bottom-0 left-0 right-0 bg-surface rounded-t-xl max-h-[80vh] overflow-y-auto">
-            <div class="p-6">
-                <!-- Panel Header -->
-                <div class="flex items-center justify-between mb-6">
-                    <h3 class="text-lg font-semibold text-text-primary">Filter Elections</h3>
-                    <button id="closePanelBtn" class="text-secondary-400 hover:text-primary transition-gentle">
-                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
-                <!-- Filter content matches existing structure -->
             </div>
         </div>
-    </div>
 
+        <!-- Elections Grid -->
+        <div id="electionsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Loading State -->
+            <div class="col-span-full text-center py-12">
+                <div
+                    class="animate-spin w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full mx-auto mb-4">
+                </div>
+                <p class="text-slate-400">Loading elections...</p>
+            </div>
+        </div>
+
+        <!-- Load More -->
+        <div class="text-center mt-8 hidden" id="loadMoreContainer">
+            <button id="loadMoreBtn"
+                class="px-6 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-medium transition-colors border border-white/10 flex items-center mx-auto">
+                <i class='bx bx-refresh mr-2'></i>
+                Load More Elections
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-slate-500 text-sm">© 2025 VoteSecure Online. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="legal/privacy.html" class="text-slate-500 hover:text-slate-300 text-sm">Privacy Policy</a>
+                    <a href="legal/terms.html" class="text-slate-500 hover:text-slate-300 text-sm">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/utils.js"></script>
     <script src="../js/active_elections.js"></script>
 </body>
 

@@ -600,73 +600,77 @@
                     </div>
 
                     <!-- Privacy Controls -->
-                    <div class="card mb-6">
-                        <h3 class="text-lg font-semibold text-text-primary mb-4">Privacy Settings</h3>
+                    <div class="glass-card p-6 mb-6 border border-white/10">
+                        <h3 class="text-lg font-semibold text-white mb-4 flex items-center">
+                            <i class='bx bx-lock-alt text-indigo-400 mr-2'></i>
+                            Privacy Settings
+                        </h3>
                         <div class="space-y-4">
-                            <div class="flex items-center justify-between">
+                            <div
+                                class="flex items-center justify-between p-4 bg-slate-800/50 rounded-lg border border-white/5">
                                 <div>
-                                    <p class="text-sm font-medium text-text-primary">Voting History Visibility</p>
-                                    <p class="text-xs text-text-secondary">Control who can see your voting participation
-                                    </p>
+                                    <p class="text-sm font-medium text-white">Voting History Visibility</p>
+                                    <p class="text-xs text-slate-400">Control who can see your voting participation</p>
                                 </div>
-                                <div class="relative">
-                                    <input type="checkbox" id="historyVisibility" class="sr-only" checked
-                                        aria-label="Toggle voting history visibility" />
-                                    <label for="historyVisibility"
-                                        class="block w-10 h-6 bg-secondary-200 rounded-full cursor-pointer relative">
-                                        <span
-                                            class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-200 transform translate-x-4"></span>
-                                    </label>
-                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="historyVisibility" class="sr-only peer" checked>
+                                    <div
+                                        class="w-11 h-6 bg-slate-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-indigo-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-500">
+                                    </div>
+                                </label>
                             </div>
-                            <div class="flex items-center justify-between">
+                            <div
+                                class="flex items-center justify-between p-4 bg-slate-800/50 rounded-lg border border-white/5">
                                 <div>
-                                    <p class="text-sm font-medium text-text-primary">Share Election Statistics</p>
-                                    <p class="text-xs text-text-secondary">Allow anonymized participation in research
-                                    </p>
+                                    <p class="text-sm font-medium text-white">Share Election Statistics</p>
+                                    <p class="text-xs text-slate-400">Allow anonymized participation in research</p>
                                 </div>
-                                <div class="relative">
-                                    <input type="checkbox" id="shareStats" class="sr-only"
-                                        aria-label="Toggle sharing election statistics" />
-                                    <label for="shareStats"
-                                        class="block w-10 h-6 bg-secondary-200 rounded-full cursor-pointer relative">
-                                        <span
-                                            class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-200"></span>
-                                    </label>
-                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="shareStats" class="sr-only peer">
+                                    <div
+                                        class="w-11 h-6 bg-slate-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-indigo-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-500">
+                                    </div>
+                                </label>
                             </div>
                         </div>
                     </div>
 
                     <!-- Participation Analytics -->
-                    <div class="card">
-                        <h3 class="text-lg font-semibold text-text-primary mb-4">Your Analytics</h3>
+                    <div class="glass-card p-6 border border-white/10">
+                        <h3 class="text-lg font-semibold text-white mb-4 flex items-center">
+                            <i class='bx bx-bar-chart-alt-2 text-blue-400 mr-2'></i>
+                            Your Analytics
+                        </h3>
                         <div class="space-y-4">
                             <div>
                                 <div class="flex justify-between items-center mb-2">
-                                    <span class="text-sm text-text-secondary">Local Elections</span>
-                                    <span class="text-sm font-medium">8/8</span>
+                                    <span class="text-sm text-slate-300">Local Elections</span>
+                                    <span class="text-sm font-medium text-white">8/8</span>
                                 </div>
-                                <div class="w-full bg-secondary-200 rounded-full h-2">
-                                    <div class="bg-success h-2 rounded-full w-full"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between items-center mb-2">
-                                    <span class="text-sm text-text-secondary">State Elections</span>
-                                    <span class="text-sm font-medium">3/4</span>
-                                </div>
-                                <div class="w-full bg-secondary-200 rounded-full h-2">
-                                    <div class="bg-warning h-2 rounded-full w-3/4"></div>
+                                <div class="w-full bg-slate-700 rounded-full h-2">
+                                    <div
+                                        class="bg-gradient-to-r from-emerald-500 to-emerald-400 h-2 rounded-full w-full">
+                                    </div>
                                 </div>
                             </div>
                             <div>
                                 <div class="flex justify-between items-center mb-2">
-                                    <span class="text-sm text-text-secondary">Federal Elections</span>
-                                    <span class="text-sm font-medium">1/1</span>
+                                    <span class="text-sm text-slate-300">State Elections</span>
+                                    <span class="text-sm font-medium text-white">3/4</span>
                                 </div>
-                                <div class="w-full bg-secondary-200 rounded-full h-2">
-                                    <div class="bg-success h-2 rounded-full w-full"></div>
+                                <div class="w-full bg-slate-700 rounded-full h-2">
+                                    <div class="bg-gradient-to-r from-amber-500 to-amber-400 h-2 rounded-full w-3/4">
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-sm text-slate-300">Federal Elections</span>
+                                    <span class="text-sm font-medium text-white">1/1</span>
+                                </div>
+                                <div class="w-full bg-slate-700 rounded-full h-2">
+                                    <div class="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full w-full">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -712,11 +716,16 @@
     </nav>
 
     <!-- Notification Modal -->
-    <div id="notificationModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-        <div class="bg-surface rounded-xl p-6 max-w-md mx-4 max-h-96 overflow-y-auto">
+    <div id="notificationModal"
+        class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden items-center justify-center z-50">
+        <div
+            class="glass-card border border-white/10 rounded-2xl p-6 max-w-md mx-4 max-h-96 overflow-y-auto shadow-2xl">
             <div class="flex items-center justify-between mb-4">
-                <h3 class="text-lg font-semibold text-text-primary">Notifications</h3>
-                <button id="closeNotificationModal" class="text-text-secondary hover:text-text-primary"
+                <h3 class="text-lg font-semibold text-white flex items-center">
+                    <i class='bx bx-bell text-indigo-400 mr-2'></i>
+                    Notifications
+                </h3>
+                <button id="closeNotificationModal" class="text-slate-400 hover:text-white transition-colors"
                     aria-label="Close notifications">
                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -725,21 +734,20 @@
                 </button>
             </div>
             <div class="space-y-3">
-                <div class="p-3 bg-primary-50 rounded-lg border-l-4 border-l-primary">
-                    <p class="text-sm font-medium text-text-primary mb-1">Voting Reminder</p>
-                    <p class="text-xs text-text-secondary mb-2">City Council Election ends in 2 days</p>
-                    <p class="text-xs text-text-secondary">2 hours ago</p>
+                <div class="p-4 bg-indigo-500/10 rounded-lg border-l-4 border-l-indigo-500">
+                    <p class="text-sm font-medium text-white mb-1">Voting Reminder</p>
+                    <p class="text-xs text-slate-400 mb-2">City Council Election ends in 2 days</p>
+                    <p class="text-xs text-slate-500">2 hours ago</p>
                 </div>
-                <div class="p-3 bg-warning-50 rounded-lg border-l-4 border-l-warning">
-                    <p class="text-sm font-medium text-text-primary mb-1">New Election Available</p>
-                    <p class="text-xs text-text-secondary mb-2">School Board Election is now open for voting</p>
-                    <p class="text-xs text-text-secondary">5 hours ago</p>
+                <div class="p-4 bg-amber-500/10 rounded-lg border-l-4 border-l-amber-500">
+                    <p class="text-sm font-medium text-white mb-1">New Election Available</p>
+                    <p class="text-xs text-slate-400 mb-2">School Board Election is now open for voting</p>
+                    <p class="text-xs text-slate-500">5 hours ago</p>
                 </div>
-                <div class="p-3 bg-success-50 rounded-lg border-l-4 border-l-success">
-                    <p class="text-sm font-medium text-text-primary mb-1">Vote Confirmed</p>
-                    <p class="text-xs text-text-secondary mb-2">Your vote for Mayor Election was successfully recorded
-                    </p>
-                    <p class="text-xs text-text-secondary">1 day ago</p>
+                <div class="p-4 bg-emerald-500/10 rounded-lg border-l-4 border-l-emerald-500">
+                    <p class="text-sm font-medium text-white mb-1">Vote Confirmed</p>
+                    <p class="text-xs text-slate-400 mb-2">Your vote for Mayor Election was successfully recorded</p>
+                    <p class="text-xs text-slate-500">1 day ago</p>
                 </div>
             </div>
         </div>

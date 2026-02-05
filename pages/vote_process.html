@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vote Confirmation - VoteSecure Online</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/custom.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="../css/output.css" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        .signature-pad {
+            border: 2px dashed #64748b;
+            border-radius: 8px;
+            cursor: crosshair;
+            background: #1e293b;
+        }
+
+        .signature-pad:hover {
+            border-color: #6366f1;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-900 text-slate-200 min-h-screen">
+    <!-- Header Section -->
+    <header class="nav-glass border-b border-white/10 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="voter_dashboard.html" class="flex items-center space-x-2 group">
+                        <div
+                            class="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-sm shadow-lg group-hover:shadow-indigo-500/50 transition-all duration-300">
+                            🗳️
+                        </div>
+                        <span class="text-xl font-bold font-outfit tracking-tight text-white">VoteSecure<span
+                                class="text-indigo-400">Online</span></span>
+                    </a>
+                </div>
+
+                <!-- Session Timer -->
+                <div class="flex items-center space-x-2 text-sm">
+                    <span class="text-slate-400">Session Expires:</span>
+                    <span class="text-red-400 font-semibold" id="sessionTimer">14:19</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Election Info Header -->
+        <div class="glass-card p-6 mb-6 border border-white/10">
+            <div class="flex justify-between items-start">
+                <div>
+                    <h1 class="text-2xl font-bold text-white mb-1" id="electionTitle">2025 City Council Election</h1>
+                    <p class="text-slate-400 text-sm" id="ballotId">Ballot ID: #BC-2025-789456</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="mb-8">
+            <div class="flex justify-between items-center mb-2">
+                <span class="text-sm text-slate-400" id="stepIndicator">Step 3 of 3</span>
+                <span class="text-sm font-medium text-indigo-400" id="stepLabel">Vote Confirmation</span>
+            </div>
+            <div class="w-full bg-slate-700 rounded-full h-2">
+                <div class="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full transition-all duration-500"
+                    id="progressBar" style="width: 100%"></div>
+            </div>
+        </div>
+
+        <!-- Review Your Ballot Section -->
+        <div class="glass-card p-8 border border-white/10 mb-6">
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-amber-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class='bx bx-error text-amber-400 text-3xl'></i>
+                </div>
+                <h2 class="text-2xl font-bold text-white mb-2">Review Your Ballot</h2>
+                <p class="text-slate-400">Please carefully review your selections below. Once submitted, your vote
+                    cannot be changed. Ensure all information is correct before proceeding.</p>
+            </div>
+
+            <!-- Ballot Summary -->
+            <div class="bg-slate-800/50 rounded-lg p-6 mb-6 border border-white/5">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold text-white">Ballot Summary</h3>
+                    <div class="flex items-center text-sm text-slate-400">
+                        <i class='bx bx-time-five mr-1'></i>
+                        <span>Submitted: <span id="submissionTime">August 17, 2025 at 2:16 PM</span></span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <p class="text-sm text-slate-400 mb-1">Election:</p>
+                        <p class="text-white font-medium" id="summaryElection">2025 City Council Election</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-slate-400 mb-1">Voter ID:</p>
+                        <p class="text-white font-medium" id="summaryVoterId">VC-2025-JD-4789</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-slate-400 mb-1">District:</p>
+                        <p class="text-indigo-400 font-medium" id="summaryDistrict">District 3 - Downtown</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-slate-400 mb-1">Ballot Type:</p>
+                        <p class="text-white font-medium" id="summaryBallotType">Standard Ballot</p>
+                    </div>
+                </div>
+
+                <!-- Vote Selections -->
+                <div class="space-y-4" id="voteSelections">
+                    <!-- Mayor Selection -->
+                    <div class="bg-slate-900/50 rounded-lg p-4 border border-white/5">
+                        <div class="flex justify-between items-start mb-3">
+                            <h4 class="text-white font-semibold">Mayor</h4>
+                            <button
+                                class="text-indigo-400 hover:text-indigo-300 text-sm flex items-center transition-colors">
+                                <i class='bx bx-edit-alt mr-1'></i>
+                                Edit
+                            </button>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop"
+                                alt="Sarah Johnson"
+                                class="w-12 h-12 rounded-full object-cover border-2 border-indigo-500">
+                            <div class="flex-1">
+                                <p class="text-white font-medium">Sarah Johnson</p>
+                                <p class="text-sm text-slate-400">Democratic Party</p>
+                            </div>
+                            <i class='bx bx-check-circle text-emerald-400 text-2xl'></i>
+                        </div>
+                    </div>
+
+                    <!-- City Council Selection -->
+                    <div class="bg-slate-900/50 rounded-lg p-4 border border-white/5">
+                        <div class="flex justify-between items-start mb-3">
+                            <h4 class="text-white font-semibold">City Council - District 3</h4>
+                            <button
+                                class="text-indigo-400 hover:text-indigo-300 text-sm flex items-center transition-colors">
+                                <i class='bx bx-edit-alt mr-1'></i>
+                                Edit
+                            </button>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop"
+                                alt="Michael Chen"
+                                class="w-12 h-12 rounded-full object-cover border-2 border-indigo-500">
+                            <div class="flex-1">
+                                <p class="text-white font-medium">Michael Chen</p>
+                                <p class="text-sm text-slate-400">Independent</p>
+                            </div>
+                            <i class='bx bx-check-circle text-emerald-400 text-2xl'></i>
+                        </div>
+                    </div>
+
+                    <!-- Proposition Selection -->
+                    <div class="bg-slate-900/50 rounded-lg p-4 border border-white/5">
+                        <div class="flex justify-between items-start mb-3">
+                            <h4 class="text-white font-semibold">Proposition A - School Funding</h4>
+                            <button
+                                class="text-indigo-400 hover:text-indigo-300 text-sm flex items-center transition-colors">
+                                <i class='bx bx-edit-alt mr-1'></i>
+                                Edit
+                            </button>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-emerald-400 font-semibold mb-1">YES - Support increased school funding
+                                </p>
+                                <p class="text-sm text-slate-400">Approve $50M bond measure for school improvements</p>
+                            </div>
+                            <i class='bx bx-check-circle text-emerald-400 text-2xl'></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CAPTCHA Verification Section -->
+            <div class="bg-slate-800/50 rounded-lg p-6 mb-6 border border-white/5">
+                <h3 class="text-lg font-semibold text-white mb-2 flex items-center">
+                    <i class='bx bx-shield-quarter text-indigo-400 mr-2'></i>
+                    Security Verification
+                </h3>
+                <p class="text-slate-400 text-sm mb-4">Please enter the CAPTCHA code below to verify you are human and
+                    authenticate your ballot submission.</p>
+
+                <div class="bg-slate-900/50 rounded-lg p-6 border border-white/10 mb-4">
+                    <div class="flex items-center justify-center mb-4">
+                        <div class="relative">
+                            <canvas id="captchaCanvas" class="rounded-lg border-2 border-indigo-500/30" width="280"
+                                height="80"></canvas>
+                            <div
+                                class="absolute inset-0 pointer-events-none bg-gradient-to-r from-transparent via-white/5 to-transparent">
+                            </div>
+                        </div>
+                        <button id="refreshCaptcha"
+                            class="ml-4 p-3 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-colors border border-white/10"
+                            title="Generate new CAPTCHA">
+                            <i class='bx bx-refresh text-xl'></i>
+                        </button>
+                    </div>
+
+                    <div class="max-w-md mx-auto">
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Enter CAPTCHA Code:</label>
+                        <input type="text" id="captchaInput"
+                            class="w-full px-4 py-3 bg-slate-800 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all text-center text-lg font-mono tracking-wider uppercase"
+                            placeholder="Enter code here" maxlength="6" autocomplete="off" />
+                        <div id="captchaError" class="hidden mt-2 text-red-400 text-sm flex items-center">
+                            <i class='bx bx-error-circle mr-1'></i>
+                            <span>Incorrect CAPTCHA. Please try again.</span>
+                        </div>
+                        <div id="captchaSuccess" class="hidden mt-2 text-emerald-400 text-sm flex items-center">
+                            <i class='bx bx-check-circle mr-1'></i>
+                            <span>CAPTCHA verified successfully!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Security Verification -->
+            <div class="bg-slate-800/50 rounded-lg p-6 mb-6 border border-white/5">
+                <h3 class="text-lg font-semibold text-white mb-4">Security Verification</h3>
+                <div class="space-y-3">
+                    <div class="flex items-center space-x-3">
+                        <i class='bx bx-check-circle text-emerald-400 text-xl'></i>
+                        <span class="text-slate-300">Voter identity authenticated</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <i class='bx bx-check-circle text-emerald-400 text-xl'></i>
+                        <span class="text-slate-300">Ballot encrypted with AES-256</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <i class='bx bx-check-circle text-emerald-400 text-xl'></i>
+                        <span class="text-slate-300">Audit trail created</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <i class='bx bx-check-circle text-emerald-400 text-xl'></i>
+                        <span class="text-slate-300">Secure transmission ready</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Final Confirmation -->
+            <div class="bg-slate-800/50 rounded-lg p-6 border border-white/5">
+                <h3 class="text-lg font-semibold text-white mb-4">Final Confirmation</h3>
+                <div class="space-y-3">
+                    <label class="flex items-start space-x-3 cursor-pointer group">
+                        <input type="checkbox" id="confirmAccuracy"
+                            class="mt-1 w-4 h-4 rounded border-slate-600 text-indigo-500 focus:ring-indigo-500 focus:ring-offset-slate-900">
+                        <span class="text-slate-300 text-sm group-hover:text-white transition-colors">
+                            I confirm that I have reviewed my ballot selections above and they accurately reflect my
+                            voting intentions. I understand that once submitted, my vote cannot be changed.
+                        </span>
+                    </label>
+                    <label class="flex items-start space-x-3 cursor-pointer group">
+                        <input type="checkbox" id="confirmLegal"
+                            class="mt-1 w-4 h-4 rounded border-slate-600 text-indigo-500 focus:ring-indigo-500 focus:ring-offset-slate-900">
+                        <span class="text-slate-300 text-sm group-hover:text-white transition-colors">
+                            I acknowledge that I am submitting my official ballot for the 2025 City Council Election and
+                            that this action constitutes my legal vote in this election.
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex justify-between items-center mt-6">
+                <button id="backToVoting"
+                    class="px-6 py-3 text-slate-300 hover:text-white transition-colors flex items-center">
+                    <i class='bx bx-arrow-back mr-2'></i>
+                    Back to Voting
+                </button>
+                <button id="submitFinalVote"
+                    class="px-8 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white rounded-lg font-semibold transition-all duration-200 shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled>
+                    <i class='bx bx-send mr-2'></i>
+                    Submit Final Vote
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmationModal"
+        class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden items-center justify-center z-50">
+        <div class="glass-card border border-white/10 rounded-2xl p-8 max-w-md mx-4 shadow-2xl">
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-amber-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class='bx bx-error text-amber-400 text-3xl'></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">Final Confirmation Required</h3>
+                <p class="text-slate-400">Are you absolutely certain you want to submit your ballot? This action cannot
+                    be undone.</p>
+            </div>
+            <div class="flex space-x-3">
+                <button id="cancelSubmit"
+                    class="flex-1 px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition-colors">
+                    Cancel
+                </button>
+                <button id="confirmSubmit"
+                    class="flex-1 px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white rounded-lg font-semibold transition-all duration-200 shadow-lg shadow-indigo-500/30">
+                    Yes, Submit Vote
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Submitting Modal -->
+    <div id="submittingModal"
+        class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden items-center justify-center z-50">
+        <div class="glass-card border border-white/10 rounded-2xl p-8 max-w-md mx-4 shadow-2xl">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-indigo-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div class="animate-spin">
+                        <i class='bx bx-loader-alt text-indigo-400 text-3xl'></i>
+                    </div>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">Submitting Your Vote</h3>
+                <p class="text-slate-400 mb-4">Verifying digital signature...</p>
+                <div class="w-full bg-slate-700 rounded-full h-2">
+                    <div class="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full transition-all duration-1000"
+                        id="submittingProgress" style="width: 30%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden items-center justify-center z-50">
+        <div class="glass-card border border-white/10 rounded-2xl p-8 max-w-md mx-4 shadow-2xl">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class='bx bx-check text-emerald-400 text-4xl'></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-2">Vote Successfully Submitted!</h3>
+                <p class="text-slate-400 mb-6">Your ballot has been securely recorded. Thank you for participating in
+                    the democratic process.</p>
+
+                <!-- Vote Receipt -->
+                <div class="bg-slate-800/50 rounded-lg p-4 mb-6 border border-white/5 text-left">
+                    <h4 class="text-white font-semibold mb-3">Vote Receipt</h4>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Transaction ID:</span>
+                            <span class="text-white font-mono" id="receiptTxId">TX-2025-BC789456</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Timestamp:</span>
+                            <span class="text-white" id="receiptTimestamp">Aug 17, 2025 2:16:45 PM</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Verification Code:</span>
+                            <span class="text-indigo-400 font-mono" id="receiptCode">VER-8A9B2C</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex space-x-3">
+                    <button id="downloadReceipt"
+                        class="flex-1 px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition-colors flex items-center justify-center">
+                        <i class='bx bx-download mr-2'></i>
+                        Download Receipt
+                    </button>
+                    <button id="returnToDashboard"
+                        class="flex-1 px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white rounded-lg font-semibold transition-all duration-200 shadow-lg shadow-indigo-500/30">
+                        Return to Dashboard
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/vote_process.js"></script>
+</body>
+
+</html>

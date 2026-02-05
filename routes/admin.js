@@ -97,4 +97,78 @@ router.patch('/users/:id', [verifyToken, verifyAdmin], async (req, res) => {
     }
 });
 
+// ===============================
+// DATABASE VIEWER (Development Only)
+// ===============================
+
+// Get all database tables and their data
+router.get('/database', async (req, res) => {
+    try {
+        const { Candidate, Session } = require('../models');
+
+        const [users, elections, candidates, votes, auditLogs, sessions] = await Promise.all([
+            User.findAll({ attributes: { exclude: ['password_hash'] } }),
+            Election.findAll(),
+            Candidate.findAll(),
+            Vote.findAll(),
+            AuditLog.findAll(),
+            Session.findAll()
+        ]);
+
+        res.json({
+            success: true,
+            database: {
+                users: { count: users.length, data: users },
+                elections: { count: elections.length, data: elections },
+                candidates: { count: candidates.length, data: candidates },
+                votes: { count: votes.length, data: votes },
+                audit_logs: { count: auditLogs.length, data: auditLogs },
+                sessions: { count: sessions.length, data: sessions }
+            },
+            summary: {
+                totalUsers: users.length,
+                totalElections: elections.length,
+                totalCandidates: candidates.length,
+                totalVotes: votes.length
+            }
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Error fetching database.' });
+    }
+});
+
+// Get specific table data
+router.get('/database/:table', async (req, res) => {
+    try {
+        const { table } = req.params;
+        const { Candidate, Session } = require('../models');
+
+        const tables = {
+            users: User,
+            elections: Election,
+            candidates: Candidate,
+            votes: Vote,
+            audit_logs: AuditLog,
+            sessions: Session
+        };
+
+        if (!tables[table]) {
+            return res.status(404).json({
+                success: false,
+                message: `Table '${table}' not found. Available: ${Object.keys(tables).join(', ')}`
+            });
+        }
+
+        const data = await tables[table].findAll(
+            table === 'users' ? { attributes: { exclude: ['password_hash'] } } : {}
+        );
+
+        res.json({ success: true, table, count: data.length, data });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Error fetching table data.' });
+    }
+});
+
 module.exports = router;

@@ -10,7 +10,10 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Load elections from API
     async function loadElections() {
         try {
-            const response = await fetchWithAuth('/elections?status=active');
+            const token = localStorage.getItem('token');
+            const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
+
+            const response = await fetch('/api/elections?status=active', { headers });
             const data = await response.json();
 
             if (data.success) {
@@ -50,7 +53,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         const daysLeft = Math.ceil((endDate - new Date()) / (1000 * 60 * 60 * 24));
 
         return `
-            <div class="card-interactive group">
+            <div class="glass-card border border-white/10 p-6 hover:border-indigo-500/30 transition-all duration-300 group">
                 <div class="flex items-start justify-between mb-4">
                     <div class="flex-1">
                         <h3 class="text-lg font-semibold text-white mb-2 group-hover:text-indigo-400 transition-colors">
@@ -59,15 +62,11 @@ document.addEventListener('DOMContentLoaded', async function () {
                         <p class="text-sm text-slate-400 mb-3">${election.description || ''}</p>
                         <div class="flex items-center space-x-4 text-xs text-slate-500">
                             <div class="flex items-center">
-                                <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                                </svg>
+                                <i class='bx bx-group mr-1'></i>
                                 ${candidates.length} candidates
                             </div>
                             <div class="flex items-center">
-                                <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
+                                <i class='bx bx-time-five mr-1'></i>
                                 ${daysLeft > 0 ? `${daysLeft} days left` : 'Ending soon'}
                             </div>
                         </div>
@@ -80,10 +79,10 @@ document.addEventListener('DOMContentLoaded', async function () {
                 <div class="space-y-2 mb-4">
                     ${candidates.slice(0, 3).map(candidate => `
                         <div class="flex items-center p-2 bg-slate-800/50 rounded-lg">
-                            <img src="${candidate.image_url || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e'}" 
+                            <img src="${candidate.image_url || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop'}" 
                                  alt="${candidate.name}" 
                                  class="h-8 w-8 rounded-full object-cover mr-3"
-                                 onerror="this.src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e'">
+                                 onerror="this.src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop'">
                             <div class="flex-1">
                                 <p class="text-sm font-medium text-white">${candidate.name}</p>
                                 <p class="text-xs text-slate-400">${candidate.party || 'Independent'}</p>
@@ -97,12 +96,12 @@ document.addEventListener('DOMContentLoaded', async function () {
 
                 <div class="flex space-x-3">
                     <a href="voting_interface.html?election=${election.id}" 
-                       class="flex-1 btn-primary text-center">
+                       class="flex-1 px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white rounded-lg text-sm font-medium text-center transition-all shadow-lg shadow-indigo-500/20">
                         Vote Now
                     </a>
-                    <a href="election_results.html?election=${election.id}" 
+                    <a href="election_details.html?id=${election.id}" 
                        class="px-4 py-2 bg-slate-800 text-slate-300 rounded-lg hover:bg-slate-700 transition-colors text-sm font-medium">
-                        View Details
+                        Details
                     </a>
                 </div>
             </div>
@@ -114,10 +113,10 @@ document.addEventListener('DOMContentLoaded', async function () {
         button.addEventListener('click', function () {
             filterButtons.forEach(btn => {
                 btn.classList.remove('bg-indigo-500', 'text-white');
-                btn.classList.add('text-slate-400');
+                btn.classList.add('bg-slate-700', 'text-slate-300');
             });
             this.classList.add('bg-indigo-500', 'text-white');
-            this.classList.remove('text-slate-400');
+            this.classList.remove('bg-slate-700', 'text-slate-300');
 
             currentFilter = this.dataset.filter;
             applyFilters();
@@ -159,11 +158,11 @@ document.addEventListener('DOMContentLoaded', async function () {
     function showError(message) {
         electionsContainer.innerHTML = `
             <div class="col-span-full text-center py-12">
-                <svg class="mx-auto h-12 w-12 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                <h3 class="mt-2 text-sm font-medium text-white">${message}</h3>
-                <button onclick="location.reload()" class="mt-4 btn-secondary">Retry</button>
+                <i class='bx bx-error-circle text-red-400 text-5xl mb-4'></i>
+                <h3 class="text-sm font-medium text-white">${message}</h3>
+                <button onclick="location.reload()" class="mt-4 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg text-sm font-medium transition-colors">
+                    Retry
+                </button>
             </div>
         `;
     }
