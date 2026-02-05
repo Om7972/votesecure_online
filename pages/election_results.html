@@ -7,494 +7,241 @@
     <title>Election Results - VoteSecure Online</title>
     <link rel="stylesheet" href="../css/main.css" />
     <link rel="stylesheet" href="../css/custom.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="../css/output.css" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .glass-card {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.8));
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .election-select-card {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.8));
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .election-select-card:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.15);
+        }
+
+        .election-select-card.selected {
+            border-color: #6366f1;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.15));
+        }
+
+        .winner-banner {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(245, 158, 11, 0.1));
+            border: 2px solid rgba(251, 191, 36, 0.3);
+        }
+
+        .crown-icon {
+            color: #fbbf24;
+            filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.5));
+        }
+
+        .results-header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+        }
+
+        .ranking-card {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .ranking-card:hover {
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+
+        .ranking-card.winner {
+            border: 2px solid rgba(251, 191, 36, 0.5);
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(245, 158, 11, 0.05));
+        }
+
+        .vote-bar {
+            height: 8px;
+            background: rgba(51, 65, 85, 0.5);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .vote-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .type-badge {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+            border: 1px solid;
+        }
+
+        .chart-container {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
 </head>
 
-<body class="bg-slate-900 text-slate-200 min-h-screen">
-    <!-- Header Section -->
-    <header class="nav-glass border-b border-white/10 sticky top-0 z-40">
+<body class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-200 min-h-screen">
+    <!-- Header -->
+    <header class="nav-glass border-b border-white/10 sticky top-0 z-40 backdrop-blur-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
                 <div class="flex items-center">
-                    <a href="../index.html" class="flex items-center group">
+                    <a href="../index.html" class="flex items-center space-x-2 group">
                         <div
-                            class="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-sm shadow-lg group-hover:shadow-indigo-500/50 transition-all duration-300 mr-2">
+                            class="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-sm shadow-lg">
                             🗳️
                         </div>
-                        <h1 class="text-xl font-bold font-outfit tracking-tight text-white">VoteSecure <span
-                                class="text-indigo-400">Online</span></h1>
+                        <span class="text-xl font-bold text-white">VoteSecure<span
+                                class="text-indigo-400">Online</span></span>
                     </a>
                 </div>
-
-                <!-- Live Update Controls -->
-                <div class="hidden md:flex items-center space-x-4">
-                    <div class="flex items-center space-x-2 text-sm">
-                        <div class="flex items-center">
-                            <div
-                                class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse mr-2 shadow-[0_0_8px_rgba(52,211,153,0.5)]">
-                            </div>
-                            <span class="text-emerald-400 font-medium">Live Updates</span>
-                        </div>
-                        <span class="text-slate-400">Last updated: <span id="lastUpdated" class="text-slate-300">2 min
-                                ago</span></span>
-                    </div>
-                    <button
-                        class="px-4 py-2 bg-slate-800/50 hover:bg-slate-700/50 text-slate-200 text-sm font-medium rounded-lg border border-white/10 transition-all duration-200 flex items-center"
-                        id="refreshBtn">
-                        <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                        </svg>
-                        Refresh
-                    </button>
+                <nav class="hidden md:flex items-center space-x-6">
+                    <a href="voter_dashboard.html"
+                        class="text-slate-300 hover:text-white transition-colors">Dashboard</a>
+                    <a href="active_elections.html"
+                        class="text-slate-300 hover:text-white transition-colors">Elections</a>
+                    <a href="voting_history.html" class="text-slate-300 hover:text-white transition-colors">History</a>
+                    <a href="election_results.html" class="text-indigo-400 font-medium">Results</a>
+                </nav>
+                <div class="flex items-center space-x-4">
+                    <a href="voter_dashboard.html"
+                        class="w-10 h-10 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white font-semibold">
+                        <i class='bx bx-user'></i>
+                    </a>
                 </div>
-
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden">
-                    <button class="p-2 text-slate-300 hover:text-white transition-colors" id="mobileMenuBtn">
-                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mobile Controls -->
-        <div class="md:hidden px-4 pb-4 border-t border-white/10" id="mobileControls" style="display: none;">
-            <div class="flex items-center justify-between pt-4">
-                <div class="flex items-center space-x-2 text-sm">
-                    <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-                    <span class="text-emerald-400 font-medium">Live</span>
-                </div>
-                <button class="px-3 py-1 bg-slate-800 text-slate-200 rounded border border-white/10 text-sm"
-                    id="mobileRefreshBtn">
-                    Refresh
-                </button>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="flex-1 pb-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <!-- Election Header -->
-            <div class="mb-8">
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
-                    <div>
-                        <h1 class="text-3xl font-bold text-text-primary mb-2">2024 City Council Election Results</h1>
-                        <div class="flex items-center space-x-4">
-                            <span
-                                class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-success-100 text-success-800">
-                                <div class="w-2 h-2 bg-success-600 rounded-full mr-2 animate-pulse"></div>
-                                Live Results
-                            </span>
-                            <span class="text-text-secondary text-sm">
-                                <svg class="h-4 w-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                Polls closed at 8:00 PM
-                            </span>
-                        </div>
-                    </div>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Page Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-white mb-2">Election Results</h1>
+            <p class="text-slate-400">View detailed results from completed elections</p>
+        </div>
 
-                    <!-- Export Controls -->
-                    <div class="flex items-center space-x-2 mt-4 sm:mt-0">
-                        <button class="btn-secondary px-4 py-2" id="exportPdfBtn">
-                            <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
-                            Export PDF
-                        </button>
-                        <button class="btn-secondary px-4 py-2" id="shareBtn">
-                            <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
-                            </svg>
-                            Share
-                        </button>
+        <!-- Select Election -->
+        <div class="glass-card rounded-2xl p-6 mb-8">
+            <h2 class="text-xl font-bold text-white mb-4">Select Election</h2>
+            <div id="electionSelector" class="grid md:grid-cols-3 gap-4">
+                <!-- Loading -->
+                <div class="col-span-full text-center py-8">
+                    <div
+                        class="animate-spin w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full mx-auto mb-4">
                     </div>
+                    <p class="text-slate-400">Loading completed elections...</p>
                 </div>
+            </div>
+        </div>
 
-                <!-- Overall Stats -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                    <div class="card text-center">
-                        <div class="text-2xl font-bold text-primary mb-1" id="totalVotes">15,847</div>
-                        <div class="text-sm text-text-secondary">Total Votes Cast</div>
+        <!-- Selected Election Results -->
+        <div id="resultsContainer" class="hidden">
+            <!-- Results Header Banner -->
+            <div class="results-header rounded-2xl p-6 mb-8 text-white shadow-xl shadow-indigo-500/20">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h2 class="text-2xl font-bold mb-2" id="selectedElectionTitle">Election Title</h2>
+                        <p class="text-indigo-200" id="selectedElectionDesc">Description</p>
                     </div>
-                    <div class="card text-center">
-                        <div class="text-2xl font-bold text-success mb-1" id="turnoutRate">68.4%</div>
-                        <div class="text-sm text-text-secondary">Voter Turnout</div>
+                    <span
+                        class="px-4 py-1 bg-emerald-400/20 text-emerald-300 border border-emerald-400/30 rounded-full text-sm font-semibold">Completed</span>
+                </div>
+                <div class="grid grid-cols-4 gap-6 mt-6">
+                    <div class="text-center">
+                        <div
+                            class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mx-auto mb-2 border border-white/20">
+                            <i class='bx bx-group text-2xl'></i>
+                        </div>
+                        <p class="text-2xl font-bold" id="statTotalVotes">0</p>
+                        <p class="text-sm text-indigo-200">Total Votes</p>
                     </div>
-                    <div class="card text-center">
-                        <div class="text-2xl font-bold text-warning mb-1" id="precincts">24/24</div>
-                        <div class="text-sm text-text-secondary">Precincts Reporting</div>
+                    <div class="text-center">
+                        <div
+                            class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mx-auto mb-2 border border-white/20">
+                            <i class='bx bx-bar-chart-alt-2 text-2xl'></i>
+                        </div>
+                        <p class="text-2xl font-bold" id="statCandidates">0</p>
+                        <p class="text-sm text-indigo-200">Candidates</p>
                     </div>
-                    <div class="card text-center">
-                        <div class="text-2xl font-bold text-secondary mb-1" id="leadMargin">2,143</div>
-                        <div class="text-sm text-text-secondary">Vote Margin</div>
+                    <div class="text-center">
+                        <div
+                            class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mx-auto mb-2 border border-white/20">
+                            <i class='bx bx-trophy text-2xl'></i>
+                        </div>
+                        <p class="text-2xl font-bold" id="statWinningVotes">0</p>
+                        <p class="text-sm text-indigo-200">Winning Votes</p>
+                    </div>
+                    <div class="text-center">
+                        <div
+                            class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mx-auto mb-2 border border-white/20">
+                            <i class='bx bx-calendar text-2xl'></i>
+                        </div>
+                        <p class="text-2xl font-bold" id="statEndDate">-</p>
+                        <p class="text-sm text-indigo-200">Ended</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Results Layout -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Main Results Panel -->
-                <div class="lg:col-span-2 space-y-6">
-                    <!-- Candidate Rankings -->
-                    <div class="card">
-                        <div class="flex items-center justify-between mb-6">
-                            <h2 class="text-xl font-semibold text-text-primary">Candidate Results</h2>
-                            <div class="flex items-center space-x-2 text-sm text-text-secondary">
-                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                                </svg>
-                                <span>4 positions available</span>
-                            </div>
-                        </div>
-
-                        <div class="space-y-4" id="candidateResults">
-                            <!-- Candidate 1 - Winner -->
-                            <div class="border rounded-lg p-4 bg-success-50 border-success-200">
-                                <div class="flex items-center justify-between mb-3">
-                                    <div class="flex items-center">
-                                        <span
-                                            class="inline-flex items-center justify-center w-8 h-8 bg-success text-white text-sm font-bold rounded-full mr-3">1</span>
-                                        <div>
-                                            <h3 class="text-lg font-semibold text-text-primary">Sarah Johnson</h3>
-                                            <p class="text-sm text-text-secondary">Independent • District 1</p>
-                                        </div>
-                                    </div>
-                                    <div class="text-right">
-                                        <div class="text-2xl font-bold text-success">4,523</div>
-                                        <div class="text-sm text-text-secondary">28.5%</div>
-                                    </div>
-                                </div>
-                                <div class="w-full bg-gray-200 rounded-full h-3 mb-2">
-                                    <div class="bg-success h-3 rounded-full animate-pulse" style="width: 28.5%"></div>
-                                </div>
-                                <div class="flex items-center justify-between text-sm">
-                                    <span
-                                        class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-success-100 text-success-800">
-                                        ✓ Elected
-                                    </span>
-                                    <span class="text-text-secondary">+847 from last update</span>
-                                </div>
-                            </div>
-
-                            <!-- Candidate 2 - Winner -->
-                            <div class="border rounded-lg p-4 bg-success-50 border-success-200">
-                                <div class="flex items-center justify-between mb-3">
-                                    <div class="flex items-center">
-                                        <span
-                                            class="inline-flex items-center justify-center w-8 h-8 bg-success text-white text-sm font-bold rounded-full mr-3">2</span>
-                                        <div>
-                                            <h3 class="text-lg font-semibold text-text-primary">Michael Chen</h3>
-                                            <p class="text-sm text-text-secondary">Democratic • District 2</p>
-                                        </div>
-                                    </div>
-                                    <div class="text-right">
-                                        <div class="text-2xl font-bold text-success">4,156</div>
-                                        <div class="text-sm text-text-secondary">26.2%</div>
-                                    </div>
-                                </div>
-                                <div class="w-full bg-gray-200 rounded-full h-3 mb-2">
-                                    <div class="bg-success h-3 rounded-full" style="width: 26.2%"></div>
-                                </div>
-                                <div class="flex items-center justify-between text-sm">
-                                    <span
-                                        class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-success-100 text-success-800">
-                                        ✓ Elected
-                                    </span>
-                                    <span class="text-text-secondary">+623 from last update</span>
-                                </div>
-                            </div>
-
-                            <!-- Candidate 3 - Winner -->
-                            <div class="border rounded-lg p-4 bg-success-50 border-success-200">
-                                <div class="flex items-center justify-between mb-3">
-                                    <div class="flex items-center">
-                                        <span
-                                            class="inline-flex items-center justify-center w-8 h-8 bg-success text-white text-sm font-bold rounded-full mr-3">3</span>
-                                        <div>
-                                            <h3 class="text-lg font-semibold text-text-primary">Dr. Amanda Rodriguez
-                                            </h3>
-                                            <p class="text-sm text-text-secondary">Republican • District 3</p>
-                                        </div>
-                                    </div>
-                                    <div class="text-right">
-                                        <div class="text-2xl font-bold text-success">3,892</div>
-                                        <div class="text-sm text-text-secondary">24.5%</div>
-                                    </div>
-                                </div>
-                                <div class="w-full bg-gray-200 rounded-full h-3 mb-2">
-                                    <div class="bg-success h-3 rounded-full" style="width: 24.5%"></div>
-                                </div>
-                                <div class="flex items-center justify-between text-sm">
-                                    <span
-                                        class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-success-100 text-success-800">
-                                        ✓ Elected
-                                    </span>
-                                    <span class="text-text-secondary">+492 from last update</span>
-                                </div>
-                            </div>
-
-                            <!-- Candidate 4 - Winner -->
-                            <div class="border rounded-lg p-4 bg-success-50 border-success-200">
-                                <div class="flex items-center justify-between mb-3">
-                                    <div class="flex items-center">
-                                        <span
-                                            class="inline-flex items-center justify-center w-8 h-8 bg-success text-white text-sm font-bold rounded-full mr-3">4</span>
-                                        <div>
-                                            <h3 class="text-lg font-semibold text-text-primary">James Wilson</h3>
-                                            <p class="text-sm text-text-secondary">Independent • District 4</p>
-                                        </div>
-                                    </div>
-                                    <div class="text-right">
-                                        <div class="text-2xl font-bold text-success">3,276</div>
-                                        <div class="text-sm text-text-secondary">20.7%</div>
-                                    </div>
-                                </div>
-                                <div class="w-full bg-gray-200 rounded-full h-3 mb-2">
-                                    <div class="bg-success h-3 rounded-full" style="width: 20.7%"></div>
-                                </div>
-                                <div class="flex items-center justify-between text-sm">
-                                    <span
-                                        class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-success-100 text-success-800">
-                                        ✓ Elected
-                                    </span>
-                                    <span class="text-text-secondary">+287 from last update</span>
-                                </div>
-                            </div>
-
-                            <!-- Remaining Candidates -->
-                            <div class="border rounded-lg p-4">
-                                <div class="flex items-center justify-between mb-3">
-                                    <div class="flex items-center">
-                                        <span
-                                            class="inline-flex items-center justify-center w-8 h-8 bg-secondary-200 text-secondary-600 text-sm font-bold rounded-full mr-3">5</span>
-                                        <div>
-                                            <h3 class="text-lg font-semibold text-text-primary">Robert Taylor</h3>
-                                            <p class="text-sm text-text-secondary">Green Party • At-Large</p>
-                                        </div>
-                                    </div>
-                                    <div class="text-right">
-                                        <div class="text-2xl font-bold text-secondary">2,845</div>
-                                        <div class="text-sm text-text-secondary">17.9%</div>
-                                    </div>
-                                </div>
-                                <div class="w-full bg-gray-200 rounded-full h-3 mb-2">
-                                    <div class="bg-secondary h-3 rounded-full" style="width: 17.9%"></div>
-                                </div>
-                                <div class="flex items-center justify-between text-sm">
-                                    <span class="text-text-secondary">Not elected</span>
-                                    <span class="text-text-secondary">+156 from last update</span>
-                                </div>
-                            </div>
-
-                            <div class="border rounded-lg p-4">
-                                <div class="flex items-center justify-between mb-3">
-                                    <div class="flex items-center">
-                                        <span
-                                            class="inline-flex items-center justify-center w-8 h-8 bg-secondary-200 text-secondary-600 text-sm font-bold rounded-full mr-3">6</span>
-                                        <div>
-                                            <h3 class="text-lg font-semibold text-text-primary">Lisa Thompson</h3>
-                                            <p class="text-sm text-text-secondary">Libertarian • At-Large</p>
-                                        </div>
-                                    </div>
-                                    <div class="text-right">
-                                        <div class="text-2xl font-bold text-secondary">1,923</div>
-                                        <div class="text-sm text-text-secondary">12.1%</div>
-                                    </div>
-                                </div>
-                                <div class="w-full bg-gray-200 rounded-full h-3 mb-2">
-                                    <div class="bg-secondary h-3 rounded-full" style="width: 12.1%"></div>
-                                </div>
-                                <div class="flex items-center justify-between text-sm">
-                                    <span class="text-text-secondary">Not elected</span>
-                                    <span class="text-text-secondary">+98 from last update</span>
-                                </div>
-                            </div>
-                        </div>
+            <!-- Winner Banner -->
+            <div class="winner-banner rounded-2xl p-8 text-center mb-8">
+                <i class='bx bxs-crown text-5xl crown-icon mb-2'></i>
+                <h3 class="text-xl font-bold text-slate-200 mb-1">Election Winner</h3>
+                <p class="text-2xl font-bold text-amber-400 mb-4" id="winnerName">Winner Name</p>
+                <div class="flex justify-center gap-8">
+                    <div>
+                        <p class="text-3xl font-bold text-white" id="winnerVotes">0</p>
+                        <p class="text-sm text-slate-400">Votes Received</p>
                     </div>
+                    <div>
+                        <p class="text-3xl font-bold text-white" id="winnerPercent">0%</p>
+                        <p class="text-sm text-slate-400">Vote Share</p>
+                    </div>
+                </div>
+            </div>
 
-                    <!-- Visualization Charts -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Vote Distribution Chart -->
-                        <div class="card">
-                            <h3 class="text-lg font-semibold text-text-primary mb-4">Vote Distribution</h3>
-                            <div class="relative">
-                                <canvas id="pieChart" width="300" height="300"></canvas>
-                            </div>
-                        </div>
-
-                        <!-- Vote Progress Over Time -->
-                        <div class="card">
-                            <h3 class="text-lg font-semibold text-text-primary mb-4">Vote Progression</h3>
-                            <div class="relative">
-                                <canvas id="lineChart" width="300" height="300"></canvas>
-                            </div>
-                        </div>
+            <!-- Results Grid -->
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Final Rankings -->
+                <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-xl font-bold text-white mb-4 flex items-center">
+                        <i class='bx bx-trophy mr-2 text-indigo-400'></i> Final Rankings
+                    </h3>
+                    <div id="rankingsContainer" class="space-y-4">
+                        <!-- Rankings will be populated here -->
                     </div>
                 </div>
 
-                <!-- Right Sidebar -->
+                <!-- Charts -->
                 <div class="space-y-6">
-                    <!-- Filter Controls -->
-                    <div class="card">
-                        <h3 class="text-lg font-semibold text-text-primary mb-4">Filter Results</h3>
-                        <div class="space-y-4">
-                            <div>
-                                <label class="block text-sm font-medium text-text-secondary mb-2">District</label>
-                                <select class="form-input text-sm" id="districtFilter">
-                                    <option value="all">All Districts</option>
-                                    <option value="district1">District 1</option>
-                                    <option value="district2">District 2</option>
-                                    <option value="district3">District 3</option>
-                                    <option value="district4">District 4</option>
-                                    <option value="at-large">At-Large</option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-text-secondary mb-2">Time Period</label>
-                                <select class="form-input text-sm" id="timeFilter">
-                                    <option value="all">All Time</option>
-                                    <option value="last-hour">Last Hour</option>
-                                    <option value="last-4-hours">Last 4 Hours</option>
-                                    <option value="early-voting">Early Voting</option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-text-secondary mb-2">Demographic</label>
-                                <select class="form-input text-sm" id="demographicFilter">
-                                    <option value="all">All Demographics</option>
-                                    <option value="age-18-29">Ages 18-29</option>
-                                    <option value="age-30-49">Ages 30-49</option>
-                                    <option value="age-50-65">Ages 50-65</option>
-                                    <option value="age-65+">Ages 65+</option>
-                                </select>
-                            </div>
+                    <!-- Pie Chart -->
+                    <div class="chart-container rounded-2xl p-6">
+                        <h3 class="text-xl font-bold text-white mb-4">Vote Distribution</h3>
+                        <div class="relative" style="height: 250px;">
+                            <canvas id="pieChart"></canvas>
                         </div>
                     </div>
 
-                    <!-- Turnout Statistics -->
-                    <div class="card">
-                        <h3 class="text-lg font-semibold text-text-primary mb-4">Turnout Analysis</h3>
-                        <div class="space-y-4">
-                            <div class="flex justify-between items-center py-2 border-b border-gray-100">
-                                <span class="text-sm text-text-secondary">Registered Voters</span>
-                                <span class="font-semibold text-text-primary">23,167</span>
-                            </div>
-                            <div class="flex justify-between items-center py-2 border-b border-gray-100">
-                                <span class="text-sm text-text-secondary">Votes Cast</span>
-                                <span class="font-semibold text-text-primary">15,847</span>
-                            </div>
-                            <div class="flex justify-between items-center py-2 border-b border-gray-100">
-                                <span class="text-sm text-text-secondary">Early Votes</span>
-                                <span class="font-semibold text-text-primary">6,234 (39.3%)</span>
-                            </div>
-                            <div class="flex justify-between items-center py-2">
-                                <span class="text-sm text-text-secondary">Election Day</span>
-                                <span class="font-semibold text-text-primary">9,613 (60.7%)</span>
-                            </div>
-                        </div>
-
-                        <div class="mt-6">
-                            <h4 class="text-sm font-semibold text-text-primary mb-3">Historical Comparison</h4>
-                            <div class="space-y-2">
-                                <div class="flex justify-between text-sm">
-                                    <span class="text-text-secondary">2024: 68.4%</span>
-                                    <span class="text-success font-medium">Current</span>
-                                </div>
-                                <div class="flex justify-between text-sm">
-                                    <span class="text-text-secondary">2020: 72.1%</span>
-                                    <span class="text-error">-3.7%</span>
-                                </div>
-                                <div class="flex justify-between text-sm">
-                                    <span class="text-text-secondary">2016: 64.3%</span>
-                                    <span class="text-success">+4.1%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Transparency & Audit -->
-                    <div class="card">
-                        <h3 class="text-lg font-semibold text-text-primary mb-4">Election Transparency</h3>
-                        <div class="space-y-3">
-                            <div class="flex items-center justify-between p-3 bg-success-50 rounded-lg">
-                                <div class="flex items-center">
-                                    <svg class="h-5 w-5 text-success mr-3" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd"
-                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                    <span class="text-sm font-medium text-success-800">Audit Complete</span>
-                                </div>
-                                <button class="text-sm text-success-700 underline hover:text-success-800" id="auditBtn">
-                                    View Details
-                                </button>
-                            </div>
-
-                            <div class="flex items-center justify-between p-3 bg-success-50 rounded-lg">
-                                <div class="flex items-center">
-                                    <svg class="h-5 w-5 text-success mr-3" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd"
-                                            d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                    <span class="text-sm font-medium text-success-800">Security Verified</span>
-                                </div>
-                                <button class="text-sm text-success-700 underline hover:text-success-800"
-                                    id="securityBtn">
-                                    Certificate
-                                </button>
-                            </div>
-
-                            <div class="flex items-center justify-between p-3 bg-primary-50 rounded-lg">
-                                <div class="flex items-center">
-                                    <svg class="h-5 w-5 text-primary mr-3" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                    </svg>
-                                    <span class="text-sm font-medium text-primary-800">Audit Trail</span>
-                                </div>
-                                <button class="text-sm text-primary-700 underline hover:text-primary-800" id="trailBtn">
-                                    Access Log
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Quick Actions -->
-                    <div class="card">
-                        <h3 class="text-lg font-semibold text-text-primary mb-4">Quick Actions</h3>
-                        <div class="space-y-3">
-                            <a href="voter_dashboard.html" class="w-full btn-secondary text-left block">
-                                <svg class="h-4 w-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
-                                </svg>
-                                Back to Dashboard
-                            </a>
-                            <a href="active_elections.html" class="w-full btn-secondary text-left block">
-                                <svg class="h-4 w-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-                                </svg>
-                                View Other Elections
-                            </a>
+                    <!-- Bar Chart -->
+                    <div class="chart-container rounded-2xl p-6">
+                        <h3 class="text-xl font-bold text-white mb-4">Vote Comparison</h3>
+                        <div class="relative" style="height: 220px;">
+                            <canvas id="barChart"></canvas>
                         </div>
                     </div>
                 </div>
@@ -502,138 +249,260 @@
         </div>
     </main>
 
-    <!-- Mobile Filter Panel -->
-    <div id="mobileFilterPanel"
-        class="fixed inset-x-0 bottom-0 bg-surface rounded-t-xl shadow-gentle-lg border-t border-gray-200 z-50 transform translate-y-full transition-transform duration-300">
-        <div class="p-6">
-            <div class="flex items-center justify-between mb-4">
-                <h3 class="text-lg font-semibold text-text-primary">Filter Results</h3>
-                <button id="closeMobileFilter" class="text-text-secondary hover:text-text-primary">
-                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
+    <script>
+        const token = localStorage.getItem('token');
+        let pieChartInstance = null;
+        let barChartInstance = null;
+        let endedElections = [];
 
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium text-text-secondary mb-2">District</label>
-                    <select class="form-input text-sm w-full">
-                        <option value="all">All Districts</option>
-                        <option value="district1">District 1</option>
-                        <option value="district2">District 2</option>
-                        <option value="district3">District 3</option>
-                        <option value="district4">District 4</option>
-                    </select>
-                </div>
+        // Load ended elections
+        async function loadEndedElections() {
+            const selector = document.getElementById('electionSelector');
 
-                <div>
-                    <label class="block text-sm font-medium text-text-secondary mb-2">Time Period</label>
-                    <select class="form-input text-sm w-full">
-                        <option value="all">All Time</option>
-                        <option value="last-hour">Last Hour</option>
-                        <option value="last-4-hours">Last 4 Hours</option>
-                        <option value="early-voting">Early Voting</option>
-                    </select>
-                </div>
+            try {
+                const response = await fetch('/api/elections?status=ended', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await response.json();
 
-                <button class="w-full btn-primary mt-6">Apply Filters</button>
-            </div>
-        </div>
-    </div>
+                if (data.success && data.elections && data.elections.length > 0) {
+                    endedElections = data.elections;
+                    renderElectionSelector();
 
-    <!-- Export Modal -->
-    <div id="exportModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
-        <div class="bg-surface rounded-xl p-6 max-w-md w-full">
-            <div class="flex items-center justify-between mb-4">
-                <h3 class="text-lg font-semibold text-text-primary">Export Options</h3>
-                <button id="closeExportModal" class="text-text-secondary hover:text-text-primary">
-                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
+                    // Check if election ID in URL
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const electionId = urlParams.get('election');
+                    if (electionId) {
+                        selectElection(parseInt(electionId));
+                    }
+                } else {
+                    showMockElections(selector);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showMockElections(selector);
+            }
+        }
 
-            <div class="space-y-4">
-                <button class="w-full btn-secondary text-left p-4 border rounded-lg hover:bg-secondary-50">
-                    <div class="flex items-center">
-                        <svg class="h-5 w-5 mr-3 text-error" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        </svg>
-                        <div>
-                            <div class="font-medium text-text-primary">PDF Report</div>
-                            <div class="text-sm text-text-secondary">Complete results with charts</div>
+        // Render election selector cards
+        function renderElectionSelector() {
+            const selector = document.getElementById('electionSelector');
+
+            selector.innerHTML = endedElections.map(election => {
+                const candidates = election.Candidates || [];
+                const totalVotes = candidates.reduce((sum, c) => sum + (c.vote_count || 0), 0);
+                const type = getElectionType(election);
+
+                return `
+                    <div class="election-select-card rounded-xl p-4" onclick="selectElection(${election.id})" data-id="${election.id}">
+                        <h4 class="font-bold text-white mb-2">${election.title}</h4>
+                        <p class="text-sm text-slate-400 mb-3 line-clamp-2">${election.description || 'View results and statistics'}</p>
+                        <div class="flex justify-between items-center">
+                            <span class="type-badge" style="background: rgba(99, 102, 241, 0.15); color: #a5b4fc; border-color: rgba(99, 102, 241, 0.3);">${type}</span>
+                            <span class="text-sm text-slate-400">${totalVotes.toLocaleString()} votes</span>
                         </div>
                     </div>
-                </button>
+                `;
+            }).join('');
+        }
 
-                <button class="w-full btn-secondary text-left p-4 border rounded-lg hover:bg-secondary-50">
-                    <div class="flex items-center">
-                        <svg class="h-5 w-5 mr-3 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a4 4 0 01-4-4V5a4 4 0 014-4h6l4 4v5a4 4 0 01-4 4z" />
-                        </svg>
-                        <div>
-                            <div class="font-medium text-text-primary">CSV Data</div>
-                            <div class="text-sm text-text-secondary">Raw vote data for analysis</div>
+        // Show mock elections for demo
+        function showMockElections(selector) {
+            const mockElections = [
+                { id: 1, title: 'Library Committee Representative', description: 'Past election for Library Committee Representative - view results and voting statistics', type: 'local', votes: 446 },
+                { id: 2, title: 'Library Committee Representative 2023', description: 'Past election for library committee representative', type: 'local', votes: 165 },
+                { id: 3, title: 'Student Council General Elections 2024', description: "Previous year's general elections for student council positions. Results have been finalized and published.", type: 'federal', votes: 1170 }
+            ];
+
+            endedElections = mockElections.map(m => ({
+                id: m.id,
+                title: m.title,
+                description: m.description,
+                end_time: new Date('2024-12-06'),
+                Candidates: [
+                    { id: 1, name: 'Meera Nair', party: 'Student Welfare Union', vote_count: Math.floor(m.votes * 0.426) },
+                    { id: 2, name: 'Rahul Verma', party: 'Academic Reform Party', vote_count: Math.floor(m.votes * 0.224) },
+                    { id: 3, name: 'Suresh Chandra', party: 'Progressive Students Coalition', vote_count: Math.floor(m.votes * 0.126) },
+                    { id: 4, name: 'None of the Above (NOTA)', party: 'NOTA', vote_count: Math.floor(m.votes * 0.224) }
+                ]
+            }));
+
+            renderElectionSelector();
+        }
+
+        // Get election type
+        function getElectionType(election) {
+            const text = (election.title + ' ' + (election.description || '')).toLowerCase();
+            if (text.includes('federal') || text.includes('presidential') || text.includes('congress') || text.includes('senate')) {
+                return 'federal';
+            } else if (text.includes('state') || text.includes('governor') || text.includes('assembly')) {
+                return 'state';
+            }
+            return 'local';
+        }
+
+        // Select an election
+        function selectElection(electionId) {
+            // Update selected card styling
+            document.querySelectorAll('.election-select-card').forEach(card => {
+                card.classList.remove('selected');
+                if (parseInt(card.dataset.id) === electionId) {
+                    card.classList.add('selected');
+                }
+            });
+
+            const election = endedElections.find(e => e.id === electionId);
+            if (!election) return;
+
+            const candidates = election.Candidates || [];
+            const sortedCandidates = [...candidates].sort((a, b) => (b.vote_count || 0) - (a.vote_count || 0));
+            const totalVotes = candidates.reduce((sum, c) => sum + (c.vote_count || 0), 0);
+            const winner = sortedCandidates[0] || {};
+            const endDate = new Date(election.end_time);
+
+            // Update header stats
+            document.getElementById('selectedElectionTitle').textContent = election.title;
+            document.getElementById('selectedElectionDesc').textContent = election.description || 'View results and voting statistics';
+            document.getElementById('statTotalVotes').textContent = totalVotes.toLocaleString();
+            document.getElementById('statCandidates').textContent = candidates.length;
+            document.getElementById('statWinningVotes').textContent = (winner.vote_count || 0).toLocaleString();
+            document.getElementById('statEndDate').textContent = endDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+            // Update winner banner
+            document.getElementById('winnerName').textContent = winner.name || 'TBD';
+            document.getElementById('winnerVotes').textContent = (winner.vote_count || 0).toLocaleString();
+            const winnerPercent = totalVotes > 0 ? ((winner.vote_count || 0) / totalVotes * 100).toFixed(1) : 0;
+            document.getElementById('winnerPercent').textContent = winnerPercent + '%';
+
+            // Render rankings
+            const rankingsContainer = document.getElementById('rankingsContainer');
+            const colors = ['#fbbf24', '#6366f1', '#10b981', '#ef4444', '#8b5cf6', '#06b6d4'];
+
+            rankingsContainer.innerHTML = sortedCandidates.map((candidate, index) => {
+                const percent = totalVotes > 0 ? ((candidate.vote_count || 0) / totalVotes * 100).toFixed(1) : 0;
+                const isWinner = index === 0;
+                const color = colors[index % colors.length];
+
+                return `
+                    <div class="ranking-card ${isWinner ? 'winner' : ''} rounded-xl p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <div class="flex items-center">
+                                <span class="w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3 font-bold" style="background: ${color}20; color: ${color}; border: 1px solid ${color}40;">
+                                    ${isWinner ? '👑' : index + 1}
+                                </span>
+                                <div>
+                                    <h4 class="font-bold text-white">${candidate.name}</h4>
+                                    <p class="text-sm text-slate-400">${candidate.party || 'Independent'}</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xl font-bold text-white">${(candidate.vote_count || 0).toLocaleString()}</p>
+                                <p class="text-xs text-slate-400">votes</p>
+                            </div>
                         </div>
+                        <div class="mb-2">
+                            <div class="flex justify-between text-xs text-slate-400 mb-1">
+                                <span>Vote Share</span>
+                                <span>${percent}%</span>
+                            </div>
+                            <div class="vote-bar">
+                                <div class="vote-bar-fill" style="width: ${percent}%; background: ${color};"></div>
+                            </div>
+                        </div>
+                        ${isWinner ? '<div class="flex justify-end"><span class="text-xs px-2 py-1 bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded font-semibold">Winner</span></div>' : ''}
                     </div>
-                </button>
-            </div>
-        </div>
-    </div>
+                `;
+            }).join('');
 
-    <!-- Share Modal -->
-    <div id="shareModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
-        <div class="bg-surface rounded-xl p-6 max-w-md w-full">
-            <div class="flex items-center justify-between mb-4">
-                <h3 class="text-lg font-semibold text-text-primary">Share Results</h3>
-                <button id="closeShareModal" class="text-text-secondary hover:text-text-primary">
-                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
+            // Render charts
+            renderCharts(sortedCandidates, totalVotes, colors);
 
-            <div class="space-y-4">
-                <div class="flex justify-center space-x-4 mb-6">
-                    <button class="p-3 bg-blue-100 text-blue-600 rounded-lg hover:bg-blue-200">
-                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
-                        </svg>
-                    </button>
-                    <button class="p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                        </svg>
-                    </button>
-                    <button class="p-3 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200">
-                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                        </svg>
-                    </button>
-                </div>
+            // Show results container
+            document.getElementById('resultsContainer').classList.remove('hidden');
+        }
 
-                <div>
-                    <label class="block text-sm font-medium text-text-secondary mb-2">Share Link</label>
-                    <div class="flex">
-                        <input type="text" class="form-input text-sm flex-1 rounded-r-none"
-                            value="https://votesecure.com/results/city-council-2024" readonly />
-                        <button class="btn-primary rounded-l-none px-4" id="copyLinkBtn">Copy</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        // Render charts
+        function renderCharts(candidates, totalVotes, colors) {
+            const labels = candidates.map(c => c.name);
+            const data = candidates.map(c => c.vote_count || 0);
+            const percentages = candidates.map(c => totalVotes > 0 ? ((c.vote_count || 0) / totalVotes * 100).toFixed(1) : 0);
 
-    <script src="../js/election_results.js"></script>
+            // Destroy existing charts
+            if (pieChartInstance) pieChartInstance.destroy();
+            if (barChartInstance) barChartInstance.destroy();
+
+            // Chart.js defaults for dark theme
+            Chart.defaults.color = '#94a3b8';
+            Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
+
+            // Pie Chart
+            const pieCtx = document.getElementById('pieChart').getContext('2d');
+            pieChartInstance = new Chart(pieCtx, {
+                type: 'pie',
+                data: {
+                    labels: labels.map((l, i) => `${l.split(' ').slice(0, 2).join(' ')}: ${percentages[i]}%`),
+                    datasets: [{
+                        data: data,
+                        backgroundColor: ['#10b981', '#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4'],
+                        borderWidth: 2,
+                        borderColor: '#1e293b'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                font: { size: 11 },
+                                padding: 10,
+                                usePointStyle: true,
+                                color: '#94a3b8'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Bar Chart
+            const barCtx = document.getElementById('barChart').getContext('2d');
+            barChartInstance = new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels: labels.map(l => l.split(' ').slice(0, 2).join(' ')),
+                    datasets: [{
+                        label: 'Votes',
+                        data: data,
+                        backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4'],
+                        borderRadius: 6,
+                        barThickness: 40
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: '#94a3b8' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#94a3b8' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize
+        loadEndedElections();
+    </script>
 </body>
 
 </html>

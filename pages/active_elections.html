@@ -4,133 +4,430 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Active Elections - VoteSecure Online</title>
+    <title>Elections - VoteSecure Online</title>
     <link rel="stylesheet" href="../css/main.css" />
     <link rel="stylesheet" href="../css/custom.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="../css/output.css" />
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .election-card {
+            transition: all 0.3s ease;
+        }
+
+        .election-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
+        }
+
+        .status-badge {
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .status-upcoming {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+        }
+
+        .status-ended {
+            background: linear-gradient(135deg, #6b7280, #4b5563);
+            color: white;
+        }
+
+        .type-badge {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+            border: 1px solid;
+        }
+
+        .type-federal {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .type-state {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .type-local {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .tab-btn {
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .filter-chip {
+            transition: all 0.2s ease;
+        }
+
+        .filter-chip.active {
+            background: rgba(99, 102, 241, 0.2);
+            border-color: rgba(99, 102, 241, 0.5);
+            color: #a5b4fc;
+        }
+    </style>
 </head>
 
-<body class="bg-slate-900 text-slate-200 min-h-screen">
-    <!-- Header Section -->
+<body class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-200 min-h-screen">
+    <!-- Header -->
     <header class="nav-glass border-b border-white/10 sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
                 <div class="flex items-center">
                     <a href="../index.html" class="flex items-center space-x-2 group">
                         <div
-                            class="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-sm shadow-lg group-hover:shadow-indigo-500/50 transition-all duration-300">
+                            class="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-sm shadow-lg">
                             🗳️
                         </div>
-                        <span class="text-xl font-bold font-outfit tracking-tight text-white">VoteSecure<span
+                        <span class="text-xl font-bold text-white">VoteSecure<span
                                 class="text-indigo-400">Online</span></span>
                     </a>
                 </div>
-
-                <!-- Navigation -->
                 <nav class="hidden md:flex items-center space-x-6">
                     <a href="voter_dashboard.html"
                         class="text-slate-300 hover:text-white transition-colors">Dashboard</a>
                     <a href="active_elections.html" class="text-indigo-400 font-medium">Elections</a>
                     <a href="voting_history.html" class="text-slate-300 hover:text-white transition-colors">History</a>
-                    <a href="user_profile_management.html"
-                        class="text-slate-300 hover:text-white transition-colors">Profile</a>
+                    <a href="election_results.html"
+                        class="text-slate-300 hover:text-white transition-colors">Results</a>
                 </nav>
-
-                <!-- User Menu -->
                 <div class="flex items-center space-x-4">
-                    <button class="p-2 text-slate-400 hover:text-white transition-colors">
-                        <i class='bx bx-bell text-xl'></i>
-                    </button>
-                    <a href="voter_dashboard.html"
-                        class="flex items-center space-x-2 p-2 rounded-lg hover:bg-white/5 transition-colors">
-                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop"
-                            alt="User" class="w-8 h-8 rounded-full object-cover border-2 border-indigo-500">
-                    </a>
+                    <span class="text-slate-400 text-sm hidden md:block" id="userName">Loading...</span>
+                    <div class="relative">
+                        <button id="userMenuBtn"
+                            class="w-10 h-10 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white font-semibold">
+                            <i class='bx bx-user'></i>
+                        </button>
+                        <div id="userDropdown"
+                            class="hidden absolute right-0 mt-2 w-48 glass-card border border-white/10 rounded-lg shadow-xl py-2">
+                            <a href="user_profile_management.html"
+                                class="block px-4 py-2 text-slate-300 hover:bg-white/5">Profile</a>
+                            <a href="account_settings.html"
+                                class="block px-4 py-2 text-slate-300 hover:bg-white/5">Settings</a>
+                            <hr class="my-2 border-white/10">
+                            <button id="logoutBtn"
+                                class="w-full text-left px-4 py-2 text-red-400 hover:bg-white/5">Logout</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Page Header -->
         <div class="mb-8">
-            <h1 class="text-3xl font-bold text-white mb-2">Active Elections</h1>
-            <p class="text-slate-400">Browse and participate in currently active elections</p>
+            <h1 class="text-3xl font-bold text-white mb-2">Elections</h1>
+            <p class="text-slate-400">Browse and participate in elections. Filter by status and type.</p>
         </div>
 
-        <!-- Search and Filter -->
-        <div class="glass-card p-6 mb-8 border border-white/10">
-            <div class="flex flex-col md:flex-row gap-4">
-                <!-- Search -->
-                <div class="flex-1 relative">
-                    <i class='bx bx-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400'></i>
-                    <input type="text" id="searchInput" placeholder="Search elections..."
-                        class="w-full pl-12 pr-4 py-3 bg-slate-800 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
-                </div>
+        <!-- Status Tabs -->
+        <div class="flex flex-wrap gap-3 mb-6">
+            <button onclick="setStatusFilter('active')"
+                class="tab-btn active px-6 py-3 rounded-xl font-medium flex items-center space-x-2 bg-slate-700/50 border border-white/10">
+                <i class='bx bx-check-circle text-lg'></i>
+                <span>Active</span>
+                <span class="ml-2 px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-xs"
+                    id="activeCount">0</span>
+            </button>
+            <button onclick="setStatusFilter('upcoming')"
+                class="tab-btn px-6 py-3 rounded-xl font-medium flex items-center space-x-2 bg-slate-700/50 border border-white/10 text-slate-300 hover:border-white/20">
+                <i class='bx bx-time-five text-lg'></i>
+                <span>Upcoming</span>
+                <span class="ml-2 px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 text-xs"
+                    id="upcomingCount">0</span>
+            </button>
+            <button onclick="setStatusFilter('ended')"
+                class="tab-btn px-6 py-3 rounded-xl font-medium flex items-center space-x-2 bg-slate-700/50 border border-white/10 text-slate-300 hover:border-white/20">
+                <i class='bx bx-check-double text-lg'></i>
+                <span>Ended</span>
+                <span class="ml-2 px-2 py-0.5 rounded-full bg-slate-500/20 text-slate-400 text-xs"
+                    id="endedCount">0</span>
+            </button>
+        </div>
 
-                <!-- Filter Chips -->
-                <div class="flex flex-wrap gap-2">
-                    <button data-filter="all"
-                        class="px-4 py-2 rounded-full text-sm font-medium bg-indigo-500 text-white transition-colors">
-                        All
-                    </button>
-                    <button data-filter="federal"
-                        class="px-4 py-2 rounded-full text-sm font-medium bg-slate-700 text-slate-300 hover:bg-slate-600 transition-colors">
-                        Federal
-                    </button>
-                    <button data-filter="state"
-                        class="px-4 py-2 rounded-full text-sm font-medium bg-slate-700 text-slate-300 hover:bg-slate-600 transition-colors">
-                        State
-                    </button>
-                    <button data-filter="local"
-                        class="px-4 py-2 rounded-full text-sm font-medium bg-slate-700 text-slate-300 hover:bg-slate-600 transition-colors">
-                        Local
-                    </button>
-                </div>
+        <!-- Type Filters -->
+        <div class="flex flex-wrap gap-2 mb-8">
+            <button onclick="setTypeFilter('all')"
+                class="filter-chip active px-4 py-2 rounded-lg text-sm font-medium bg-slate-700/30 border border-white/10 text-slate-300">
+                All Types
+            </button>
+            <button onclick="setTypeFilter('federal')"
+                class="filter-chip px-4 py-2 rounded-lg text-sm font-medium bg-slate-700/30 border border-white/10 text-slate-300 hover:border-red-500/30">
+                <i class='bx bx-world mr-1'></i> Federal
+            </button>
+            <button onclick="setTypeFilter('state')"
+                class="filter-chip px-4 py-2 rounded-lg text-sm font-medium bg-slate-700/30 border border-white/10 text-slate-300 hover:border-blue-500/30">
+                <i class='bx bx-map mr-1'></i> State
+            </button>
+            <button onclick="setTypeFilter('local')"
+                class="filter-chip px-4 py-2 rounded-lg text-sm font-medium bg-slate-700/30 border border-white/10 text-slate-300 hover:border-emerald-500/30">
+                <i class='bx bx-buildings mr-1'></i> Local
+            </button>
+        </div>
+
+        <!-- Search -->
+        <div class="mb-8">
+            <div class="relative">
+                <i class='bx bx-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl'></i>
+                <input type="text" id="searchInput" placeholder="Search elections..."
+                    class="w-full pl-12 pr-4 py-3 bg-slate-800/50 border border-white/10 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500/50 focus:ring-2 focus:ring-indigo-500/20">
             </div>
         </div>
 
         <!-- Elections Grid -->
-        <div id="electionsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Loading State -->
+        <div id="electionsGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Loading state -->
             <div class="col-span-full text-center py-12">
                 <div
-                    class="animate-spin w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full mx-auto mb-4">
+                    class="animate-spin w-10 h-10 border-4 border-indigo-500 border-t-transparent rounded-full mx-auto mb-4">
                 </div>
                 <p class="text-slate-400">Loading elections...</p>
             </div>
         </div>
 
-        <!-- Load More -->
-        <div class="text-center mt-8 hidden" id="loadMoreContainer">
-            <button id="loadMoreBtn"
-                class="px-6 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-medium transition-colors border border-white/10 flex items-center mx-auto">
-                <i class='bx bx-refresh mr-2'></i>
-                Load More Elections
-            </button>
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden text-center py-16">
+            <i class='bx bx-calendar-x text-6xl text-slate-500 mb-4'></i>
+            <h3 class="text-xl font-semibold text-white mb-2">No Elections Found</h3>
+            <p class="text-slate-400">No elections match your current filters.</p>
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="border-t border-white/10 py-6 mt-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <p class="text-slate-500 text-sm">© 2025 VoteSecure Online. All rights reserved.</p>
-                <div class="flex space-x-6 mt-4 md:mt-0">
-                    <a href="legal/privacy.html" class="text-slate-500 hover:text-slate-300 text-sm">Privacy Policy</a>
-                    <a href="legal/terms.html" class="text-slate-500 hover:text-slate-300 text-sm">Terms of Service</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <script>
+        let allElections = [];
+        let currentStatus = 'active';
+        let currentType = 'all';
+        const token = localStorage.getItem('token');
 
-    <script src="../js/utils.js"></script>
-    <script src="../js/active_elections.js"></script>
+        // Authentication check
+        if (!token) {
+            window.location.href = 'secure_login.html';
+        }
+
+        // Load user data
+        async function loadUserData() {
+            try {
+                const response = await fetch('/api/auth/me', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await response.json();
+                if (data.success && data.user) {
+                    document.getElementById('userName').textContent = data.user.name || data.user.email;
+                }
+            } catch (error) {
+                console.error('Error loading user:', error);
+            }
+        }
+
+        // Load all elections
+        async function loadElections() {
+            try {
+                const [activeRes, upcomingRes, endedRes] = await Promise.all([
+                    fetch('/api/elections?status=active', { headers: { 'Authorization': `Bearer ${token}` } }),
+                    fetch('/api/elections?status=upcoming', { headers: { 'Authorization': `Bearer ${token}` } }),
+                    fetch('/api/elections?status=ended', { headers: { 'Authorization': `Bearer ${token}` } })
+                ]);
+
+                const [activeData, upcomingData, endedData] = await Promise.all([
+                    activeRes.json(),
+                    upcomingRes.json(),
+                    endedRes.json()
+                ]);
+
+                const active = activeData.elections || [];
+                const upcoming = upcomingData.elections || [];
+                const ended = endedData.elections || [];
+
+                allElections = [...active, ...upcoming, ...ended];
+
+                // Update counts
+                document.getElementById('activeCount').textContent = active.length;
+                document.getElementById('upcomingCount').textContent = upcoming.length;
+                document.getElementById('endedCount').textContent = ended.length;
+
+                renderElections();
+            } catch (error) {
+                console.error('Error loading elections:', error);
+                document.getElementById('electionsGrid').innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <i class='bx bx-error-circle text-4xl text-red-400 mb-4'></i>
+                        <p class="text-slate-400">Failed to load elections</p>
+                        <button onclick="loadElections()" class="mt-4 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg">Retry</button>
+                    </div>
+                `;
+            }
+        }
+
+        // Determine election type based on title/description
+        function getElectionType(election) {
+            const text = (election.title + ' ' + (election.description || '')).toLowerCase();
+            if (text.includes('federal') || text.includes('presidential') || text.includes('congress') || text.includes('senate elections')) {
+                return 'federal';
+            } else if (text.includes('state') || text.includes('governor') || text.includes('assembly')) {
+                return 'state';
+            }
+            return 'local';
+        }
+
+        // Set status filter
+        function setStatusFilter(status) {
+            currentStatus = status;
+
+            // Update tab styles
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.closest('.tab-btn').classList.add('active');
+
+            renderElections();
+        }
+
+        // Set type filter
+        function setTypeFilter(type) {
+            currentType = type;
+
+            // Update chip styles
+            document.querySelectorAll('.filter-chip').forEach(chip => {
+                chip.classList.remove('active');
+            });
+            event.target.closest('.filter-chip').classList.add('active');
+
+            renderElections();
+        }
+
+        // Render elections
+        function renderElections() {
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+
+            let filtered = allElections.filter(election => {
+                const matchesStatus = election.status === currentStatus;
+                const matchesType = currentType === 'all' || getElectionType(election) === currentType;
+                const matchesSearch = election.title.toLowerCase().includes(searchQuery) ||
+                    (election.description || '').toLowerCase().includes(searchQuery);
+                return matchesStatus && matchesType && matchesSearch;
+            });
+
+            const grid = document.getElementById('electionsGrid');
+            const emptyState = document.getElementById('emptyState');
+
+            if (filtered.length === 0) {
+                grid.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            grid.classList.remove('hidden');
+            emptyState.classList.add('hidden');
+
+            grid.innerHTML = filtered.map(election => {
+                const type = getElectionType(election);
+                const candidates = election.Candidates || [];
+                const totalVotes = candidates.reduce((sum, c) => sum + (c.vote_count || 0), 0);
+                const endDate = new Date(election.end_time);
+                const startDate = new Date(election.start_time);
+                const now = new Date();
+
+                let timeInfo = '';
+                if (election.status === 'active') {
+                    const daysLeft = Math.ceil((endDate - now) / (1000 * 60 * 60 * 24));
+                    timeInfo = daysLeft > 0 ? `${daysLeft} days left` : 'Ending soon';
+                } else if (election.status === 'upcoming') {
+                    const daysUntil = Math.ceil((startDate - now) / (1000 * 60 * 60 * 24));
+                    timeInfo = `Starts in ${daysUntil} days`;
+                } else {
+                    timeInfo = `Ended ${endDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
+                }
+
+                const actionButton = election.status === 'active'
+                    ? `<a href="voting_interface.html?election=${election.id}" class="w-full py-3 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white rounded-lg font-medium transition-all flex items-center justify-center">
+                        <i class='bx bx-vote mr-2'></i> Vote Now
+                       </a>`
+                    : election.status === 'upcoming'
+                        ? `<button disabled class="w-full py-3 bg-slate-600/50 text-slate-400 rounded-lg font-medium cursor-not-allowed flex items-center justify-center">
+                        <i class='bx bx-time-five mr-2'></i> Coming Soon
+                       </button>`
+                        : `<a href="election_results.html?election=${election.id}" class="w-full py-3 bg-gradient-to-r from-slate-600 to-slate-500 hover:from-slate-500 hover:to-slate-400 text-white rounded-lg font-medium transition-all flex items-center justify-center">
+                        <i class='bx bx-bar-chart-alt-2 mr-2'></i> View Results
+                       </a>`;
+
+                return `
+                    <div class="election-card glass-card border border-white/10 rounded-2xl overflow-hidden">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="type-badge type-${type}">${type}</span>
+                                <span class="status-badge status-${election.status}">${election.status.charAt(0).toUpperCase() + election.status.slice(1)}</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-white mb-2">${election.title}</h3>
+                            <p class="text-slate-400 text-sm mb-4 line-clamp-2">${election.description || 'No description available'}</p>
+                            <div class="flex items-center justify-between text-sm text-slate-400 mb-4">
+                                <span class="flex items-center">
+                                    <i class='bx bx-group mr-1'></i>
+                                    ${candidates.length} candidates
+                                </span>
+                                <span class="flex items-center">
+                                    <i class='bx bx-bar-chart mr-1'></i>
+                                    ${totalVotes.toLocaleString()} votes
+                                </span>
+                            </div>
+                            <div class="flex items-center text-sm text-slate-400 mb-4">
+                                <i class='bx bx-time-five mr-1'></i>
+                                ${timeInfo}
+                            </div>
+                            ${actionButton}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Search input handler
+        document.getElementById('searchInput').addEventListener('input', renderElections);
+
+        // User menu toggle
+        document.getElementById('userMenuBtn').addEventListener('click', () => {
+            document.getElementById('userDropdown').classList.toggle('hidden');
+        });
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('token');
+            window.location.href = 'secure_login.html';
+        });
+
+        // Close dropdown on outside click
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('#userMenuBtn') && !e.target.closest('#userDropdown')) {
+                document.getElementById('userDropdown').classList.add('hidden');
+            }
+        });
+
+        // Initialize
+        loadUserData();
+        loadElections();
+    </script>
 </body>
 
 </html>
