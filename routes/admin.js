@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { User, Election, Vote, AuditLog } = require('../models');
-const { verifyToken, verifyAdmin } = require('../middleware/authMiddleware');
+const { verifyToken, verifyAdmin, verifyAdminEmail } = require('../middleware/authMiddleware');
 const { Op } = require('sequelize');
 
 // Get Admin Stats
@@ -40,7 +40,7 @@ router.get('/users', [verifyToken, verifyAdmin], async (req, res) => {
 
         const users = await User.findAll({
             where: whereClause,
-            attributes: ['id', 'name', 'email', 'role', 'status', 'lastLogin', 'createdAt'],
+            attributes: ['id', 'name', 'email', 'role', 'is_verified', 'createdAt'],
             limit: 50 // Limit results
         });
 

@@ -70,7 +70,7 @@ router.post('/register', authLimiter, validateRegistration, async (req, res) => 
 
         // Generate Token immediately for seamless UX
         const token = jwt.sign(
-            { id: user.id, role: user.role },
+            { id: user.id, role: user.role, email: user.email },
             process.env.JWT_SECRET,
             { expiresIn: '24h' }
         );
@@ -115,7 +115,7 @@ router.post('/login', authLimiter, validateLogin, async (req, res) => {
 
         // Generate Token
         const token = jwt.sign(
-            { id: user.id, role: user.role },
+            { id: user.id, role: user.role, email: user.email },
             process.env.JWT_SECRET,
             { expiresIn: '24h' }
         );

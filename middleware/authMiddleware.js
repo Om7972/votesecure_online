@@ -20,6 +20,7 @@ const verifyToken = (req, res, next) => {
         }
         req.userId = decoded.id;
         req.userRole = decoded.role;
+        req.userEmail = decoded.email; // Store email from token
         next();
     });
 };
@@ -31,4 +32,18 @@ const verifyAdmin = (req, res, next) => {
     next();
 };
 
-module.exports = { verifyToken, verifyAdmin };
+// New middleware: Verify that the user's email matches the designated admin email
+const verifyAdminEmail = (req, res, next) => {
+    const adminEmail = process.env.ADMIN_EMAIL || 'odhumkear@gmail.com';
+
+    // Check both role and email
+    if (req.userRole !== 'admin' || req.userEmail !== adminEmail) {
+        return res.status(403).json({
+            success: false,
+            message: 'Access denied. Only the designated administrator can access this resource.'
+        });
+    }
+    next();
+};
+
+module.exports = { verifyToken, verifyAdmin, verifyAdminEmail };

@@ -22,6 +22,21 @@ async function seedDatabase() {
         });
         console.log(adminCreated ? '✅ Admin user created' : 'ℹ️  Admin user already exists');
 
+        // Create designated admin (for admin dashboard access)
+        const designatedAdminPassword = await bcrypt.hash('Admin@123', 10);
+        const [designatedAdmin, designatedAdminCreated] = await User.findOrCreate({
+            where: { email: 'odhumkear@gmail.com' },
+            defaults: {
+                name: 'Om Dhumkear',
+                email: 'odhumkear@gmail.com',
+                password_hash: designatedAdminPassword,
+                role: 'admin',
+                is_verified: true,
+                phone: '+1234567890'
+            }
+        });
+        console.log(designatedAdminCreated ? '✅ Designated Admin (odhumkear@gmail.com) created' : 'ℹ️  Designated Admin already exists');
+
         // Create sample voters
         const voterPassword = await bcrypt.hash('voter123', 10);
         const [voter1, voter1Created] = await User.findOrCreate({
@@ -324,6 +339,7 @@ async function seedDatabase() {
         console.log('\n✅ Database seeded successfully!');
         console.log('\n📝 Login credentials:');
         console.log('   Admin: admin@votesecure.com / admin123');
+        console.log('   Designated Admin (Dashboard Access): odhumkear@gmail.com / Admin@123');
         console.log('   Voter: john.doe@email.com / voter123');
         console.log('\n📊 Elections created:');
         console.log('   Active: 4 (Federal, State, Local)');
