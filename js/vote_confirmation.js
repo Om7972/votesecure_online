@@ -220,7 +220,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     window.returnToDashboard = function () {
-        window.location.href = 'voter_dashboard.html';
+        // Use auth-utils to get correct dashboard URL based on user role
+        window.location.href = typeof getDashboardUrl === 'function' ? getDashboardUrl() : 'voter_dashboard.html';
     };
 
     window.downloadReceipt = function () {

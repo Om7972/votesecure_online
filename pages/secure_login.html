@@ -394,9 +394,12 @@
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('user', JSON.stringify(data.user));
 
-                    // Redirect based on role
+                    // Redirect based on role and admin email
+                    const ADMIN_EMAIL = 'odhumkear@gmail.com';
+                    const isAdmin = data.user.role === 'admin' && data.user.email === ADMIN_EMAIL;
+
                     setTimeout(() => {
-                        window.location.href = data.user.role === 'admin' ? 'admin_dashboard.html' : 'voter_dashboard.html';
+                        window.location.href = isAdmin ? 'admin_dashboard.html' : 'voter_dashboard.html';
                     }, 1500);
 
                 } catch (error) {

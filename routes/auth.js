@@ -196,4 +196,39 @@ router.get('/me', verifyToken, async (req, res) => {
     }
 });
 
+// Update Profile
+router.put('/update-profile', verifyToken, async (req, res) => {
+    try {
+        const { name, phone } = req.body;
+
+        const user = await User.findByPk(req.userId);
+        if (!user) return res.status(404).json({ success: false, message: 'User not found.' });
+
+        // Update fields
+        if (name) user.name = name;
+        if (phone !== undefined) user.phone = phone;
+
+        await user.save();
+
+        // Log the update
+        await AuditLog.create({
+            user_id: req.userId,
+            action: 'PROFILE_UPDATE',
+            details: 'User updated their profile.',
+            ip_address: req.ip
+        });
+
+        // Return updated user (excluding sensitive data)
+        const updatedUser = await User.findByPk(req.userId, {
+            attributes: { exclude: ['password_hash', 'two_factor_secret'] }
+        });
+
+        res.json({ success: true, message: 'Profile updated successfully.', user: updatedUser });
+    } catch (error) {
+        console.error('Update Profile Error:', error);
+        res.status(500).json({ success: false, message: 'Error updating profile.' });
+    }
+});
+
 module.exports = router;
+

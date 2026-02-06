@@ -83,11 +83,32 @@ document.addEventListener('DOMContentLoaded', async function () {
             <div class="glass-card p-6 border border-white/10">
                 <div class="mb-6">
                     <h2 class="text-xl font-bold text-white mb-2">${position}</h2>
-                    <p class="text-slate-400 text-sm">Select one candidate</p>
+                    <p class="text-slate-400 text-sm">Select one candidate or NOTA</p>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     ${candidates.map(candidate => createCandidateCard(candidate, position)).join('')}
+                </div>
+                
+                <!-- NOTA Option -->
+                <div class="mt-4 pt-4 border-t border-white/10">
+                    <div class="candidate-card nota-card bg-slate-800/50 rounded-lg p-4 border border-white/5 cursor-pointer hover:border-orange-500/50 transition-all duration-200 group"
+                         data-candidate-id="nota-${position.replace(/\s+/g, '-').toLowerCase()}"
+                         data-position="${position}"
+                         data-is-nota="true">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-orange-500/20 to-red-500/20 flex items-center justify-center border-2 border-transparent group-hover:border-orange-500 transition-all">
+                                <i class='bx bx-block text-3xl text-orange-400'></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-white font-semibold mb-1">None of the Above (NOTA)</h3>
+                                <p class="text-slate-400 text-sm">I choose not to vote for any of the above candidates</p>
+                            </div>
+                            <div class="select-indicator hidden">
+                                <i class='bx bx-check-circle text-emerald-400 text-2xl'></i>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         `;
@@ -125,16 +146,21 @@ document.addEventListener('DOMContentLoaded', async function () {
             card.addEventListener('click', function () {
                 const candidateId = this.dataset.candidateId;
                 const position = this.dataset.position;
+                const isNota = this.dataset.isNota === 'true';
 
                 // Deselect other candidates in same position
                 const positionCards = document.querySelectorAll(`[data-position="${position}"]`);
                 positionCards.forEach(c => {
-                    c.classList.remove('border-indigo-500', 'bg-indigo-500/10');
+                    c.classList.remove('border-indigo-500', 'bg-indigo-500/10', 'border-orange-500', 'bg-orange-500/10');
                     c.querySelector('.select-indicator').classList.add('hidden');
                 });
 
-                // Select this candidate
-                this.classList.add('border-indigo-500', 'bg-indigo-500/10');
+                // Select this candidate with appropriate color
+                if (isNota) {
+                    this.classList.add('border-orange-500', 'bg-orange-500/10');
+                } else {
+                    this.classList.add('border-indigo-500', 'bg-indigo-500/10');
+                }
                 this.querySelector('.select-indicator').classList.remove('hidden');
 
                 // Store selection

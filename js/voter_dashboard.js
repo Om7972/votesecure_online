@@ -26,7 +26,10 @@ document.addEventListener('DOMContentLoaded', async function () {
             const data = await response.json();
 
             if (data.success && data.user) {
-                const userName = data.user.full_name || data.user.email || 'Voter';
+                // Store user in localStorage for other pages
+                localStorage.setItem('user', JSON.stringify(data.user));
+
+                const userName = data.user.name || data.user.email || 'Voter';
                 document.getElementById('userName').textContent = userName;
                 document.getElementById('welcomeName').textContent = userName.split(' ')[0];
             }
@@ -163,6 +166,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             logoutBtn.addEventListener('click', () => {
                 localStorage.removeItem('token');
                 localStorage.removeItem('userId');
+                localStorage.removeItem('user');
                 window.location.href = 'secure_login.html';
             });
         }

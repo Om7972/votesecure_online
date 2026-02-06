@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/custom.css" />
     <link rel="stylesheet" href="../css/output.css" />
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <script src="../js/auth-utils.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .election-card {
@@ -111,7 +112,7 @@
                     </a>
                 </div>
                 <nav class="hidden md:flex items-center space-x-6">
-                    <a href="voter_dashboard.html"
+                    <a href="#" id="dashboardNavLink"
                         class="text-slate-300 hover:text-white transition-colors">Dashboard</a>
                     <a href="active_elections.html" class="text-indigo-400 font-medium">Elections</a>
                     <a href="voting_history.html" class="text-slate-300 hover:text-white transition-colors">History</a>
@@ -265,6 +266,8 @@
             // Logout
             document.getElementById('logoutBtn').addEventListener('click', function () {
                 localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                localStorage.removeItem('userId');
                 window.location.href = 'secure_login.html';
             });
 

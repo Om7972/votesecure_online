@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/custom.css" />
     <link rel="stylesheet" href="../css/output.css" />
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <script src="../js/auth-utils.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .stat-card {
@@ -73,7 +74,7 @@
                     </a>
                 </div>
                 <nav class="hidden md:flex items-center space-x-6">
-                    <a href="voter_dashboard.html"
+                    <a href="#" id="dashboardNavLink"
                         class="text-slate-300 hover:text-white transition-colors">Dashboard</a>
                     <a href="active_elections.html"
                         class="text-slate-300 hover:text-white transition-colors">Elections</a>
@@ -83,7 +84,7 @@
                 </nav>
                 <div class="flex items-center space-x-4">
                     <span class="text-slate-400 text-sm hidden md:block" id="userName">Loading...</span>
-                    <a href="voter_dashboard.html"
+                    <a href="#" id="userProfileLink"
                         class="w-10 h-10 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white font-semibold">
                         <i class='bx bx-user'></i>
                     </a>

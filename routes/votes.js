@@ -70,26 +70,47 @@ router.post('/submit', verifyToken, async (req, res) => {
         // Create votes for each candidate
         const voteRecords = [];
         for (const vote of votes) {
-            const candidate = await Candidate.findByPk(vote.candidateId);
+            // Check if this is a NOTA vote
+            const isNota = vote.candidateId.toString().startsWith('nota-');
 
-            if (!candidate) {
-                return res.status(404).json({
-                    success: false,
-                    message: `Candidate ${vote.candidateId} not found`
+            if (!isNota) {
+                // Regular vote - verify candidate exists
+                const candidate = await Candidate.findByPk(vote.candidateId);
+
+                if (!candidate) {
+                    return res.status(404).json({
+                        success: false,
+                        message: `Candidate ${vote.candidateId} not found`
+                    });
+                }
+
+                // Generate a unique receipt hash
+                const receiptHash = `VOTE-${Date.now()}-${req.userId}-${electionId}-${vote.candidateId}-${Math.random().toString(36).substring(2, 10)}`;
+
+                const voteRecord = await Vote.create({
+                    user_id: req.userId,
+                    election_id: electionId,
+                    candidate_id: vote.candidateId,
+                    receipt_hash: receiptHash
                 });
+
+                // Update candidate vote count
+                await Candidate.increment('vote_count', { where: { id: vote.candidateId } });
+
+                voteRecords.push(voteRecord);
+            } else {
+                // NOTA vote - store with candidate_id as 0 (or null indicator)
+                const receiptHash = `NOTA-${Date.now()}-${req.userId}-${electionId}-${Math.random().toString(36).substring(2, 10)}`;
+
+                const voteRecord = await Vote.create({
+                    user_id: req.userId,
+                    election_id: electionId,
+                    candidate_id: 0, // 0 indicates NOTA vote
+                    receipt_hash: receiptHash
+                });
+
+                voteRecords.push(voteRecord);
             }
-
-            const voteRecord = await Vote.create({
-                user_id: req.userId,
-                election_id: electionId,
-                candidate_id: vote.candidateId,
-                signature_data: signature,
-                vote_timestamp: timestamp || new Date(),
-                is_verified: true,
-                encryption_hash: generateHash() // Simulate encryption
-            });
-
-            voteRecords.push(voteRecord);
         }
 
         // Generate receipt

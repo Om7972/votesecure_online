@@ -263,11 +263,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const candidates = electionData.Candidates || [];
 
         Object.entries(selectedVotes).forEach(([position, candidateId]) => {
-            const candidate = candidates.find(c => c.id == candidateId);
+            // Check if this is a NOTA vote
+            const isNota = candidateId.toString().startsWith('nota-');
 
-            if (candidate) {
+            if (isNota) {
+                // Display NOTA selection
                 container.innerHTML += `
-                    <div class="bg-slate-900/50 rounded-lg p-4 border border-white/5">
+                    <div class="bg-slate-900/50 rounded-lg p-4 border border-orange-500/30">
                         <div class="flex justify-between items-start mb-3">
                             <h4 class="text-white font-semibold">${position}</h4>
                             <button class="text-indigo-400 hover:text-indigo-300 text-sm flex items-center transition-colors edit-vote-btn" data-election-id="${electionId}">
@@ -276,18 +278,44 @@ document.addEventListener('DOMContentLoaded', function () {
                             </button>
                         </div>
                         <div class="flex items-center space-x-3">
-                            <img src="${candidate.image_url || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop'}" 
-                                 alt="${candidate.name}" 
-                                 class="w-12 h-12 rounded-full object-cover border-2 border-indigo-500"
-                                 onerror="this.src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop'">
-                            <div class="flex-1">
-                                <p class="text-white font-medium">${candidate.name}</p>
-                                <p class="text-sm text-slate-400">${candidate.party || 'Independent'}</p>
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-orange-500/20 to-red-500/20 flex items-center justify-center border-2 border-orange-500">
+                                <i class='bx bx-block text-xl text-orange-400'></i>
                             </div>
-                            <i class='bx bx-check-circle text-emerald-400 text-2xl'></i>
+                            <div class="flex-1">
+                                <p class="text-white font-medium">None of the Above (NOTA)</p>
+                                <p class="text-sm text-slate-400">No candidate selected</p>
+                            </div>
+                            <i class='bx bx-check-circle text-orange-400 text-2xl'></i>
                         </div>
                     </div>
                 `;
+            } else {
+                const candidate = candidates.find(c => c.id == candidateId);
+
+                if (candidate) {
+                    container.innerHTML += `
+                        <div class="bg-slate-900/50 rounded-lg p-4 border border-white/5">
+                            <div class="flex justify-between items-start mb-3">
+                                <h4 class="text-white font-semibold">${position}</h4>
+                                <button class="text-indigo-400 hover:text-indigo-300 text-sm flex items-center transition-colors edit-vote-btn" data-election-id="${electionId}">
+                                    <i class='bx bx-edit-alt mr-1'></i>
+                                    Edit
+                                </button>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <img src="${candidate.image_url || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop'}" 
+                                     alt="${candidate.name}" 
+                                     class="w-12 h-12 rounded-full object-cover border-2 border-indigo-500"
+                                     onerror="this.src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop'">
+                                <div class="flex-1">
+                                    <p class="text-white font-medium">${candidate.name}</p>
+                                    <p class="text-sm text-slate-400">${candidate.party || 'Independent'}</p>
+                                </div>
+                                <i class='bx bx-check-circle text-emerald-400 text-2xl'></i>
+                            </div>
+                        </div>
+                    `;
+                }
             }
         });
 
@@ -377,7 +405,8 @@ Keep this receipt for your records.
     });
 
     document.getElementById('returnToDashboard').addEventListener('click', function () {
-        window.location.href = 'voter_dashboard.html';
+        // Use auth-utils to get correct dashboard URL based on user role
+        window.location.href = typeof getDashboardUrl === 'function' ? getDashboardUrl() : 'voter_dashboard.html';
     });
 
     document.getElementById('backToVoting').addEventListener('click', function () {
