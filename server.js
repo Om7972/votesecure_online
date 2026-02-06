@@ -20,11 +20,13 @@ app.use(helmet({
     contentSecurityPolicy: {
         directives: {
             defaultSrc: ["'self'"],
-            scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://cdn.jsdelivr.net", "https://cdn.tailwindcss.com", "https://unpkg.com", "https://www.gstatic.com", "https://cdn.socket.io"],
-            styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://unpkg.com", "https://cdn.tailwindcss.com"],
+            scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "blob:", "https://cdn.jsdelivr.net", "https://cdn.tailwindcss.com", "https://unpkg.com", "https://www.gstatic.com", "https://cdn.socket.io", "https://cdnjs.cloudflare.com"],
+            scriptSrcAttr: ["'unsafe-inline'"],
+            styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://unpkg.com", "https://cdn.tailwindcss.com", "https://cdnjs.cloudflare.com"],
+            styleSrcElem: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://unpkg.com", "https://cdn.tailwindcss.com", "https://cdnjs.cloudflare.com"],
             fontSrc: ["'self'", "https://fonts.gstatic.com", "https://unpkg.com", "data:"],
-            imgSrc: ["'self'", "data:", "blob:", "https://images.unsplash.com"],
-            connectSrc: ["'self'", "https://votesecure6766back.builtwithrocket.new", "https://application.rocket.new", "ws://localhost:5000", "https://unpkg.com"],
+            imgSrc: ["'self'", "data:", "blob:", "https://images.unsplash.com", "https://*"],
+            connectSrc: ["'self'", "https://votesecure6766back.builtwithrocket.new", "https://application.rocket.new", "ws://localhost:5000", "wss://localhost:5000", "https://unpkg.com", "https://*"],
             workerSrc: ["'self'", "blob:"],
         },
     },

@@ -87,6 +87,11 @@
             border-color: rgba(99, 102, 241, 0.5);
             color: #a5b4fc;
         }
+
+        .glass-card {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.8));
+            backdrop-filter: blur(12px);
+        }
     </style>
 </head>
 
@@ -144,22 +149,22 @@
         </div>
 
         <!-- Status Tabs -->
-        <div class="flex flex-wrap gap-3 mb-6">
-            <button onclick="setStatusFilter('active')"
+        <div class="flex flex-wrap gap-3 mb-6" id="statusTabs">
+            <button data-status="active"
                 class="tab-btn active px-6 py-3 rounded-xl font-medium flex items-center space-x-2 bg-slate-700/50 border border-white/10">
                 <i class='bx bx-check-circle text-lg'></i>
                 <span>Active</span>
                 <span class="ml-2 px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-xs"
                     id="activeCount">0</span>
             </button>
-            <button onclick="setStatusFilter('upcoming')"
+            <button data-status="upcoming"
                 class="tab-btn px-6 py-3 rounded-xl font-medium flex items-center space-x-2 bg-slate-700/50 border border-white/10 text-slate-300 hover:border-white/20">
                 <i class='bx bx-time-five text-lg'></i>
                 <span>Upcoming</span>
                 <span class="ml-2 px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 text-xs"
                     id="upcomingCount">0</span>
             </button>
-            <button onclick="setStatusFilter('ended')"
+            <button data-status="ended"
                 class="tab-btn px-6 py-3 rounded-xl font-medium flex items-center space-x-2 bg-slate-700/50 border border-white/10 text-slate-300 hover:border-white/20">
                 <i class='bx bx-check-double text-lg'></i>
                 <span>Ended</span>
@@ -169,20 +174,20 @@
         </div>
 
         <!-- Type Filters -->
-        <div class="flex flex-wrap gap-2 mb-8">
-            <button onclick="setTypeFilter('all')"
+        <div class="flex flex-wrap gap-2 mb-8" id="typeFilters">
+            <button data-type="all"
                 class="filter-chip active px-4 py-2 rounded-lg text-sm font-medium bg-slate-700/30 border border-white/10 text-slate-300">
                 All Types
             </button>
-            <button onclick="setTypeFilter('federal')"
+            <button data-type="federal"
                 class="filter-chip px-4 py-2 rounded-lg text-sm font-medium bg-slate-700/30 border border-white/10 text-slate-300 hover:border-red-500/30">
                 <i class='bx bx-world mr-1'></i> Federal
             </button>
-            <button onclick="setTypeFilter('state')"
+            <button data-type="state"
                 class="filter-chip px-4 py-2 rounded-lg text-sm font-medium bg-slate-700/30 border border-white/10 text-slate-300 hover:border-blue-500/30">
                 <i class='bx bx-map mr-1'></i> State
             </button>
-            <button onclick="setTypeFilter('local')"
+            <button data-type="local"
                 class="filter-chip px-4 py-2 rounded-lg text-sm font-medium bg-slate-700/30 border border-white/10 text-slate-300 hover:border-emerald-500/30">
                 <i class='bx bx-buildings mr-1'></i> Local
             </button>
@@ -227,11 +232,55 @@
             window.location.href = 'secure_login.html';
         }
 
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', function () {
+            // Load data
+            loadUserData();
+            loadElections();
+
+            // Set up event listeners for status tabs
+            document.querySelectorAll('#statusTabs .tab-btn').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    const status = this.getAttribute('data-status');
+                    setStatusFilter(status, this);
+                });
+            });
+
+            // Set up event listeners for type filters
+            document.querySelectorAll('#typeFilters .filter-chip').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    const type = this.getAttribute('data-type');
+                    setTypeFilter(type, this);
+                });
+            });
+
+            // Search input handler
+            document.getElementById('searchInput').addEventListener('input', renderElections);
+
+            // User menu toggle
+            document.getElementById('userMenuBtn').addEventListener('click', function () {
+                document.getElementById('userDropdown').classList.toggle('hidden');
+            });
+
+            // Logout
+            document.getElementById('logoutBtn').addEventListener('click', function () {
+                localStorage.removeItem('token');
+                window.location.href = 'secure_login.html';
+            });
+
+            // Close dropdown on outside click
+            document.addEventListener('click', function (e) {
+                if (!e.target.closest('#userMenuBtn') && !e.target.closest('#userDropdown')) {
+                    document.getElementById('userDropdown').classList.add('hidden');
+                }
+            });
+        });
+
         // Load user data
         async function loadUserData() {
             try {
                 const response = await fetch('/api/auth/me', {
-                    headers: { 'Authorization': `Bearer ${token}` }
+                    headers: { 'Authorization': 'Bearer ' + token }
                 });
                 const data = await response.json();
                 if (data.success && data.user) {
@@ -245,23 +294,19 @@
         // Load all elections
         async function loadElections() {
             try {
-                const [activeRes, upcomingRes, endedRes] = await Promise.all([
-                    fetch('/api/elections?status=active', { headers: { 'Authorization': `Bearer ${token}` } }),
-                    fetch('/api/elections?status=upcoming', { headers: { 'Authorization': `Bearer ${token}` } }),
-                    fetch('/api/elections?status=ended', { headers: { 'Authorization': `Bearer ${token}` } })
-                ]);
+                const activeRes = await fetch('/api/elections?status=active', { headers: { 'Authorization': 'Bearer ' + token } });
+                const upcomingRes = await fetch('/api/elections?status=upcoming', { headers: { 'Authorization': 'Bearer ' + token } });
+                const endedRes = await fetch('/api/elections?status=ended', { headers: { 'Authorization': 'Bearer ' + token } });
 
-                const [activeData, upcomingData, endedData] = await Promise.all([
-                    activeRes.json(),
-                    upcomingRes.json(),
-                    endedRes.json()
-                ]);
+                const activeData = await activeRes.json();
+                const upcomingData = await upcomingRes.json();
+                const endedData = await endedRes.json();
 
                 const active = activeData.elections || [];
                 const upcoming = upcomingData.elections || [];
                 const ended = endedData.elections || [];
 
-                allElections = [...active, ...upcoming, ...ended];
+                allElections = active.concat(upcoming, ended);
 
                 // Update counts
                 document.getElementById('activeCount').textContent = active.length;
@@ -271,13 +316,13 @@
                 renderElections();
             } catch (error) {
                 console.error('Error loading elections:', error);
-                document.getElementById('electionsGrid').innerHTML = `
-                    <div class="col-span-full text-center py-12">
-                        <i class='bx bx-error-circle text-4xl text-red-400 mb-4'></i>
-                        <p class="text-slate-400">Failed to load elections</p>
-                        <button onclick="loadElections()" class="mt-4 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg">Retry</button>
-                    </div>
-                `;
+                document.getElementById('electionsGrid').innerHTML =
+                    '<div class="col-span-full text-center py-12">' +
+                    '<i class="bx bx-error-circle text-4xl text-red-400 mb-4"></i>' +
+                    '<p class="text-slate-400">Failed to load elections</p>' +
+                    '<button id="retryBtn" class="mt-4 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg">Retry</button>' +
+                    '</div>';
+                document.getElementById('retryBtn').addEventListener('click', loadElections);
             }
         }
 
@@ -293,45 +338,45 @@
         }
 
         // Set status filter
-        function setStatusFilter(status) {
+        function setStatusFilter(status, btn) {
             currentStatus = status;
 
             // Update tab styles
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
+            document.querySelectorAll('#statusTabs .tab-btn').forEach(function (b) {
+                b.classList.remove('active');
             });
-            event.target.closest('.tab-btn').classList.add('active');
+            btn.classList.add('active');
 
             renderElections();
         }
 
         // Set type filter
-        function setTypeFilter(type) {
+        function setTypeFilter(type, btn) {
             currentType = type;
 
             // Update chip styles
-            document.querySelectorAll('.filter-chip').forEach(chip => {
-                chip.classList.remove('active');
+            document.querySelectorAll('#typeFilters .filter-chip').forEach(function (b) {
+                b.classList.remove('active');
             });
-            event.target.closest('.filter-chip').classList.add('active');
+            btn.classList.add('active');
 
             renderElections();
         }
 
         // Render elections
         function renderElections() {
-            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            var searchQuery = document.getElementById('searchInput').value.toLowerCase();
 
-            let filtered = allElections.filter(election => {
-                const matchesStatus = election.status === currentStatus;
-                const matchesType = currentType === 'all' || getElectionType(election) === currentType;
-                const matchesSearch = election.title.toLowerCase().includes(searchQuery) ||
+            var filtered = allElections.filter(function (election) {
+                var matchesStatus = election.status === currentStatus;
+                var matchesType = currentType === 'all' || getElectionType(election) === currentType;
+                var matchesSearch = election.title.toLowerCase().includes(searchQuery) ||
                     (election.description || '').toLowerCase().includes(searchQuery);
                 return matchesStatus && matchesType && matchesSearch;
             });
 
-            const grid = document.getElementById('electionsGrid');
-            const emptyState = document.getElementById('emptyState');
+            var grid = document.getElementById('electionsGrid');
+            var emptyState = document.getElementById('emptyState');
 
             if (filtered.length === 0) {
                 grid.classList.add('hidden');
@@ -342,91 +387,64 @@
             grid.classList.remove('hidden');
             emptyState.classList.add('hidden');
 
-            grid.innerHTML = filtered.map(election => {
-                const type = getElectionType(election);
-                const candidates = election.Candidates || [];
-                const totalVotes = candidates.reduce((sum, c) => sum + (c.vote_count || 0), 0);
-                const endDate = new Date(election.end_time);
-                const startDate = new Date(election.start_time);
-                const now = new Date();
+            var html = '';
+            for (var i = 0; i < filtered.length; i++) {
+                var election = filtered[i];
+                var type = getElectionType(election);
+                var candidates = election.Candidates || [];
+                var totalVotes = 0;
+                for (var j = 0; j < candidates.length; j++) {
+                    totalVotes += (candidates[j].vote_count || 0);
+                }
+                var endDate = new Date(election.end_time);
+                var startDate = new Date(election.start_time);
+                var now = new Date();
 
-                let timeInfo = '';
+                var timeInfo = '';
                 if (election.status === 'active') {
-                    const daysLeft = Math.ceil((endDate - now) / (1000 * 60 * 60 * 24));
-                    timeInfo = daysLeft > 0 ? `${daysLeft} days left` : 'Ending soon';
+                    var daysLeft = Math.ceil((endDate - now) / (1000 * 60 * 60 * 24));
+                    timeInfo = daysLeft > 0 ? daysLeft + ' days left' : 'Ending soon';
                 } else if (election.status === 'upcoming') {
-                    const daysUntil = Math.ceil((startDate - now) / (1000 * 60 * 60 * 24));
-                    timeInfo = `Starts in ${daysUntil} days`;
+                    var daysUntil = Math.ceil((startDate - now) / (1000 * 60 * 60 * 24));
+                    timeInfo = 'Starts in ' + daysUntil + ' days';
                 } else {
-                    timeInfo = `Ended ${endDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
+                    timeInfo = 'Ended ' + endDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
                 }
 
-                const actionButton = election.status === 'active'
-                    ? `<a href="voting_interface.html?election=${election.id}" class="w-full py-3 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white rounded-lg font-medium transition-all flex items-center justify-center">
-                        <i class='bx bx-vote mr-2'></i> Vote Now
-                       </a>`
-                    : election.status === 'upcoming'
-                        ? `<button disabled class="w-full py-3 bg-slate-600/50 text-slate-400 rounded-lg font-medium cursor-not-allowed flex items-center justify-center">
-                        <i class='bx bx-time-five mr-2'></i> Coming Soon
-                       </button>`
-                        : `<a href="election_results.html?election=${election.id}" class="w-full py-3 bg-gradient-to-r from-slate-600 to-slate-500 hover:from-slate-500 hover:to-slate-400 text-white rounded-lg font-medium transition-all flex items-center justify-center">
-                        <i class='bx bx-bar-chart-alt-2 mr-2'></i> View Results
-                       </a>`;
+                var actionButton = '';
+                if (election.status === 'active') {
+                    actionButton = '<a href="voting_interface.html?election=' + election.id + '" class="w-full py-3 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white rounded-lg font-medium transition-all flex items-center justify-center">' +
+                        '<i class="bx bx-vote mr-2"></i> Vote Now</a>';
+                } else if (election.status === 'upcoming') {
+                    actionButton = '<button disabled class="w-full py-3 bg-slate-600/50 text-slate-400 rounded-lg font-medium cursor-not-allowed flex items-center justify-center">' +
+                        '<i class="bx bx-time-five mr-2"></i> Coming Soon</button>';
+                } else {
+                    actionButton = '<a href="election_results.html?election=' + election.id + '" class="w-full py-3 bg-gradient-to-r from-slate-600 to-slate-500 hover:from-slate-500 hover:to-slate-400 text-white rounded-lg font-medium transition-all flex items-center justify-center">' +
+                        '<i class="bx bx-bar-chart-alt-2 mr-2"></i> View Results</a>';
+                }
 
-                return `
-                    <div class="election-card glass-card border border-white/10 rounded-2xl overflow-hidden">
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-4">
-                                <span class="type-badge type-${type}">${type}</span>
-                                <span class="status-badge status-${election.status}">${election.status.charAt(0).toUpperCase() + election.status.slice(1)}</span>
-                            </div>
-                            <h3 class="text-lg font-bold text-white mb-2">${election.title}</h3>
-                            <p class="text-slate-400 text-sm mb-4 line-clamp-2">${election.description || 'No description available'}</p>
-                            <div class="flex items-center justify-between text-sm text-slate-400 mb-4">
-                                <span class="flex items-center">
-                                    <i class='bx bx-group mr-1'></i>
-                                    ${candidates.length} candidates
-                                </span>
-                                <span class="flex items-center">
-                                    <i class='bx bx-bar-chart mr-1'></i>
-                                    ${totalVotes.toLocaleString()} votes
-                                </span>
-                            </div>
-                            <div class="flex items-center text-sm text-slate-400 mb-4">
-                                <i class='bx bx-time-five mr-1'></i>
-                                ${timeInfo}
-                            </div>
-                            ${actionButton}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        // Search input handler
-        document.getElementById('searchInput').addEventListener('input', renderElections);
-
-        // User menu toggle
-        document.getElementById('userMenuBtn').addEventListener('click', () => {
-            document.getElementById('userDropdown').classList.toggle('hidden');
-        });
-
-        // Logout
-        document.getElementById('logoutBtn').addEventListener('click', () => {
-            localStorage.removeItem('token');
-            window.location.href = 'secure_login.html';
-        });
-
-        // Close dropdown on outside click
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('#userMenuBtn') && !e.target.closest('#userDropdown')) {
-                document.getElementById('userDropdown').classList.add('hidden');
+                html += '<div class="election-card glass-card border border-white/10 rounded-2xl overflow-hidden">' +
+                    '<div class="p-6">' +
+                    '<div class="flex justify-between items-start mb-4">' +
+                    '<span class="type-badge type-' + type + '">' + type + '</span>' +
+                    '<span class="status-badge status-' + election.status + '">' + election.status.charAt(0).toUpperCase() + election.status.slice(1) + '</span>' +
+                    '</div>' +
+                    '<h3 class="text-lg font-bold text-white mb-2">' + election.title + '</h3>' +
+                    '<p class="text-slate-400 text-sm mb-4 line-clamp-2">' + (election.description || 'No description available') + '</p>' +
+                    '<div class="flex items-center justify-between text-sm text-slate-400 mb-4">' +
+                    '<span class="flex items-center"><i class="bx bx-group mr-1"></i> ' + candidates.length + ' candidates</span>' +
+                    '<span class="flex items-center"><i class="bx bx-bar-chart mr-1"></i> ' + totalVotes.toLocaleString() + ' votes</span>' +
+                    '</div>' +
+                    '<div class="flex items-center text-sm text-slate-400 mb-4">' +
+                    '<i class="bx bx-time-five mr-1"></i> ' + timeInfo +
+                    '</div>' +
+                    actionButton +
+                    '</div>' +
+                    '</div>';
             }
-        });
 
-        // Initialize
-        loadUserData();
-        loadElections();
+            grid.innerHTML = html;
+        }
     </script>
 </body>
 

@@ -288,22 +288,28 @@
         function renderElectionSelector() {
             const selector = document.getElementById('electionSelector');
 
-            selector.innerHTML = endedElections.map(election => {
-                const candidates = election.Candidates || [];
-                const totalVotes = candidates.reduce((sum, c) => sum + (c.vote_count || 0), 0);
-                const type = getElectionType(election);
+            selector.innerHTML = endedElections.map(function (election) {
+                var candidates = election.Candidates || [];
+                var totalVotes = candidates.reduce(function (sum, c) { return sum + (c.vote_count || 0); }, 0);
+                var type = getElectionType(election);
 
-                return `
-                    <div class="election-select-card rounded-xl p-4" onclick="selectElection(${election.id})" data-id="${election.id}">
-                        <h4 class="font-bold text-white mb-2">${election.title}</h4>
-                        <p class="text-sm text-slate-400 mb-3 line-clamp-2">${election.description || 'View results and statistics'}</p>
-                        <div class="flex justify-between items-center">
-                            <span class="type-badge" style="background: rgba(99, 102, 241, 0.15); color: #a5b4fc; border-color: rgba(99, 102, 241, 0.3);">${type}</span>
-                            <span class="text-sm text-slate-400">${totalVotes.toLocaleString()} votes</span>
-                        </div>
-                    </div>
-                `;
+                return '<div class="election-select-card rounded-xl p-4" data-election-id="' + election.id + '" data-id="' + election.id + '">' +
+                    '<h4 class="font-bold text-white mb-2">' + election.title + '</h4>' +
+                    '<p class="text-sm text-slate-400 mb-3 line-clamp-2">' + (election.description || 'View results and statistics') + '</p>' +
+                    '<div class="flex justify-between items-center">' +
+                    '<span class="type-badge" style="background: rgba(99, 102, 241, 0.15); color: #a5b4fc; border-color: rgba(99, 102, 241, 0.3);">' + type + '</span>' +
+                    '<span class="text-sm text-slate-400">' + totalVotes.toLocaleString() + ' votes</span>' +
+                    '</div>' +
+                    '</div>';
             }).join('');
+
+            // Add click event listeners to each card
+            document.querySelectorAll('.election-select-card').forEach(function (card) {
+                card.addEventListener('click', function () {
+                    var electionId = parseInt(this.getAttribute('data-election-id'));
+                    selectElection(electionId);
+                });
+            });
         }
 
         // Show mock elections for demo
