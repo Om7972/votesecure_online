@@ -36,9 +36,39 @@
 
                 <!-- Navigation -->
                 <nav class="hidden md:flex items-center space-x-6">
-                    <a href="admin_dashboard.html" class="text-indigo-400 font-medium">Dashboard</a>
-                    <a href="active_elections.html"
-                        class="text-slate-300 hover:text-white transition-colors">Elections</a>
+                    <button onclick="switchTab('dashboard')"
+                        class="text-indigo-400 font-medium hover:text-white transition-colors nav-link"
+                        data-target="dashboard">Dashboard</button>
+
+                    <!-- Elections Dropdown -->
+                    <div class="relative group">
+                        <button class="flex items-center text-slate-300 hover:text-white transition-colors nav-link"
+                            data-target="elections">
+                            Elections <i class='bx bx-chevron-down ml-1'></i>
+                        </button>
+                        <div
+                            class="absolute left-0 mt-2 w-48 glass-card border border-white/10 rounded-lg shadow-xl py-2 hidden group-hover:block transition-all z-50">
+                            <!-- Direct link to active elections page -->
+                            <a href="active_elections.html"
+                                class="block px-4 py-2 text-sm text-slate-300 hover:bg-white/5 hover:text-white">Active
+                                Elections</a>
+                            <!-- Switch to Elections Tab in Dashboard -->
+                            <button onclick="switchTab('elections')"
+                                class="block w-full text-left px-4 py-2 text-sm text-slate-300 hover:bg-white/5 hover:text-white">Manage
+                                Elections</button>
+                            <button onclick="openCreateElectionModal()"
+                                class="block w-full text-left px-4 py-2 text-sm text-slate-300 hover:bg-white/5 hover:text-white">Create
+                                Election</button>
+                            <a href="election_results.html"
+                                class="block px-4 py-2 text-sm text-slate-300 hover:bg-white/5 hover:text-white">Results</a>
+                        </div>
+                    </div>
+
+                    <!-- User Management Link (Switches to Tab) -->
+                    <button onclick="switchTab('voters')"
+                        class="text-slate-300 hover:text-white transition-colors nav-link"
+                        data-target="voters">Users</button>
+
                     <a href="voting_history.html" class="text-slate-300 hover:text-white transition-colors">History</a>
                     <a href="user_profile_management.html"
                         class="text-slate-300 hover:text-white transition-colors">Profile</a>
@@ -321,6 +351,180 @@
         </div>
     </main>
 
+    <!-- User Management Modal -->
+    <div id="userModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50">
+        <div
+            class="glass-card w-full max-w-md p-6 border border-white/10 rounded-xl relative transform transition-all scale-100">
+            <button onclick="closeModal('userModal')" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+                <i class='bx bx-x text-2xl'></i>
+            </button>
+            <h3 class="text-xl font-bold text-white mb-6">Edit User</h3>
+            <form id="userForm">
+                <input type="hidden" id="editUserId">
+                <div class="mb-4">
+                    <label class="block text-slate-400 text-sm mb-2">User Name</label>
+                    <input type="text" id="editUserName"
+                        class="w-full bg-slate-800 border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500"
+                        readonly>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-slate-400 text-sm mb-2">Role</label>
+                    <select id="editUserRole"
+                        class="w-full bg-slate-800 border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500">
+                        <option value="voter">Voter</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-slate-400 text-sm mb-2">Status</label>
+                    <select id="editUserStatus"
+                        class="w-full bg-slate-800 border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500">
+                        <option value="active">Active</option>
+                        <option value="suspended">Suspended</option>
+                    </select>
+                </div>
+                <div class="flex space-x-3">
+                    <button type="button" onclick="closeModal('userModal')"
+                        class="flex-1 px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition-colors">Cancel</button>
+                    <button type="submit"
+                        class="flex-1 px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white rounded-lg font-medium transition-colors">Save
+                        Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Election Management Modal -->
+    <div id="electionModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50">
+        <div
+            class="glass-card w-full max-w-2xl p-6 border border-white/10 rounded-xl relative transform transition-all scale-100 max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModal('electionModal')"
+                class="absolute top-4 right-4 text-slate-400 hover:text-white">
+                <i class='bx bx-x text-2xl'></i>
+            </button>
+            <h3 class="text-xl font-bold text-white mb-6" id="electionModalTitle">Create Election</h3>
+            <form id="electionForm">
+                <input type="hidden" id="editElectionId">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div class="col-span-2">
+                        <label class="block text-slate-400 text-sm mb-2">Title</label>
+                        <input type="text" id="electionTitle"
+                            class="w-full bg-slate-800 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500"
+                            required>
+                    </div>
+                    <div class="col-span-2">
+                        <label class="block text-slate-400 text-sm mb-2">Description</label>
+                        <textarea id="electionDesc" rows="3"
+                            class="w-full bg-slate-800 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 text-sm mb-2">Start Time</label>
+                        <input type="datetime-local" id="electionStart"
+                            class="w-full bg-slate-800 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500"
+                            required>
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 text-sm mb-2">End Time</label>
+                        <input type="datetime-local" id="electionEnd"
+                            class="w-full bg-slate-800 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500"
+                            required>
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 text-sm mb-2">Type</label>
+                        <select id="electionType"
+                            class="w-full bg-slate-800 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500">
+                            <option value="General">General</option>
+                            <option value="Student Council">Student Council</option>
+                            <option value="Board">Board</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 text-sm mb-2">Status</label>
+                        <select id="electionStatus"
+                            class="w-full bg-slate-800 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500">
+                            <option value="upcoming">Upcoming</option>
+                            <option value="active">Active</option>
+                            <option value="ended">Ended</option>
+                            <option value="frozen">Frozen</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Candidate Management Section (Only visible on Edit) -->
+                <div id="candidateManagementSection" class="hidden border-t border-white/10 pt-4 mt-4">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="font-semibold text-white">Candidates</h4>
+                        <button type="button" onclick="openCandidateModal()"
+                            class="text-sm px-3 py-1 bg-indigo-500/20 text-indigo-400 rounded-lg hover:bg-indigo-500/30 transition-colors">
+                            <i class='bx bx-plus mr-1'></i>Add Candidate
+                        </button>
+                    </div>
+                    <div id="candidatesList" class="space-y-2">
+                        <!-- Candidates injected here -->
+                    </div>
+                </div>
+
+                <div class="flex space-x-3 mt-6">
+                    <button type="button" onclick="closeModal('electionModal')"
+                        class="flex-1 px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition-colors">Cancel</button>
+                    <button type="submit"
+                        class="flex-1 px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white rounded-lg font-medium transition-colors">Save
+                        Election</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Candidate Modal -->
+    <div id="candidateModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50">
+        <div
+            class="glass-card w-full max-w-md p-6 border border-white/10 rounded-xl relative transform transition-all scale-100">
+            <button onclick="closeModal('candidateModal')"
+                class="absolute top-4 right-4 text-slate-400 hover:text-white">
+                <i class='bx bx-x text-2xl'></i>
+            </button>
+            <h3 class="text-xl font-bold text-white mb-6" id="candidateModalTitle">Add Candidate</h3>
+            <form id="candidateForm">
+                <input type="hidden" id="editCandidateId">
+                <div class="mb-4">
+                    <label class="block text-slate-400 text-sm mb-2">Name</label>
+                    <input type="text" id="candidateName"
+                        class="w-full bg-slate-800 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500"
+                        required>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-slate-400 text-sm mb-2">Party</label>
+                    <input type="text" id="candidateParty"
+                        class="w-full bg-slate-800 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-slate-400 text-sm mb-2">Position</label>
+                    <input type="text" id="candidatePosition"
+                        class="w-full bg-slate-800 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500"
+                        required>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-slate-400 text-sm mb-2">Photo URL</label>
+                    <input type="text" id="candidateImage"
+                        class="w-full bg-slate-800 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500">
+                </div>
+                <div class="mb-6">
+                    <label class="block text-slate-400 text-sm mb-2">Manifesto</label>
+                    <textarea id="candidateManifesto" rows="3"
+                        class="w-full bg-slate-800 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500"></textarea>
+                </div>
+                <div class="flex space-x-3">
+                    <button type="button" onclick="closeModal('candidateModal')"
+                        class="flex-1 px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition-colors">Cancel</button>
+                    <button type="submit"
+                        class="flex-1 px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white rounded-lg font-medium transition-colors">Save
+                        Candidate</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
     <script src="../js/admin_dashboard.js"></script>
 </body>
 

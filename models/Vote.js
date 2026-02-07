@@ -17,7 +17,7 @@ const Vote = sequelize.define('Vote', {
     },
     candidate_id: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
     },
     receipt_hash: {
         type: DataTypes.STRING,

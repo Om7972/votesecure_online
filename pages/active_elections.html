@@ -222,11 +222,33 @@
         </div>
     </main>
 
+    <script src="/socket.io/socket.io.js"></script>
     <script>
         let allElections = [];
         let currentStatus = 'active';
         let currentType = 'all';
         const token = localStorage.getItem('token');
+        const socket = io();
+
+        // Socket listeners
+        socket.on('connect', () => {
+            console.log('Connected to socket server');
+        });
+
+        socket.on('election_update', () => {
+            console.log('Election update received');
+            loadElections();
+        });
+
+        socket.on('vote_update', () => {
+            console.log('Vote update received');
+            loadElections();
+        });
+
+        socket.on('candidate_update', () => {
+            console.log('Candidate update received');
+            loadElections();
+        });
 
         // Authentication check
         if (!token) {
@@ -256,7 +278,9 @@
             });
 
             // Search input handler
-            document.getElementById('searchInput').addEventListener('input', renderElections);
+            document.getElementById('searchInput').addEventListener('input', () => {
+                renderElections(); // Call render directly on input
+            });
 
             // User menu toggle
             document.getElementById('userMenuBtn').addEventListener('click', function () {
@@ -301,6 +325,8 @@
                 const upcomingRes = await fetch('/api/elections?status=upcoming', { headers: { 'Authorization': 'Bearer ' + token } });
                 const endedRes = await fetch('/api/elections?status=ended', { headers: { 'Authorization': 'Bearer ' + token } });
 
+                // Also fetch frozen if needed, but usually not public
+
                 const activeData = await activeRes.json();
                 const upcomingData = await upcomingRes.json();
                 const endedData = await endedRes.json();
@@ -331,6 +357,8 @@
 
         // Determine election type based on title/description
         function getElectionType(election) {
+            if (election.type) return election.type.toLowerCase();
+
             const text = (election.title + ' ' + (election.description || '')).toLowerCase();
             if (text.includes('federal') || text.includes('presidential') || text.includes('congress') || text.includes('senate elections')) {
                 return 'federal';
@@ -416,6 +444,8 @@
 
                 var actionButton = '';
                 if (election.status === 'active') {
+                    // Check if already voted (logic would require fetching user votes, but let's just show Button)
+                    // Ideally we check if user voted
                     actionButton = '<a href="voting_interface.html?election=' + election.id + '" class="w-full py-3 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white rounded-lg font-medium transition-all flex items-center justify-center">' +
                         '<i class="bx bx-vote mr-2"></i> Vote Now</a>';
                 } else if (election.status === 'upcoming') {
@@ -429,7 +459,7 @@
                 html += '<div class="election-card glass-card border border-white/10 rounded-2xl overflow-hidden">' +
                     '<div class="p-6">' +
                     '<div class="flex justify-between items-start mb-4">' +
-                    '<span class="type-badge type-' + type + '">' + type + '</span>' +
+                    '<span class="type-badge type-' + type + '">' + type.charAt(0).toUpperCase() + type.slice(1) + '</span>' +
                     '<span class="status-badge status-' + election.status + '">' + election.status.charAt(0).toUpperCase() + election.status.slice(1) + '</span>' +
                     '</div>' +
                     '<h3 class="text-lg font-bold text-white mb-2">' + election.title + '</h3>' +

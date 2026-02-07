@@ -12,7 +12,30 @@ const userRoutes = require('./routes/users');
 const adminRoutes = require('./routes/admin');
 const voteRoutes = require('./routes/votes');
 
+const http = require('http');
+const socketIo = require('socket.io');
+
 const app = express();
+const server = http.createServer(app);
+const io = socketIo(server, {
+    cors: {
+        origin: "*", // Allow all origins for simplicity in dev, restrict in prod
+        methods: ["GET", "POST"]
+    }
+});
+
+// Make io accessible in routes
+app.set('io', io);
+
+// Socket.IO Connection Handler
+io.on('connection', (socket) => {
+    console.log('New client connected:', socket.id);
+
+    socket.on('disconnect', () => {
+        console.log('Client disconnected:', socket.id);
+    });
+});
+
 const PORT = process.env.PORT || 5000;
 
 // Middleware
@@ -26,7 +49,7 @@ app.use(helmet({
             styleSrcElem: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://unpkg.com", "https://cdn.tailwindcss.com", "https://cdnjs.cloudflare.com"],
             fontSrc: ["'self'", "https://fonts.gstatic.com", "https://unpkg.com", "data:"],
             imgSrc: ["'self'", "data:", "blob:", "https://images.unsplash.com", "https://*"],
-            connectSrc: ["'self'", "https://votesecure6766back.builtwithrocket.new", "https://application.rocket.new", "ws://localhost:5000", "wss://localhost:5000", "https://unpkg.com", "https://*"],
+            connectSrc: ["'self'", "https://votesecure6766back.builtwithrocket.new", "https://application.rocket.new", "ws://localhost:5000", "wss://localhost:5000", "ws:", "wss:", "https://unpkg.com", "https://*"],
             workerSrc: ["'self'", "blob:"],
         },
     },
@@ -64,6 +87,6 @@ app.use((err, req, res, next) => {
     res.status(500).json({ success: false, message: 'Internal Server Error' });
 });
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });

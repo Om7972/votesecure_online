@@ -105,7 +105,7 @@ router.post('/submit', verifyToken, async (req, res) => {
                 const voteRecord = await Vote.create({
                     user_id: req.userId,
                     election_id: electionId,
-                    candidate_id: 0, // 0 indicates NOTA vote
+                    candidate_id: null, // Indicates NOTA vote
                     receipt_hash: receiptHash
                 });
 

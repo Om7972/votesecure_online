@@ -8,6 +8,55 @@ document.addEventListener('DOMContentLoaded', async function () {
     await verifyAdminAccess();
 });
 
+let socket;
+let currentElectionIdForCandidates = null;
+
+function initializeSocket() {
+    socket = io();
+
+    socket.on('connect', () => {
+        console.log('Connected to socket server');
+    });
+
+    socket.on('user_update', (data) => {
+        console.log('User update received:', data);
+        loadVoters(); // Refresh list - efficient enough for now
+        loadDashboardStats();
+    });
+
+    socket.on('election_update', (data) => {
+        console.log('Election update received:', data);
+        loadElections();
+        loadDashboardStats();
+    });
+
+    socket.on('candidate_update', (data) => {
+        console.log('Candidate update received:', data);
+        if (currentElectionIdForCandidates && currentElectionIdForCandidates == data.electionId) {
+            // Refresh candidate list if viewing that election
+            loadCandidatesForElection(currentElectionIdForCandidates);
+        }
+        loadElections(); // To update vote counts
+    });
+}
+
+// Global modal functions
+window.openModal = function (modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+}
+
+window.closeModal = function (modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    }
+}
+
 async function verifyAdminAccess() {
     const loadingState = document.getElementById('loadingState');
     const notAuthorized = document.getElementById('notAuthorized');
@@ -58,6 +107,7 @@ async function verifyAdminAccess() {
 
         // Initialize dashboard
         initializeAdminDashboard(user);
+        initializeSocket();
 
     } catch (error) {
         console.error('Auth verification error:', error);
@@ -77,6 +127,18 @@ function initializeAdminDashboard(user) {
     setupUserDropdown();
     setupLogout();
     setupVoterSearch();
+    setupForms();
+
+    // Check for hash in URL and switch to tab if present
+    const hash = window.location.hash.replace('#', '');
+    if (hash) {
+        // Map 'users' to 'voters' if needed, or just use tab names
+        const tabMap = { 'users': 'voters', 'dashboard': 'elections' }; // Map alias to tab ID
+        const target = tabMap[hash] || hash;
+
+        // Small delay to ensure DOM is ready if needed, though usually fine here
+        setTimeout(() => switchTab(target), 100);
+    }
 
     // Load dashboard data
     loadDashboardStats();
@@ -84,12 +146,247 @@ function initializeAdminDashboard(user) {
     loadRecentActivity();
     loadVoters();
 
-    // Refresh data every 30 seconds
+    // Refresh data every 30 seconds as backup
     setInterval(() => {
         loadDashboardStats();
         loadElections();
         loadRecentActivity();
     }, 30000);
+}
+
+function setupForms() {
+    // Add Election Button
+    const addElectionBtn = document.querySelector('a[href="active_elections.html"]');
+    if (addElectionBtn) {
+        addElectionBtn.removeAttribute('href');
+        addElectionBtn.style.cursor = 'pointer';
+        addElectionBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openCreateElectionModal();
+        });
+    }
+
+    // User Form Submit
+    const userForm = document.getElementById('userForm');
+    if (userForm) {
+        userForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('editUserId').value;
+            const role = document.getElementById('editUserRole').value;
+            const status = document.getElementById('editUserStatus').value;
+
+            try {
+                const token = localStorage.getItem('token');
+
+                // Update Role
+                await fetch(`/api/admin/users/${id}/role`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ role })
+                });
+
+                // Update Status
+                await fetch(`/api/admin/users/${id}/status`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ status })
+                });
+
+                closeModal('userModal');
+                loadVoters();
+
+            } catch (error) {
+                console.error('Error updating user:', error);
+                alert('Failed to update user.');
+            }
+        });
+    }
+
+    // Election Form Submit
+    const electionForm = document.getElementById('electionForm');
+    if (electionForm) {
+        electionForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('editElectionId').value;
+            const title = document.getElementById('electionTitle').value;
+            const description = document.getElementById('electionDesc').value;
+            const startStr = document.getElementById('electionStart').value;
+            const endStr = document.getElementById('electionEnd').value;
+            const type = document.getElementById('electionType').value;
+            const status = document.getElementById('electionStatus').value;
+
+            // Convert local datetime input to ISO string for backend
+            const start_time = new Date(startStr).toISOString();
+            const end_time = new Date(endStr).toISOString();
+
+            try {
+                const token = localStorage.getItem('token');
+                const url = id ? `/api/admin/elections/${id}` : '/api/admin/elections';
+                const method = id ? 'PATCH' : 'POST';
+
+                const response = await fetch(url, {
+                    method: method,
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ title, description, start_time, end_time, type, status })
+                });
+
+                if (!response.ok) throw new Error('Failed to save election');
+
+                closeModal('electionModal');
+                loadElections();
+
+            } catch (error) {
+                console.error('Error saving election:', error);
+                alert('Failed to save election.');
+            }
+        });
+    }
+
+    // Candidate Form Submit
+    const candidateForm = document.getElementById('candidateForm');
+    if (candidateForm) {
+        candidateForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!currentElectionIdForCandidates) return;
+
+            const id = document.getElementById('editCandidateId').value;
+            const name = document.getElementById('candidateName').value;
+            const party = document.getElementById('candidateParty').value;
+            const position = document.getElementById('candidatePosition').value;
+            const image_url = document.getElementById('candidateImage').value;
+            const manifesto = document.getElementById('candidateManifesto').value;
+
+            try {
+                const token = localStorage.getItem('token');
+                const url = id
+                    ? `/api/admin/elections/${currentElectionIdForCandidates}/candidates/${id}`
+                    : `/api/admin/elections/${currentElectionIdForCandidates}/candidates`;
+                const method = id ? 'PATCH' : 'POST';
+
+                const response = await fetch(url, {
+                    method: method,
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ name, party, position, image_url, manifesto })
+                });
+
+                if (!response.ok) throw new Error('Failed to save candidate');
+
+                closeModal('candidateModal');
+                loadCandidatesForElection(currentElectionIdForCandidates);
+
+            } catch (error) {
+                console.error('Error saving candidate:', error);
+                alert('Failed to save candidate.');
+            }
+        });
+    }
+}
+
+function openCreateElectionModal() {
+    document.getElementById('electionModalTitle').textContent = 'Create Election';
+    document.getElementById('electionForm').reset();
+    document.getElementById('editElectionId').value = '';
+    document.getElementById('candidateManagementSection').classList.add('hidden');
+    openModal('electionModal');
+}
+
+window.openEditElectionModal = function (id, title, description, start, end, status, type) {
+    document.getElementById('electionModalTitle').textContent = 'Edit Election';
+    document.getElementById('editElectionId').value = id;
+    document.getElementById('electionTitle').value = title;
+    document.getElementById('electionDesc').value = description;
+
+    // Format dates for datetime-local input (YYYY-MM-DDThh:mm)
+    const formatDateForInput = (dateStr) => {
+        const d = new Date(dateStr);
+        d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+        return d.toISOString().slice(0, 16);
+    };
+
+    document.getElementById('electionStart').value = formatDateForInput(start);
+    document.getElementById('electionEnd').value = formatDateForInput(end);
+    document.getElementById('electionType').value = type || 'General';
+    document.getElementById('electionStatus').value = status;
+
+    // Show candidates section
+    currentElectionIdForCandidates = id;
+    document.getElementById('candidateManagementSection').classList.remove('hidden');
+    loadCandidatesForElection(id);
+
+    openModal('electionModal');
+}
+
+window.openCandidateModal = function () {
+    document.getElementById('candidateModalTitle').textContent = 'Add Candidate';
+    document.getElementById('candidateForm').reset();
+    document.getElementById('editCandidateId').value = '';
+    openModal('candidateModal');
+}
+
+async function loadCandidatesForElection(electionId) {
+    const list = document.getElementById('candidatesList');
+    list.innerHTML = '<p class="text-slate-400 text-sm">Loading candidates...</p>';
+
+    try {
+        const token = localStorage.getItem('token');
+        const response = await fetch('/api/elections', {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await response.json();
+        const election = data.elections.find(e => e.id == electionId);
+
+        if (election && election.Candidates) {
+            if (election.Candidates.length > 0) {
+                list.innerHTML = election.Candidates.map(c => `
+                    <div class="flex items-center justify-between bg-slate-800 p-2 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-full bg-slate-700 bg-cover bg-center" style="background-image: url('${c.image_url || ''}');"></div>
+                            <div>
+                                <p class="text-white text-sm font-medium">${escapeHtml(c.name)}</p>
+                                <p class="text-slate-500 text-xs">${escapeHtml(c.party || '')} • ${escapeHtml(c.position)}</p>
+                            </div>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button type="button" onclick="deleteCandidate('${electionId}', '${c.id}')" class="text-red-400 hover:text-red-300">
+                                <i class='bx bx-trash'></i>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                list.innerHTML = '<p class="text-slate-400 text-sm italic">No candidates yet.</p>';
+            }
+        } else {
+            list.innerHTML = '<p class="text-slate-400 text-sm italic">No candidates yet.</p>';
+        }
+
+    } catch (error) {
+        console.error("Error loading candidates", error);
+        list.innerHTML = '<p class="text-red-400 text-sm">Error loading candidates.</p>';
+    }
+}
+
+window.deleteCandidate = async function (electionId, candidateId) {
+    if (!confirm('Are you sure you want to delete this candidate?')) return;
+
+    try {
+        const token = localStorage.getItem('token');
+        await fetch(`/api/admin/elections/${electionId}/candidates/${candidateId}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        loadCandidatesForElection(electionId);
+    } catch (error) {
+        alert('Failed to delete candidate.');
+    }
+}
+
+window.openEditUserModal = function (id, name, role, status) {
+    document.getElementById('editUserId').value = id;
+    document.getElementById('editUserName').value = name;
+    document.getElementById('editUserRole').value = role;
+    document.getElementById('editUserStatus').value = status || 'active'; // Default to active if missing
+    openModal('userModal');
 }
 
 function updateAdminProfile(user) {
@@ -98,6 +395,25 @@ function updateAdminProfile(user) {
 
     if (adminName) adminName.textContent = user.name || 'Administrator';
     if (adminAvatar) adminAvatar.textContent = (user.name || 'A').charAt(0).toUpperCase();
+}
+
+window.switchTab = function (tabName) {
+    if (tabName === 'dashboard') tabName = 'elections'; // Default tab for dashboard view
+
+    const btn = document.querySelector(`.tab-btn[data-tab="${tabName}"]`);
+    if (btn) {
+        btn.click();
+        // Update URL hash without scrolling
+        history.pushState(null, null, `#${tabName}`);
+
+        // Update active state in Navbar
+        document.querySelectorAll('.nav-link').forEach(link => {
+            // Logic to highlight navbar item could go here if we had unique IDs or data-target
+            // For now, mainly ensures tab content is shown
+        });
+    } else {
+        console.warn(`Tab '${tabName}' not found.`);
+    }
 }
 
 function setupTabNavigation() {
@@ -118,7 +434,7 @@ function setupTabNavigation() {
             });
 
             // Hide all content
-            Object.values(tabContents).forEach(c => c.classList.add('hidden'));
+            Object.values(tabContents).forEach(c => { if (c) c.classList.add('hidden'); });
 
             // Activate clicked tab
             btn.classList.add('active', 'text-indigo-400', 'border-indigo-400');
@@ -242,7 +558,7 @@ async function loadElections() {
             headers: { 'Authorization': `Bearer ${token}` }
         });
 
-        if (!response.ok) throw new Error('Failed to fetch elections');
+        if (!response.ok) throw new Error(`Failed to fetch elections: ${response.status} ${response.statusText}`);
 
         const data = await response.json();
 
@@ -256,7 +572,7 @@ async function loadElections() {
                 let statusLabel = 'Upcoming';
                 let statusClass = 'bg-blue-500/20 text-blue-400';
 
-                if (election.status === 'active' || (now >= startDate && now <= endDate)) {
+                if (election.status === 'active' || (now >= startDate && now <= endDate) && election.status !== 'ended' && election.status !== 'frozen') {
                     status = 'active';
                     statusLabel = 'Active';
                     statusClass = 'bg-green-500/20 text-green-400';
@@ -264,6 +580,10 @@ async function loadElections() {
                     status = 'completed';
                     statusLabel = 'Completed';
                     statusClass = 'bg-slate-500/20 text-slate-400';
+                } else if (election.status === 'frozen') {
+                    status = 'frozen';
+                    statusLabel = 'Frozen';
+                    statusClass = 'bg-yellow-500/20 text-yellow-500';
                 }
 
                 // Calculate total votes
@@ -275,8 +595,12 @@ async function loadElections() {
                 }
 
                 return `
-                    <div class="border-l-4 border-indigo-500 bg-slate-800/50 rounded-r-lg p-4 mb-4">
-                        <div class="flex items-start justify-between mb-3">
+                    <div class="border-l-4 border-indigo-500 bg-slate-800/50 rounded-r-lg p-4 mb-4 relative group">
+                        <button onclick="openEditElectionModal('${election.id}', '${escapeHtml(election.title).replace(/'/g, "\\'")}', '${escapeHtml(election.description || '').replace(/'/g, "\\'")}', '${election.start_time}', '${election.end_time}', '${election.status}', '${election.type}')" 
+                                class="absolute top-4 right-4 p-2 bg-slate-700 hover:bg-indigo-500 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-all">
+                            <i class='bx bx-edit'></i>
+                        </button>
+                        <div class="flex items-start justify-between mb-3 pr-12">
                             <div>
                                 <h3 class="text-white font-semibold text-lg">${escapeHtml(election.title)}</h3>
                                 <p class="text-slate-400 text-sm">${escapeHtml(election.description || 'No description available')}</p>
@@ -421,7 +745,7 @@ async function loadVoters(searchQuery = '') {
         const data = await response.json();
 
         if (data.success && data.users && data.users.length > 0) {
-            const voters = data.users.filter(u => u.role === 'voter');
+            const voters = data.users.filter(u => u.role === 'voter' || u.role === 'admin'); // Show all for admin to manage
 
             showingCount.textContent = voters.length;
             totalCount.textContent = voters.length;
@@ -432,25 +756,30 @@ async function loadVoters(searchQuery = '') {
                 const statusClass = isVerified ? 'bg-green-500/20 text-green-400' : 'bg-yellow-500/20 text-yellow-400';
                 const statusLabel = isVerified ? 'Verified' : 'Pending';
 
+                const roleClass = voter.role === 'admin' ? 'text-purple-400 font-bold' : 'text-slate-400';
+
                 return `
                     <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
                         <td class="py-4">
                             <div class="flex items-center space-x-3">
                                 <div class="w-10 h-10 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-full flex items-center justify-center text-white font-semibold">${initials}</div>
                                 <div>
-                                    <p class="text-white font-medium">${escapeHtml(voter.name || 'Unknown')}</p>
+                                    <p class="text-white font-medium">${escapeHtml(voter.name || 'Unknown')} <span class="text-xs ${roleClass}">(${voter.role})</span></p>
                                     <p class="text-slate-400 text-sm">${escapeHtml(voter.email || 'No email')}</p>
                                 </div>
                             </div>
                         </td>
                         <td class="py-4">
-                            <span class="px-3 py-1 ${statusClass} rounded-full text-xs font-semibold">${statusLabel}</span>
+                             <div class="flex flex-col space-y-1 items-start">
+                                <span class="px-3 py-1 ${statusClass} rounded-full text-xs font-semibold">${statusLabel}</span>
+                                <span class="px-3 py-1 ${voter.status === 'suspended' ? 'bg-red-500/20 text-red-400' : 'bg-blue-500/20 text-blue-400'} rounded-full text-xs font-semibold">${(voter.status || 'active').charAt(0).toUpperCase() + (voter.status || 'active').slice(1)}</span>
+                             </div>
                         </td>
                         <td class="py-4 text-white">${voter.votes_count || 0}</td>
                         <td class="py-4 text-slate-400">${voter.createdAt ? formatDate(new Date(voter.createdAt)) : 'Unknown'}</td>
                         <td class="py-4">
-                            <button onclick="viewVoterDetails('${voter.id}')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white text-sm rounded-lg transition-colors">
-                                View
+                            <button onclick="openEditUserModal('${voter.id}', '${escapeHtml(voter.name || '').replace(/'/g, "\\'")}', '${voter.role}', '${voter.status}')" class="px-4 py-2 bg-slate-800 hover:bg-indigo-600 text-white text-sm rounded-lg transition-colors">
+                                Edit
                             </button>
                         </td>
                     </tr>

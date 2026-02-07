@@ -20,6 +20,10 @@ const Candidate = sequelize.define('Candidate', {
         type: DataTypes.STRING,
         allowNull: true
     },
+    position: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     manifesto: {
         type: DataTypes.TEXT,
         allowNull: true

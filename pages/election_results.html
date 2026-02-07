@@ -250,15 +250,38 @@
         </div>
     </main>
 
+    <script src="/socket.io/socket.io.js"></script>
     <script>
         const token = localStorage.getItem('token');
         let pieChartInstance = null;
         let barChartInstance = null;
         let endedElections = [];
+        const socket = io();
+
+        // Socket listeners
+        socket.on('connect', () => {
+            console.log('Connected to socket server');
+        });
+
+        socket.on('election_update', (data) => {
+            console.log('Election update received', data);
+            loadEndedElections();
+        });
+
+        socket.on('vote_update', (data) => {
+            console.log('Vote update received', data);
+            loadEndedElections();
+        });
+
+        socket.on('candidate_update', (data) => {
+            console.log('Candidate update received', data);
+            loadEndedElections();
+        });
 
         // Load ended elections
         async function loadEndedElections() {
             const selector = document.getElementById('electionSelector');
+            const currentSelectedId = document.querySelector('.election-select-card.selected')?.dataset.id;
 
             try {
                 const response = await fetch('/api/elections?status=ended', {
@@ -270,10 +293,13 @@
                     endedElections = data.elections;
                     renderElectionSelector();
 
-                    // Check if election ID in URL
+                    // Check if election ID in URL first load
                     const urlParams = new URLSearchParams(window.location.search);
                     const electionId = urlParams.get('election');
-                    if (electionId) {
+
+                    if (currentSelectedId) {
+                        selectElection(parseInt(currentSelectedId));
+                    } else if (electionId) {
                         selectElection(parseInt(electionId));
                     }
                 } else {
@@ -339,6 +365,8 @@
 
         // Get election type
         function getElectionType(election) {
+            if (election.type) return election.type.toLowerCase();
+
             const text = (election.title + ' ' + (election.description || '')).toLowerCase();
             if (text.includes('federal') || text.includes('presidential') || text.includes('congress') || text.includes('senate')) {
                 return 'federal';
