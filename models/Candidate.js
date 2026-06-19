@@ -22,7 +22,8 @@ const Candidate = sequelize.define('Candidate', {
     },
     position: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        defaultValue: 'Candidate'
     },
     manifesto: {
         type: DataTypes.TEXT,
