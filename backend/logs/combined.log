@@ -234,3 +234,27 @@
 {
   "service": "votesecure-backend"
 }
+2026-06-19 15:17:54 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:47:54 +0000] "GET /pages/voter_dashboard.html HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 15:17:54 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:47:54 +0000] "GET /css/main.css HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 15:17:59 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:47:59 +0000] "GET /pages/voting_interface.html HTTP/1.1" 200 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 15:17:59 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:47:59 +0000] "GET /css/main.css HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 15:23:34 [WARN]: Swagger documentation not available:
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 15:23:34 [INFO]: Database connected successfully
+{
+  "service": "votesecure-backend"
+}

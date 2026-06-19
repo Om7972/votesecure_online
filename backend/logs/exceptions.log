@@ -3371,3 +3371,87 @@ TypeError: app.use() requires a middleware function
   ],
   "service": "votesecure-backend"
 }
+2026-06-19 15:23:34 [ERROR]: uncaughtException: listen EADDRINUSE: address already in use 0.0.0.0:5000
+Error: listen EADDRINUSE: address already in use 0.0.0.0:5000
+    at Server.setupListenHandle [as _listen2] (node:net:1937:16)
+    at listenInCluster (node:net:1994:12)
+    at node:net:2203:7
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+Error: listen EADDRINUSE: address already in use 0.0.0.0:5000
+    at Server.setupListenHandle [as _listen2] (node:net:1937:16)
+    at listenInCluster (node:net:1994:12)
+    at node:net:2203:7
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+{
+  "error": {
+    "code": "EADDRINUSE",
+    "errno": -4091,
+    "syscall": "listen",
+    "address": "0.0.0.0",
+    "port": 5000
+  },
+  "exception": true,
+  "date": "Fri Jun 19 2026 15:23:34 GMT+0530 (India Standard Time)",
+  "process": {
+    "pid": 43832,
+    "uid": null,
+    "gid": null,
+    "cwd": "D:\\Voting_System\\votesecure_online",
+    "execPath": "C:\\Program Files\\nodejs\\node.exe",
+    "version": "v22.13.1",
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\Voting_System\\votesecure_online\\backend\\server.js"
+    ],
+    "memoryUsage": {
+      "rss": 97013760,
+      "heapTotal": 68546560,
+      "heapUsed": 29428448,
+      "external": 20820674,
+      "arrayBuffers": 18263599
+    }
+  },
+  "os": {
+    "loadavg": [
+      0,
+      0,
+      0
+    ],
+    "uptime": 518933.781
+  },
+  "trace": [
+    {
+      "column": 16,
+      "file": "node:net",
+      "function": "Server.setupListenHandle [as _listen2]",
+      "line": 1937,
+      "method": "setupListenHandle [as _listen2]",
+      "native": false
+    },
+    {
+      "column": 12,
+      "file": "node:net",
+      "function": "listenInCluster",
+      "line": 1994,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 7,
+      "file": "node:net",
+      "function": null,
+      "line": 2203,
+      "method": null,
+      "native": false
+    },
+    {
+      "column": 21,
+      "file": "node:internal/process/task_queues",
+      "function": "process.processTicksAndRejections",
+      "line": 90,
+      "method": "processTicksAndRejections",
+      "native": false
+    }
+  ],
+  "service": "votesecure-backend"
+}

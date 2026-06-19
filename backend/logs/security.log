@@ -1,0 +1,3 @@
+{"action":"user_register","email":"voter1@votesecure.com","ipAddress":"127.0.0.1","level":"warn","message":"Authentication Event","reason":"User already exists","success":false,"timestamp":"2026-06-19T09:18:30.415Z","userId":null}
+{"action":"user_register","email":"voter9@votesecure.com","ipAddress":"127.0.0.1","level":"info","message":"Authentication Event","success":true,"timestamp":"2026-06-19T09:18:42.370Z","userId":"6a350972b098461b006606d3"}
+{"action":"user_login","email":"voter9@votesecure.com","ipAddress":"127.0.0.1","level":"info","message":"Authentication Event","success":true,"timestamp":"2026-06-19T09:18:47.165Z","userId":"6a350972b098461b006606d3"}
