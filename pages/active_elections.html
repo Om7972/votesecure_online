@@ -7,7 +7,17 @@
     <link rel="stylesheet" href="../css/main.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fvotesecure6766back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.6"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    
+    <!-- Socket.IO -->
+    <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+    
+    <!-- Custom Scripts -->
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
 </head>
 <body class="bg-background min-h-screen">
     <!-- Header Section -->
@@ -178,6 +188,7 @@
 
                 <!-- Elections Grid -->
                 <div id="electionsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Elections will be dynamically loaded here -->
                     <!-- Active Election Card -->
                     <div class="card-interactive border-l-4 border-l-success">
                         <div class="flex items-start justify-between mb-3">
@@ -786,17 +797,227 @@
         setInterval(simulateRealTimeUpdates, 30000);
 
         // Initialize page
-        document.addEventListener('DOMContentLoaded', function() {
-            // Hide loading state
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                // Check authentication
+                if (!window.AuthManager || !window.AuthManager.isAuthenticated()) {
+                    window.location.href = '../pages/secure_login.html';
+                    return;
+                }
+
+                // Initialize Socket.IO for real-time updates
+                if (window.VoteSecureAPI) {
+                    window.VoteSecureAPI.initializeSocket();
+                }
+
+                // Load elections
+                await loadElections();
+                
+                // Set up real-time listeners
+                setupRealTimeListeners();
+                
+                // Update election count
+                updateElectionCount();
+                
+            } catch (error) {
+                console.error('Page initialization error:', error);
+                showErrorMessage('Failed to load elections. Please try again.');
+            }
+        });
+
+        // Load elections from API
+        async function loadElections() {
+            try {
+                showLoadingState();
+                
+                const elections = await window.VoteSecureAPI.getElections({
+                    status: 'active',
+                    sortBy: 'votingPeriod.endDate',
+                    sortOrder: 'asc'
+                });
+                
+                renderElections(elections);
+                
+                hideLoadingState();
+                
+            } catch (error) {
+                console.error('Failed to load elections:', error);
+                hideLoadingState();
+                showErrorMessage('Failed to load elections. Please try again.');
+            }
+        }
+
+        // Render elections in the grid
+        function renderElections(elections) {
+            const grid = document.getElementById('electionsGrid');
+            
+            if (elections.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        <h3 class="mt-2 text-sm font-medium text-gray-900">No active elections</h3>
+                        <p class="mt-1 text-sm text-gray-500">There are currently no active elections to participate in.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            grid.innerHTML = elections.map(election => createElectionCard(election)).join('');
+        }
+
+        // Create election card HTML
+        function createElectionCard(election) {
+            const timeRemaining = formatTimeRemaining(election.timeRemaining);
+            const canVote = window.AuthManager.canVote() && !hasUserVoted(election.id);
+            
+            return `
+                <div class="card-interactive border-l-4 ${election.isActive ? 'border-l-success' : 'border-l-primary'}">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="flex items-center space-x-2">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${election.isActive ? 'bg-success-100 text-success-800' : 'bg-primary-100 text-primary-800'}">
+                                ${election.isActive ? 'Active' : 'Upcoming'}
+                            </span>
+                            <span class="text-xs text-text-secondary">${election.type}</span>
+                        </div>
+                        <button class="text-secondary-400 hover:text-primary transition-gentle" onclick="toggleBookmark('${election.id}')">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold text-text-primary mb-2">${election.title}</h3>
+                    <p class="text-text-secondary text-sm mb-4">${election.description}</p>
+                    
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="text-sm">
+                                <span class="text-text-secondary">Candidates:</span>
+                                <span class="font-medium text-text-primary">${election.candidateCount}</span>
+                            </div>
+                            <div class="text-sm">
+                                <span class="text-text-secondary">Votes:</span>
+                                <span class="font-medium text-text-primary">${formatNumber(election.results?.totalVotesCast || 0)}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    ${timeRemaining ? `
+                        <div class="bg-${election.isActive ? 'success' : 'primary'}-50 rounded-lg p-3 mb-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-${election.isActive ? 'success' : 'primary'}-800">
+                                    ${election.isActive ? 'Time Remaining' : 'Starts In'}
+                                </span>
+                                <div class="flex items-center space-x-1 text-${election.isActive ? 'success' : 'primary'}-800">
+                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                    <span class="font-mono text-sm">${timeRemaining}</span>
+                                </div>
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    ${canVote && election.isActive ? `
+                        <button onclick="voteInElection('${election.id}')" class="w-full btn-success">
+                            <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Vote Now
+                        </button>
+                    ` : election.isActive ? `
+                        <button class="w-full btn-secondary" disabled>
+                            <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            ${hasUserVoted(election.id) ? 'Already Voted' : 'Not Eligible'}
+                        </button>
+                    ` : `
+                        <button class="w-full btn-secondary" disabled>
+                            <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Voting Opens Soon
+                        </button>
+                    `}
+                </div>
+            `;
+        }
+
+        // Helper functions
+        function formatTimeRemaining(timeRemaining) {
+            if (!timeRemaining) return null;
+            const { days, hours, minutes } = timeRemaining;
+            return `${days}d ${hours.toString().padStart(2, '0')}h ${minutes.toString().padStart(2, '0')}m`;
+        }
+
+        function formatNumber(num) {
+            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+            if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+            return num.toString();
+        }
+
+        function hasUserVoted(electionId) {
+            // This would check against the user's voting history
+            // For now, return false
+            return false;
+        }
+
+        function showLoadingState() {
+            document.getElementById('loadingState').classList.remove('hidden');
+            document.getElementById('electionsGrid').classList.add('hidden');
+        }
+
+        function hideLoadingState() {
             document.getElementById('loadingState').classList.add('hidden');
-            
-            // Show elections grid
             document.getElementById('electionsGrid').classList.remove('hidden');
-            
-            // Update election count
+        }
+
+        function showErrorMessage(message) {
+            // Show error message to user
+            console.error(message);
+            // You could implement a toast notification here
+        }
+
+        function updateElectionCount() {
             const electionCards = document.querySelectorAll('#electionsGrid > div').length;
             document.getElementById('electionCount').textContent = electionCards;
-        });
+        }
+
+        // Event handlers
+        function voteInElection(electionId) {
+            window.location.href = `voting_interface.html?election=${electionId}`;
+        }
+
+        function toggleBookmark(electionId) {
+            // Implement bookmark functionality
+            console.log('Toggle bookmark for election:', electionId);
+        }
+
+        // Real-time updates
+        function setupRealTimeListeners() {
+            window.addEventListener('voteUpdated', (event) => {
+                // Reload elections when vote counts update
+                loadElections();
+            });
+
+            window.addEventListener('electionStatusUpdated', (event) => {
+                // Update election status in real-time
+                const { electionId, status } = event.detail;
+                updateElectionStatus(electionId, status);
+            });
+        }
+
+        function updateElectionStatus(electionId, status) {
+            // Update the specific election card's status
+            const electionCard = document.querySelector(`[data-election-id="${electionId}"]`);
+            if (electionCard) {
+                // Update status indicators
+                console.log('Updating election status:', electionId, status);
+            }
+        }
     </script>
 </body>
 </html>

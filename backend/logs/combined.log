@@ -1,0 +1,236 @@
+2026-06-19 14:42:41 [WARN]: Swagger documentation not available:
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:43:36 [WARN]: Swagger documentation not available:
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:43:36 [INFO]: Database connected successfully
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:43:45 [WARN]: Swagger documentation not available:
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:43:45 [INFO]: Database connected successfully
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:43:45 [INFO]: Firebase initialized successfully
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:43:45 [INFO]: Scheduler service initialized
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:43:45 [INFO]: 🚀 VoteSecure server running on 0.0.0.0:5000
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:43:45 [INFO]: 📚 API Documentation available at http://0.0.0.0:5000/api-docs
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:43:45 [INFO]: 🌍 Environment: undefined
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:44:37 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:14:37 +0000] "GET / HTTP/1.1" 200 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:44:37 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:14:37 +0000] "GET /js/api.js HTTP/1.1" 200 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:44:37 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:14:37 +0000] "GET /css/main.css HTTP/1.1" 200 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:44:37 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:14:37 +0000] "GET /js/auth.js HTTP/1.1" 200 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:44:39 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:14:39 +0000] "GET /pages/secure_login.html HTTP/1.1" 200 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:44:39 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:14:39 +0000] "GET /css/main.css HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:44:39 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:14:39 +0000] "GET /favicon.ico HTTP/1.1" 404 67 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:46:21 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:16:21 +0000] "POST /api/auth/login HTTP/1.1" 400 139 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:46:31 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:16:31 +0000] "GET /js/auth.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:46:35 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:16:35 +0000] "GET /js/api.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:46:50 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:16:50 +0000] "GET /js/api.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:46:54 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:16:54 +0000] "POST /api/auth/login-local HTTP/1.1" 401 84 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:46:59 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:16:59 +0000] "POST /api/auth/login-local HTTP/1.1" 401 84 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:46:59 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:16:59 +0000] "POST /api/auth/login-local HTTP/1.1" 401 84 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:46:59 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:16:59 +0000] "POST /api/auth/login-local HTTP/1.1" 401 84 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:46:59 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:16:59 +0000] "POST /api/auth/login-local HTTP/1.1" 401 84 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:46:59 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:16:59 +0000] "POST /api/auth/login-local HTTP/1.1" 401 84 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:46:59 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:16:59 +0000] "POST /api/auth/login-local HTTP/1.1" 401 84 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:47:13 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:17:13 +0000] "GET /js/api.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:47:22 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:17:22 +0000] "POST /api/auth/login-local HTTP/1.1" 401 84 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:47:26 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:17:26 +0000] "GET /pages/user_registration.html HTTP/1.1" 200 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:47:26 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:17:26 +0000] "GET /css/main.css HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:47:47 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:17:47 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:47:51 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:17:51 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:47:59 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:17:59 +0000] "GET /pages/secure_login.html HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:48:03 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:18:03 +0000] "GET /pages/voter_dashboard.html HTTP/1.1" 200 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:48:09 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:18:09 +0000] "GET /pages/voter_dashboard.html HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:48:18 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:18:18 +0000] "GET /js/api.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:48:22 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:18:22 +0000] "POST /api/auth/register HTTP/1.1" 400 154 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:48:30 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:18:30 +0000] "POST /api/auth/register HTTP/1.1" 409 86 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:48:42 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:18:42 +0000] "POST /api/auth/register HTTP/1.1" 201 313 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:48:47 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:18:47 +0000] "POST /api/auth/login-local HTTP/1.1" 200 676 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:48:57 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:18:57 +0000] "GET /pages/voter_dashboard.html HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:49:07 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:19:07 +0000] "GET /pages/voter_dashboard.html HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:49:14 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:19:14 +0000] "GET /pages/voter_dashboard.html HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:49:26 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:19:26 +0000] "GET /pages/secure_login.html HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:49:26 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:19:26 +0000] "GET /css/main.css HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:49:43 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:19:43 +0000] "GET /pages/secure_login.html HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 14:49:47 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:19:47 +0000] "GET /pages/secure_login.html HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 15:03:13 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:33:13 +0000] "GET /pages/voter_dashboard.html HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 15:03:13 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:33:13 +0000] "GET /css/main.css HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 15:05:06 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:35:06 +0000] "GET /pages/secure_login.html HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 15:05:06 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:35:06 +0000] "GET /css/main.css HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 15:06:56 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:36:56 +0000] "GET /pages/admin_dashboard.html HTTP/1.1" 200 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 15:06:56 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:36:56 +0000] "GET /css/main.css HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 15:07:16 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:37:16 +0000] "GET /pages/admin_dashboard.html HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 15:07:21 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:37:21 +0000] "GET /pages/admin_dashboard.html HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 15:07:41 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:37:41 +0000] "GET /pages/secure_login.html HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}
+2026-06-19 15:07:41 [INFO]: 127.0.0.1 - - [19/Jun/2026:09:37:41 +0000] "GET /css/main.css HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+{
+  "service": "votesecure-backend"
+}

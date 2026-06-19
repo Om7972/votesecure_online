@@ -1,0 +1,8 @@
+2026-06-19 14:43:36 [ERROR]: Failed to initialize application: logger.info is not a function
+TypeError: logger.info is not a function
+    at initializeScheduler (D:\Voting_System\votesecure_online\backend\services\scheduler.js:45:10)
+    at initializeApp (D:\Voting_System\votesecure_online\backend\server.js:195:5)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+{
+  "service": "votesecure-backend"
+}
