@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Validations - VoteSecure Online</title>
+    <link rel="stylesheet" href="../../css/output.css" />
+    <link rel="stylesheet" href="../../css/main.css" />
+    <link rel="stylesheet" href="../../css/custom.css" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="bg-slate-900 text-white font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="nav-glass fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center">
+                    <a href="../../index.html" class="flex items-center space-x-2 group">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-xl shadow-lg group-hover:shadow-indigo-500/50 transition-all duration-300">
+                            🗳️
+                        </div>
+                        <span class="text-2xl font-bold font-outfit tracking-tight">VoteSecure<span
+                                class="text-indigo-400">Online</span></span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <div class="nav-item group">
+                        <button
+                            class="flex items-center space-x-1 text-sm font-medium text-slate-300 hover:text-white transition-colors focus:outline-none py-2">
+                            <span>Platform</span>
+                            <i class='bx bx-chevron-down text-lg transition-transform group-hover:rotate-180'></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="../platform/features.html" class="dropdown-item"><i
+                                    class='bx bx-star mr-2 text-indigo-400'></i>Features</a>
+                            <a href="../platform/security.html" class="dropdown-item"><i
+                                    class='bx bx-shield-quarter mr-2 text-emerald-400'></i>Security</a>
+                            <a href="../platform/pricing.html" class="dropdown-item"><i
+                                    class='bx bx-dollar-circle mr-2 text-amber-400'></i>Pricing</a>
+                            <a href="../platform/roadmap.html" class="dropdown-item"><i
+                                    class='bx bx-map-alt mr-2 text-purple-400'></i>Roadmap</a>
+                        </div>
+                    </div>
+                    <div class="nav-item group">
+                        <button
+                            class="flex items-center space-x-1 text-sm font-medium text-slate-300 hover:text-white transition-colors focus:outline-none py-2">
+                            <span>Resources</span>
+                            <i class='bx bx-chevron-down text-lg transition-transform group-hover:rotate-180'></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="documentation.html" class="dropdown-item"><i
+                                    class='bx bx-file mr-2 text-blue-400'></i>Documentation</a>
+                            <a href="api-reference.html" class="dropdown-item"><i
+                                    class='bx bx-code-curly mr-2 text-pink-400'></i>API Reference</a>
+                            <a href="validations.html" class="dropdown-item bg-indigo-500/10 text-white"><i
+                                    class='bx bx-check-shield mr-2 text-green-400'></i>Validations</a>
+                            <a href="case-studies.html" class="dropdown-item"><i
+                                    class='bx bx-news mr-2 text-orange-400'></i>Case Studies</a>
+                        </div>
+                    </div>
+                    <a href="../secure_login.html"
+                        class="text-sm font-medium text-white hover:text-indigo-300 transition-colors ml-4">Login</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="pt-32 pb-16 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold font-outfit mb-6">Vote <span class="text-gradient">Validation</span>
+        </h1>
+        <p class="text-xl text-slate-400 max-w-2xl mx-auto mb-10">
+            Verify the integrity of your vote using our cryptographic proof tools.
+        </p>
+    </header>
+
+    <!-- Validation Tool -->
+    <main class="container mx-auto px-4 pb-24 max-w-3xl">
+        <div class="glass-panel p-8 rounded-2xl border border-white/10 shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+            </div>
+
+            <h2 class="text-2xl font-bold font-outfit mb-6">Verify Receipt</h2>
+            <p class="text-slate-400 mb-6">Enter your unique vote receipt hash below to verify it against the public
+                blockchain ledger.</p>
+
+            <form class="space-y-6" onsubmit="event.preventDefault(); verifyHash();">
+                <div>
+                    <label for="receiptHash" class="block text-sm font-medium text-slate-300 mb-2">Receipt Hash</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class='bx bx-hash text-slate-500 text-lg'></i>
+                        </div>
+                        <input type="text" id="receiptHash"
+                            class="form-input block w-full pl-10 pr-4 py-3 bg-slate-800 border-slate-700 rounded-lg text-white placeholder-slate-500 focus:ring-indigo-500 focus:border-indigo-500 font-mono"
+                            placeholder="0x..." required>
+                    </div>
+                </div>
+
+                <button type="submit"
+                    class="w-full btn-glow py-3 rounded-lg text-white font-bold text-lg shadow-lg shadow-indigo-500/20">
+                    Verify Vote
+                </button>
+            </form>
+
+            <!-- Result Placeholder -->
+            <div id="validationResult"
+                class="hidden mt-8 p-6 bg-slate-800/50 rounded-lg border border-white/5 animate-fade-in">
+                <div class="flex items-center text-green-400 mb-4">
+                    <i class='bx bx-check-circle text-2xl mr-2'></i>
+                    <h3 class="font-bold text-lg">Verification Successful</h3>
+                </div>
+                <div class="space-y-2 text-sm">
+                    <div class="flex justify-between border-b border-white/5 pb-2">
+                        <span class="text-slate-400">Status:</span>
+                        <span class="text-white font-medium">Recorded & Immutable</span>
+                    </div>
+                    <div class="flex justify-between border-b border-white/5 pb-2">
+                        <span class="text-slate-400">Block Height:</span>
+                        <span class="text-white font-mono">14,230,591</span>
+                    </div>
+                    <div class="flex justify-between pb-2">
+                        <span class="text-slate-400">Timestamp:</span>
+                        <span id="timestampResult" class="text-white">2026-02-04 14:05:22 UTC</span>
+                    </div>
+                </div>
+
+                <div class="mt-4 p-3 bg-emerald-500/10 rounded border border-emerald-500/20 text-xs text-emerald-300">
+                    This vote was cryptographically signed by the Election Commission key ID: <span
+                        class="font-mono text-white">ec-key-v1-primary</span>.
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-slate-950 py-10 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-slate-500 text-sm">&copy; 2026 VoteSecure Online. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function verifyHash() {
+            const btn = document.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+
+            // Simulating loading state
+            btn.innerHTML = '<i class="bx bx-loader-alt animate-spin mr-2"></i> Verifying...';
+            btn.disabled = true;
+            btn.classList.add('opacity-75');
+
+            setTimeout(() => {
+                document.getElementById('validationResult').classList.remove('hidden');
+                document.getElementById('timestampResult').innerText = new Date().toUTCString();
+
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                btn.classList.remove('opacity-75');
+            }, 1500);
+        }
+    </script>
+</body>
+
+</html>

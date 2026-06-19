@@ -5,6 +5,7 @@
 
 class VoteSecureAPI {
   constructor() {
+<<<<<<< HEAD
     // Safely check for process.env or fallback to window.location or port 5000
     this.baseURL = 'http://localhost:5000/api';
     if (typeof process !== 'undefined' && process.env && process.env.API_BASE_URL) {
@@ -19,6 +20,13 @@ class VoteSecureAPI {
     this.isMockMode = true; // Default to local fallback authentication mode
     
     // Initialize Firebase if loaded
+=======
+    this.baseURL = process.env.API_BASE_URL || 'http://localhost:5000/api';
+    this.token = localStorage.getItem('firebaseToken');
+    this.user = JSON.parse(localStorage.getItem('user') || 'null');
+    
+    // Initialize Firebase if not already done
+>>>>>>> b1a9b5bf720da4f47537d3c44e0e2a2be2b9ad46
     this.initializeFirebase();
   }
 
@@ -27,12 +35,17 @@ class VoteSecureAPI {
    */
   async initializeFirebase() {
     if (typeof firebase === 'undefined') {
+<<<<<<< HEAD
       console.warn('Firebase SDK not loaded, using local mock/fallback mode');
       this.isMockMode = true;
+=======
+      console.error('Firebase SDK not loaded');
+>>>>>>> b1a9b5bf720da4f47537d3c44e0e2a2be2b9ad46
       return;
     }
 
     try {
+<<<<<<< HEAD
       // Initialize Firebase app if not already done
       if (!firebase.apps.length) {
         firebase.initializeApp({
@@ -67,12 +80,41 @@ class VoteSecureAPI {
             localStorage.removeItem('firebaseToken');
             localStorage.removeItem('user');
           }
+=======
+      // Initialize Firebase app
+      if (!firebase.apps.length) {
+        firebase.initializeApp({
+          apiKey: process.env.FIREBASE_API_KEY || "your-api-key",
+          authDomain: process.env.FIREBASE_AUTH_DOMAIN || "your-project.firebaseapp.com",
+          projectId: process.env.FIREBASE_PROJECT_ID || "your-project-id",
+          storageBucket: process.env.FIREBASE_STORAGE_BUCKET || "your-project.appspot.com",
+          messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID || "123456789",
+          appId: process.env.FIREBASE_APP_ID || "your-app-id"
+        });
+      }
+
+      // Set up auth state listener
+      firebase.auth().onAuthStateChanged(async (user) => {
+        if (user) {
+          this.token = await user.getIdToken();
+          localStorage.setItem('firebaseToken', this.token);
+          await this.getCurrentUser();
+        } else {
+          this.token = null;
+          this.user = null;
+          localStorage.removeItem('firebaseToken');
+          localStorage.removeItem('user');
+>>>>>>> b1a9b5bf720da4f47537d3c44e0e2a2be2b9ad46
         }
       });
 
     } catch (error) {
+<<<<<<< HEAD
       console.warn('Firebase initialization error, falling back to local auth mode:', error);
       this.isMockMode = true;
+=======
+      console.error('Firebase initialization error:', error);
+>>>>>>> b1a9b5bf720da4f47537d3c44e0e2a2be2b9ad46
     }
   }
 

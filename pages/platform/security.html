@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Security Center - VoteSecure Online</title>
+    <link rel="stylesheet" href="../../css/output.css" />
+    <link rel="stylesheet" href="../../css/main.css" />
+    <link rel="stylesheet" href="../../css/custom.css" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="bg-slate-900 text-white font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="nav-glass fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center">
+                    <a href="../../index.html" class="flex items-center space-x-2 group">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-xl shadow-lg group-hover:shadow-indigo-500/50 transition-all duration-300">
+                            🗳️
+                        </div>
+                        <span class="text-2xl font-bold font-outfit tracking-tight">VoteSecure<span
+                                class="text-indigo-400">Online</span></span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <div class="nav-item group">
+                        <button
+                            class="flex items-center space-x-1 text-sm font-medium text-slate-300 hover:text-white transition-colors focus:outline-none py-2">
+                            <span>Platform</span>
+                            <i class='bx bx-chevron-down text-lg transition-transform group-hover:rotate-180'></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="features.html" class="dropdown-item"><i
+                                    class='bx bx-star mr-2 text-indigo-400'></i>Features</a>
+                            <a href="security.html" class="dropdown-item bg-indigo-500/10 text-white"><i
+                                    class='bx bx-shield-quarter mr-2 text-emerald-400'></i>Security</a>
+                            <a href="pricing.html" class="dropdown-item"><i
+                                    class='bx bx-dollar-circle mr-2 text-amber-400'></i>Pricing</a>
+                            <a href="roadmap.html" class="dropdown-item"><i
+                                    class='bx bx-map-alt mr-2 text-purple-400'></i>Roadmap</a>
+                        </div>
+                    </div>
+                    <div class="nav-item group">
+                        <button
+                            class="flex items-center space-x-1 text-sm font-medium text-slate-300 hover:text-white transition-colors focus:outline-none py-2">
+                            <span>Resources</span>
+                            <i class='bx bx-chevron-down text-lg transition-transform group-hover:rotate-180'></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="../resources/documentation.html" class="dropdown-item"><i
+                                    class='bx bx-file mr-2 text-blue-400'></i>Documentation</a>
+                            <a href="../resources/api-reference.html" class="dropdown-item"><i
+                                    class='bx bx-code-curly mr-2 text-pink-400'></i>API Reference</a>
+                            <a href="../resources/validations.html" class="dropdown-item"><i
+                                    class='bx bx-check-shield mr-2 text-green-400'></i>Validations</a>
+                            <a href="../resources/case-studies.html" class="dropdown-item"><i
+                                    class='bx bx-news mr-2 text-orange-400'></i>Case Studies</a>
+                        </div>
+                    </div>
+                    <a href="../secure_login.html"
+                        class="text-sm font-medium text-white hover:text-indigo-300 transition-colors ml-4">Login</a>
+                    <a href="../user_registration.html"
+                        class="px-5 py-2.5 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold transition-colors">Get
+                        Started</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="pt-32 pb-16 relative overflow-hidden">
+        <div class="absolute inset-0 bg-slate-900 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(16,185,129,0.15),rgba(255,255,255,0))]"
+            z-0></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <span
+                class="inline-flex items-center px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium mb-6">
+                <i class='bx bx-check-shield mr-2 text-lg'></i> ISO 27001 Certified
+            </span>
+            <h1 class="text-4xl md:text-6xl font-bold font-outfit mb-6">Uncompromised <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-500">Integrity</span>
+            </h1>
+            <p class="text-xl text-slate-400 max-w-2xl mx-auto mb-10">
+                Our platform uses military-grade encryption, immutable blockchain ledgers, and zero-knowledge proofs to
+                guarantee election results are accurate and tamper-proof.
+            </p>
+
+            <!-- Trust Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto opacity-70">
+                <div class="flex items-center justify-center space-x-2 grayscale hover:grayscale-0 transition-all">
+                    <i class='bx bxl-aws text-2xl'></i> <span class="font-bold">AWS Shield</span>
+                </div>
+                <div class="flex items-center justify-center space-x-2 grayscale hover:grayscale-0 transition-all">
+                    <i class='bx bx-lock-alt text-2xl'></i> <span class="font-bold">TLS 1.3</span>
+                </div>
+                <div class="flex items-center justify-center space-x-2 grayscale hover:grayscale-0 transition-all">
+                    <i class='bx bx-check-double text-2xl'></i> <span class="font-bold">SOC2 Type II</span>
+                </div>
+                <div class="flex items-center justify-center space-x-2 grayscale hover:grayscale-0 transition-all">
+                    <i class='bx bx-file text-2xl'></i> <span class="font-bold">GDPR Ready</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Security Layers -->
+            <div class="mb-24">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold font-outfit mb-4">Defense in Depth</h2>
+                    <p class="text-slate-400">Our multi-layered security architecture leaves no room for compromise.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Layer 1 -->
+                    <div class="glass-card p-8 group hover:border-emerald-500/30 transition-all duration-300">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 flex items-center justify-center text-emerald-400 text-3xl mb-6 group-hover:scale-110 transition-transform">
+                            <i class='bx bx-lock'></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Vote Encryption</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            Votes are encrypted on the client-side using <span
+                                class="text-white font-medium">AES-256</span> before they ever leave the voter's device.
+                            Only the election commission's private key can decrypt the final tally.
+                        </p>
+                        <span
+                            class="inline-flex items-center text-xs text-emerald-400 font-medium bg-emerald-400/10 px-2 py-1 rounded">
+                            Client-Side
+                        </span>
+                    </div>
+
+                    <!-- Layer 2 -->
+                    <div class="glass-card p-8 group hover:border-blue-500/30 transition-all duration-300">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 flex items-center justify-center text-blue-400 text-3xl mb-6 group-hover:scale-110 transition-transform">
+                            <i class='bx bx-network-chart'></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Immutable Ledger</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            Every vote hash is recorded on a private <span
+                                class="text-white font-medium">Blockchain</span>. This creates a permanent, unalterable
+                            trail of evidence that allows independent verification of results.
+                        </p>
+                        <span
+                            class="inline-flex items-center text-xs text-blue-400 font-medium bg-blue-400/10 px-2 py-1 rounded">
+                            Distributed
+                        </span>
+                    </div>
+
+                    <!-- Layer 3 -->
+                    <div class="glass-card p-8 group hover:border-purple-500/30 transition-all duration-300">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center text-purple-400 text-3xl mb-6 group-hover:scale-110 transition-transform">
+                            <i class='bx bx-fingerprint'></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Identity Proofing</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            We integrate with government databases and support <span
+                                class="text-white font-medium">Biometric KYC</span> (Facial Liveness + ID Scan) to
+                            ensure one person, one vote.
+                        </p>
+                        <span
+                            class="inline-flex items-center text-xs text-purple-400 font-medium bg-purple-400/10 px-2 py-1 rounded">
+                            AI Verified
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Threat Monitoring Section -->
+            <div class="relative glass-panel rounded-3xl p-8 md:p-12 overflow-hidden border border-white/10">
+                <div
+                    class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-red-900/10 to-transparent pointer-events-none">
+                </div>
+                <div class="grid md:grid-cols-2 gap-12 items-center relative z-10">
+                    <div>
+                        <div
+                            class="inline-flex items-center px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-medium mb-6 animate-pulse">
+                            <span class="w-2 h-2 rounded-full bg-red-500 mr-2"></span>
+                            Live Threat Detection
+                        </div>
+                        <h2 class="text-3xl font-bold font-outfit mb-4">24/7 Security Operations</h2>
+                        <p class="text-slate-400 mb-6 leading-relaxed">
+                            Our Security Operations Center (SOC) monitors for anomalies, DDoS attacks, and suspicious
+                            authentication patterns in real-time.
+                        </p>
+
+                        <div class="space-y-4">
+                            <div class="flex items-center p-3 bg-slate-900/50 rounded-lg border border-white/5">
+                                <i class='bx bx-shield-x text-green-400 text-xl mr-4'></i>
+                                <div>
+                                    <div class="text-sm font-medium text-white">DDoS Protection</div>
+                                    <div class="text-xs text-slate-400">Auto-scaling mitigation up to 5Tbps</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center p-3 bg-slate-900/50 rounded-lg border border-white/5">
+                                <i class='bx bx-bug text-amber-400 text-xl mr-4'></i>
+                                <div>
+                                    <div class="text-sm font-medium text-white">Penetration Testing</div>
+                                    <div class="text-xs text-slate-400">Weekly audits by ethical hackers</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Terminal/Code Visual -->
+                    <div
+                        class="bg-[#0f172a] rounded-xl border border-slate-700 shadow-2xl p-4 font-mono text-xs overflow-hidden">
+                        <div class="flex items-center space-x-2 mb-4 border-b border-slate-700 pb-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            <span class="text-slate-500 ml-2">security-monitor.log</span>
+                        </div>
+                        <div class="space-y-1">
+                            <p class="text-slate-400"><span class="text-green-400">INFO</span> [14:02:33] Verifying TLS
+                                handshake...</p>
+                            <p class="text-slate-400"><span class="text-green-400">INFO</span> [14:02:34] Connection
+                                established (AES-256-GCM).</p>
+                            <p class="text-slate-400"><span class="text-blue-400">AUDIT</span> [14:02:35] Vote hash
+                                generated: 0x7f2a...9b1c</p>
+                            <p class="text-slate-400"><span class="text-green-400">INFO</span> [14:02:35] Blockchain
+                                confirmation received.</p>
+                            <p class="text-slate-400"><span class="text-yellow-400">WARN</span> [14:05:12] IP
+                                192.168.x.x rate limit exceeded. Blocking.</p>
+                            <p class="text-slate-400"><span class="text-red-400">BLOCK</span> [14:05:13] Suspicious
+                                pattern detected. Action prevented.</p>
+                            <p class="text-slate-400 animate-pulse">_</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-slate-950 py-10 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-slate-500 text-sm">&copy; 2026 VoteSecure Online. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

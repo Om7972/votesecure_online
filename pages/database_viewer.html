@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Database Viewer - VoteSecure Online</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/custom.css" />
+    <link rel="stylesheet" href="../css/output.css" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.875rem;
+        }
+
+        th {
+            background: rgba(99, 102, 241, 0.2);
+            font-weight: 600;
+            color: #a5b4fc;
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .json-cell {
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-900 text-slate-200 min-h-screen">
+    <!-- Header -->
+    <header class="nav-glass border-b border-white/10 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="../index.html" class="flex items-center space-x-2 group">
+                        <div
+                            class="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-sm shadow-lg">
+                            🗳️
+                        </div>
+                        <span class="text-xl font-bold text-white">VoteSecure<span
+                                class="text-indigo-400">Online</span></span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-slate-400 text-sm">Database Viewer</span>
+                    <button onclick="loadDatabase()"
+                        class="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg text-sm font-medium transition-colors">
+                        <i class='bx bx-refresh mr-1'></i> Refresh
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Summary Stats -->
+        <div id="summaryStats" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="glass-card p-4 border border-white/10">
+                <div class="text-3xl font-bold text-white" id="totalUsers">-</div>
+                <div class="text-sm text-slate-400">Users</div>
+            </div>
+            <div class="glass-card p-4 border border-white/10">
+                <div class="text-3xl font-bold text-white" id="totalElections">-</div>
+                <div class="text-sm text-slate-400">Elections</div>
+            </div>
+            <div class="glass-card p-4 border border-white/10">
+                <div class="text-3xl font-bold text-white" id="totalCandidates">-</div>
+                <div class="text-sm text-slate-400">Candidates</div>
+            </div>
+            <div class="glass-card p-4 border border-white/10">
+                <div class="text-3xl font-bold text-white" id="totalVotes">-</div>
+                <div class="text-sm text-slate-400">Votes</div>
+            </div>
+        </div>
+
+        <!-- Table Tabs -->
+        <div class="flex flex-wrap gap-2 mb-6" id="tableTabs">
+            <button onclick="showTable('users')"
+                class="table-tab active px-4 py-2 rounded-lg text-sm font-medium bg-indigo-500 text-white">Users</button>
+            <button onclick="showTable('elections')"
+                class="table-tab px-4 py-2 rounded-lg text-sm font-medium bg-slate-700 text-slate-300 hover:bg-slate-600">Elections</button>
+            <button onclick="showTable('candidates')"
+                class="table-tab px-4 py-2 rounded-lg text-sm font-medium bg-slate-700 text-slate-300 hover:bg-slate-600">Candidates</button>
+            <button onclick="showTable('votes')"
+                class="table-tab px-4 py-2 rounded-lg text-sm font-medium bg-slate-700 text-slate-300 hover:bg-slate-600">Votes</button>
+            <button onclick="showTable('audit_logs')"
+                class="table-tab px-4 py-2 rounded-lg text-sm font-medium bg-slate-700 text-slate-300 hover:bg-slate-600">Audit
+                Logs</button>
+            <button onclick="showTable('sessions')"
+                class="table-tab px-4 py-2 rounded-lg text-sm font-medium bg-slate-700 text-slate-300 hover:bg-slate-600">Sessions</button>
+        </div>
+
+        <!-- Table Display -->
+        <div class="glass-card border border-white/10">
+            <div class="p-4 border-b border-white/10 flex justify-between items-center">
+                <h2 class="text-xl font-bold text-white" id="tableTitle">Users</h2>
+                <span class="text-sm text-slate-400" id="rowCount">0 rows</span>
+            </div>
+            <div class="p-4 table-container" id="tableContainer">
+                <div class="text-center py-8">
+                    <div
+                        class="animate-spin w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full mx-auto mb-4">
+                    </div>
+                    <p class="text-slate-400">Loading database...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Database File Info -->
+        <div class="mt-8 glass-card p-6 border border-white/10">
+            <h3 class="text-lg font-bold text-white mb-4">📁 Database Information</h3>
+            <div class="grid md:grid-cols-2 gap-4 text-sm">
+                <div>
+                    <p class="text-slate-400">Database Type:</p>
+                    <p class="text-white font-medium">SQLite (Development)</p>
+                </div>
+                <div>
+                    <p class="text-slate-400">File Location:</p>
+                    <p class="text-white font-mono text-xs break-all">data/dev.sqlite</p>
+                </div>
+                <div>
+                    <p class="text-slate-400">Tables:</p>
+                    <p class="text-white">users, elections, candidates, votes, audit_logs, sessions</p>
+                </div>
+                <div>
+                    <p class="text-slate-400">API Endpoints:</p>
+                    <p class="text-indigo-400 font-mono text-xs">/api/admin/database</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let databaseData = null;
+        let currentTable = 'users';
+
+        async function loadDatabase() {
+            try {
+                const response = await fetch('/api/admin/database');
+                const data = await response.json();
+
+                if (data.success) {
+                    databaseData = data.database;
+
+                    // Update summary
+                    document.getElementById('totalUsers').textContent = data.summary.totalUsers;
+                    document.getElementById('totalElections').textContent = data.summary.totalElections;
+                    document.getElementById('totalCandidates').textContent = data.summary.totalCandidates;
+                    document.getElementById('totalVotes').textContent = data.summary.totalVotes;
+
+                    showTable(currentTable);
+                } else {
+                    showError('Failed to load database');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showError('Error connecting to database API');
+            }
+        }
+
+        function showTable(tableName) {
+            currentTable = tableName;
+
+            // Update tab styles
+            document.querySelectorAll('.table-tab').forEach(tab => {
+                tab.classList.remove('bg-indigo-500', 'text-white');
+                tab.classList.add('bg-slate-700', 'text-slate-300');
+            });
+            event.target.classList.add('bg-indigo-500', 'text-white');
+            event.target.classList.remove('bg-slate-700', 'text-slate-300');
+
+            if (!databaseData || !databaseData[tableName]) {
+                document.getElementById('tableContainer').innerHTML = '<p class="text-slate-400 text-center py-8">No data available</p>';
+                return;
+            }
+
+            const tableData = databaseData[tableName];
+            document.getElementById('tableTitle').textContent = tableName.charAt(0).toUpperCase() + tableName.slice(1).replace('_', ' ');
+            document.getElementById('rowCount').textContent = `${tableData.count} rows`;
+
+            if (tableData.data.length === 0) {
+                document.getElementById('tableContainer').innerHTML = '<p class="text-slate-400 text-center py-8">No records found</p>';
+                return;
+            }
+
+            const columns = Object.keys(tableData.data[0]);
+            let html = '<table><thead><tr>';
+            columns.forEach(col => {
+                html += `<th>${col}</th>`;
+            });
+            html += '</tr></thead><tbody>';
+
+            tableData.data.forEach(row => {
+                html += '<tr>';
+                columns.forEach(col => {
+                    let value = row[col];
+                    if (typeof value === 'object' && value !== null) {
+                        value = JSON.stringify(value);
+                    }
+                    if (value === null || value === undefined) {
+                        value = '<span class="text-slate-500">null</span>';
+                    }
+                    html += `<td class="${typeof value === 'string' && value.length > 50 ? 'json-cell' : ''}" title="${value}">${value}</td>`;
+                });
+                html += '</tr>';
+            });
+
+            html += '</tbody></table>';
+            document.getElementById('tableContainer').innerHTML = html;
+        }
+
+        function showError(message) {
+            document.getElementById('tableContainer').innerHTML = `
+                <div class="text-center py-8">
+                    <i class='bx bx-error-circle text-red-400 text-4xl mb-4'></i>
+                    <p class="text-red-400">${message}</p>
+                    <button onclick="loadDatabase()" class="mt-4 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg text-sm">Retry</button>
+                </div>
+            `;
+        }
+
+        // Load on page start
+        loadDatabase();
+    </script>
+</body>
+
+</html>

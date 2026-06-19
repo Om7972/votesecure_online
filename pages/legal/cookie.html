@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookie Policy - VoteSecure Online</title>
+    <link rel="stylesheet" href="../../css/output.css" />
+    <link rel="stylesheet" href="../../css/main.css" />
+    <link rel="stylesheet" href="../../css/custom.css" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="bg-slate-900 text-white font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="nav-glass fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center">
+                    <a href="../../index.html" class="flex items-center space-x-2 group">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-xl shadow-lg group-hover:shadow-indigo-500/50 transition-all duration-300">
+                            🗳️
+                        </div>
+                        <span class="text-2xl font-bold font-outfit tracking-tight">VoteSecure<span
+                                class="text-indigo-400">Online</span></span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <div class="nav-item group">
+                        <button
+                            class="flex items-center space-x-1 text-sm font-medium text-slate-300 hover:text-white transition-colors focus:outline-none py-2">
+                            <span>Platform</span>
+                            <i class='bx bx-chevron-down text-lg transition-transform group-hover:rotate-180'></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="../platform/features.html" class="dropdown-item"><i
+                                    class='bx bx-star mr-2 text-indigo-400'></i>Features</a>
+                            <a href="../platform/security.html" class="dropdown-item"><i
+                                    class='bx bx-shield-quarter mr-2 text-emerald-400'></i>Security</a>
+                            <a href="../platform/pricing.html" class="dropdown-item"><i
+                                    class='bx bx-dollar-circle mr-2 text-amber-400'></i>Pricing</a>
+                            <a href="../platform/roadmap.html" class="dropdown-item"><i
+                                    class='bx bx-map-alt mr-2 text-purple-400'></i>Roadmap</a>
+                        </div>
+                    </div>
+                    <div class="nav-item group">
+                        <button
+                            class="flex items-center space-x-1 text-sm font-medium text-slate-300 hover:text-white transition-colors focus:outline-none py-2">
+                            <span>Resources</span>
+                            <i class='bx bx-chevron-down text-lg transition-transform group-hover:rotate-180'></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="../resources/documentation.html" class="dropdown-item"><i
+                                    class='bx bx-file mr-2 text-blue-400'></i>Documentation</a>
+                            <a href="../resources/api-reference.html" class="dropdown-item"><i
+                                    class='bx bx-code-curly mr-2 text-pink-400'></i>API Reference</a>
+                            <a href="../resources/validations.html" class="dropdown-item"><i
+                                    class='bx bx-check-shield mr-2 text-green-400'></i>Validations</a>
+                            <a href="../resources/case-studies.html" class="dropdown-item"><i
+                                    class='bx bx-news mr-2 text-orange-400'></i>Case Studies</a>
+                        </div>
+                    </div>
+                    <a href="../secure_login.html"
+                        class="text-sm font-medium text-white hover:text-indigo-300 transition-colors ml-4">Login</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="flex pt-20 h-screen overflow-hidden">
+        <!-- Legal Sidebar -->
+        <aside class="w-64 hidden lg:block border-r border-white/5 bg-slate-900 overflow-y-auto">
+            <div class="p-6">
+                <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4">Legal</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="terms.html" class="block text-slate-400 hover:text-white transition-colors">Terms of
+                            Service</a></li>
+                    <li><a href="privacy.html" class="block text-slate-400 hover:text-white transition-colors">Privacy
+                            Policy</a></li>
+                    <li><a href="cookie.html"
+                            class="block text-indigo-400 font-medium bg-indigo-500/10 -mx-2 px-2 py-1 rounded">Cookie
+                            Policy</a></li>
+                    <li><a href="compliance.html"
+                            class="block text-slate-400 hover:text-white transition-colors">Compliance</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="flex-1 overflow-y-auto p-6 lg:p-12">
+            <div class="max-w-3xl mx-auto prose prose-invert prose-slate">
+                <h1 class="font-outfit text-4xl mb-4">Cookie Policy</h1>
+                <p class="text-slate-400">Last updated: February 1, 2026</p>
+
+                <p class="text-lg">We use cookies strictly to ensure the functionality and security of our voting
+                    platform.</p>
+
+                <section class="mb-10 mt-8">
+                    <h3>1. Essential Cookies</h3>
+                    <p>These cookies are necessary for the website to function and cannot be switched off. They are
+                        usually only set in response to actions made by you, such as logging in or setting your privacy
+                        preferences.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-slate-300">
+                        <li><strong>Session ID:</strong> Maintains your login state.</li>
+                        <li><strong>CSRF Token:</strong> Prevents Cross-Site Request Forgery attacks.</li>
+                    </ul>
+                </section>
+
+                <section class="mb-10">
+                    <h3>2. No Tracking Cookies</h3>
+                    <p>We respect your privacy. We <strong>do not</strong> use third-party tracking cookies or
+                        advertising pixels on our platform.</p>
+                </section>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
