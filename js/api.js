@@ -67,23 +67,6 @@ class VoteSecureAPI {
             localStorage.removeItem('firebaseToken');
             localStorage.removeItem('user');
           }
-          projectId: process.env.FIREBASE_PROJECT_ID || "your-project-id",
-          storageBucket: process.env.FIREBASE_STORAGE_BUCKET || "your-project.appspot.com",
-          messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID || "123456789",
-          appId: process.env.FIREBASE_APP_ID || "your-app-id"
-        });
-      }
-
-      firebase.auth().onAuthStateChanged(async (user) => {
-        if (user) {
-          this.token = await user.getIdToken();
-          localStorage.setItem('firebaseToken', this.token);
-          await this.getCurrentUser();
-        } else {
-          this.token = null;
-          this.user = null;
-          localStorage.removeItem('firebaseToken');
-          localStorage.removeItem('user');
         }
       });
 

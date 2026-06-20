@@ -91,6 +91,7 @@
 
         .glass-card {
             background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.8));
+            -webkit-backdrop-filter: blur(12px);
             backdrop-filter: blur(12px);
         }
     </style>
@@ -123,7 +124,8 @@
                     <span class="text-slate-400 text-sm hidden md:block" id="userName">Loading...</span>
                     <div class="relative">
                         <button id="userMenuBtn"
-                            class="w-10 h-10 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white font-semibold">
+                            class="w-10 h-10 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white font-semibold"
+                            title="User Profile Menu" aria-label="User Profile Menu">
                             <i class='bx bx-user'></i>
                         </button>
                         <div id="userDropdown"
