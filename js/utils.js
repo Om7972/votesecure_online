@@ -1,4 +1,4 @@
-const API_URL = (typeof window !== 'undefined' && window.location && window.location.port === '5000')
+const API_URL = (typeof window !== 'undefined' && window.location && (window.location.port === '5000' || (window.location.protocol !== 'file:' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1')))
     ? `${window.location.origin}/api`
     : 'http://localhost:5000/api';
 

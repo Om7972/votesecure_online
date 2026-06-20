@@ -10,7 +10,8 @@ class VoteSecureAPI {
     if (typeof process !== 'undefined' && process.env && process.env.API_BASE_URL) {
       this.baseURL = process.env.API_BASE_URL;
     } else if (typeof window !== 'undefined') {
-      if (window.location.port === '5000') {
+      // Use relative API path if served directly by the Express backend or on production domain
+      if (window.location.port === '5000' || (window.location.protocol !== 'file:' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1')) {
         this.baseURL = '/api';
       }
     }
